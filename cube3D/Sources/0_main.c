@@ -62,20 +62,23 @@ static t_vars	*init_t_vars(void)
 {
 	t_vars	*vars;
 
-	vars = (t_vars *)malloc(sizeof(t_vars));
-	if (!vars)
-		ft_exit_perror("init t_struct t_vars failure");
-	vars->error_map = 0;
-	vars->wall_x = 0;
-	vars->wall_y = 0;
-	vars->enemy_win = 0;
-	vars->end_game = 0;
-	vars->steps = 0;
-	vars->player_side = DOWN;
-	vars->player_x = 0;
-	vars->player_y = 0;
-	vars->item = 0;
-	vars->time = 50000;
+	if (vars->init = 0) {
+		vars = (t_vars *) malloc(sizeof(t_vars));
+		if (!vars)
+			ft_exit_perror("init t_struct t_vars failure");
+		vars->error_map = 0;
+		vars->wall_x = 0;
+		vars->wall_y = 0;
+		vars->enemy_win = 0;
+		vars->end_game = 0;
+		vars->steps = 0;
+		vars->player_side = DOWN;
+		vars->player_x = 0;
+		vars->player_y = 0;
+		vars->item = 0;
+		vars->time = 50000;
+		vars->init = 1;
+	}
 	return (vars);
 }
 
