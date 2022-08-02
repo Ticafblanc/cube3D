@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3D.h                                           :+:      :+:    :+:   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
 /*   By: adubeau <adubeau@student.42quebec.com>       +:+ +:+         +:+     */
 /*   By: mdoquocb <mdoquocb@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,9 +13,6 @@
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
-
-# define TILES 50
-# define PATH_W "./Assets/wall.xpm"
 
 # include <mlx.h>
 # include <fcntl.h>
@@ -41,8 +38,25 @@ enum	e_mouse
 	ON_MOUSEUP = 5,
 	ON_MOUSEMOVE = 6,
 	ON_EXPOSE = 12,
-	ON_DESTROY = 17
+	ON_DESTROY = 17,
 };
+
+enum	e_element
+{
+	NO = 1,
+	SO = 2,
+	WE = 3,
+	EA = 4,
+	F = 5,
+	C = 6,
+};
+
+typedef struct s_check_map
+{
+	void	*img;
+	int		width;
+	int		height;
+}				t_check_map;
 
 typedef struct s_asset
 {
@@ -63,6 +77,7 @@ typedef struct s_vars
 	void		*win;
 	t_img		*img;
 	char		**map;
+	char		**element;
 	int			error_map;
 	int			wall_x;
 	int			wall_y;
@@ -76,11 +91,23 @@ typedef struct s_vars
 	int			time;
 }				t_vars;
 
-	//1-0_check.c
-void		check_map(char *argv, t_vars *vars);
+typedef struct s_check_map
+{
+	int		y;
+	int		x;
+	int		s_y;
+	int		s_x;
+	int		dir;
+	s_vars	*vars;
+}				t_check_map;
+
+	//1-0_check_element.c
+
+char	*read_element(int fd, t_vars *vars);
 
 	//1-1_check.c
 
+void    check_map(t_vars *vars);
 
 	//2_init.c
 
@@ -93,6 +120,9 @@ void		check_map(char *argv, t_vars *vars);
 
 	//6_utils.c
 
-void		free_map(t_vars *vars);
-coucouc
+int		perror_cube3d(char *str, t_vars *vars);
+void	free_cube3d(t_vars *vars);
+
+
+
 #endif
