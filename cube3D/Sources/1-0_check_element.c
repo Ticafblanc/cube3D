@@ -14,7 +14,9 @@
 
 static int check_element(char *element)
 {
-	return (1);//vreification de la validiter de l'element 
+	if(element)
+		return (1);//vreification de la validiter de l'element 
+	return (0);
 }
 
 static int	check_val(t_vars *vars, char *temp)
@@ -33,7 +35,7 @@ static int	check_val(t_vars *vars, char *temp)
 		return (F);
 	if (ft_strncmp(temp, "C", 1) == 0 && !vars->element[C])
 		return (C);
-
+	return(0);
 }
 
 static int	find_element( t_vars *vars, char *temp, int fd)
@@ -41,14 +43,14 @@ static int	find_element( t_vars *vars, char *temp, int fd)
 	int	val;
 
 	val = 0;
-	while(*temp)
+	while (*temp && check_invisible_characters(*temp))
+		temp++;
+	val = check_val(vars, temp);
+	if (val > 0)
 	{
-		while (check_invisible_characters(*temp))
+		temp++;
+		if (val < 5)
 			temp++;
-		val = check_val(vars, temp);
-	}
-	if (val)
-	{
 		while (check_invisible_characters(*temp))
 			temp++;
 		vars->element[val] = ft_strdup(temp);
@@ -60,7 +62,7 @@ static int	find_element( t_vars *vars, char *temp, int fd)
 	return (0);	
 }
 
-static	char	*find_map(int fd)
+static	char	*find_map(int fd,  t_vars *vars)
 {
 	char	*temp;
 	int		i;
@@ -79,7 +81,7 @@ static	char	*find_map(int fd)
 		else
 			return (temp);
 	}
-
+	exit(perror_cube3d("Error\nmap not found", vars));
 }
 
 char	*read_element(int fd, t_vars *vars)
@@ -94,10 +96,11 @@ char	*read_element(int fd, t_vars *vars)
 		i -= find_element(vars, temp, fd);
 		free(temp);
 	}
-	if (!temp)
+	if (i != 0)
 	{
 		close (fd);
 		exit(perror_cube3d("Error\nmissing element", vars));
 	}
-	return (find_map(fd));
+	i = 1;
+	return (find_map(fd, vars));
 }

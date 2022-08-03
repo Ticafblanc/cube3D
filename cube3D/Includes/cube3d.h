@@ -51,13 +51,6 @@ enum	e_element
 	C = 6,
 };
 
-typedef struct s_check_map
-{
-	void	*img;
-	int		width;
-	int		height;
-}				t_check_map;
-
 typedef struct s_asset
 {
 	void	*img;
@@ -79,10 +72,6 @@ typedef struct s_vars
 	char		**map;
 	char		**element;
 	int			error_map;
-	int			wall_x;
-	int			wall_y;
-	int			player_x;
-	int			player_y;
 	int			player_side;
 	int			item;
 	int			enemy_win;
@@ -98,7 +87,6 @@ typedef struct s_check_map
 	int		s_y;
 	int		s_x;
 	int		dir;
-	s_vars	*vars;
 }				t_check_map;
 
 	//1-0_check_element.c

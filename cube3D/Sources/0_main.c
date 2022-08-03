@@ -14,7 +14,7 @@
 
 static int	close_game(t_vars *vars)
 {
-	free_map(vars);
+	free_cube3d(vars);
 	exit(EXIT_SUCCESS);
 }
 
@@ -34,17 +34,17 @@ static void	check_file(char *argv, t_vars *vars)
 		close(fd);
 		exit(perror_cube3d("Error\nmalloc map", vars));
 	}
-	t_map[i++] = NULL;	
-	t_map[i] = read_element(fd, vars);
+	*t_map = read_element(fd, vars);
 	while (t_map[i++])
 	{
-		ft_free_pp(vars->map);
 		vars->map = ft_dup_cpp(t_map, ft_len_pp((void **)t_map));
-		ft_free_pp(t_map);
+		ft_free_pp((void **)t_map);
 		t_map = ft_dup_cpp(vars->map, ft_len_pp((void **)t_map) + 1);
 		t_map[i] = get_next_line(fd);
+		if (t_map[i])
+			ft_free_pp((void **)vars->map);
 	}
-	ft_free_pp(t_map);
+	ft_free_pp((void **)t_map);
 	close(fd);
 	check_map(vars);
 }
@@ -61,13 +61,9 @@ static t_vars	*init_t_vars(void)
 	if (!vars->element)
 		exit(perror_cube3d("Error\ninit t_struct t_vars failure", vars));
 	vars->error_map = 0;
-	vars->wall_x = 0;
-	vars->wall_y = 0;
 	vars->enemy_win = 0;
 	vars->end_game = 0;
 	vars->steps = 0;
-	vars->player_x = 0;
-	vars->player_y = 0;
 	vars->item = 0;
 	vars->time = 50000;
 	return (vars);
