@@ -82,6 +82,8 @@ typedef struct s_vars
 	int			end_game;
 	int			steps;
 	int			time;
+	int 		init;
+	int 		radian;
 }				t_vars;
 
 	//1-0_check.c

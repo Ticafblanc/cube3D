@@ -58,11 +58,11 @@ static int	close_game(t_vars *vars)
 // 	return (0);
 // }
 
-static t_vars	*init_t_vars(void)
+t_vars	*init_t_vars(void)
 {
-	t_vars	*vars;
+	static t_vars	*vars;
 
-	if (vars->init = 0) {
+	if (vars->init != 1) {
 		vars = (t_vars *) malloc(sizeof(t_vars));
 		if (!vars)
 			ft_exit_perror("init t_struct t_vars failure");
@@ -77,9 +77,10 @@ static t_vars	*init_t_vars(void)
 		vars->player_y = 0;
 		vars->item = 0;
 		vars->time = 50000;
+		vars->radian = 0;
 		vars->init = 1;
 	}
-	return (vars);
+	return (&vars);
 }
 
 int	main(int argc, char **argv)
