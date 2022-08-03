@@ -22,7 +22,6 @@
 # include <stdbool.h>
 # include <libft.h>
 
-
 enum	e_key
 {
 	UP = 13,
@@ -55,14 +54,7 @@ typedef struct s_asset
 typedef struct s_img
 {
 	t_asset	*wall;
-	t_asset	*emp;
-	t_asset	*exit;
-	t_asset	*player_down;
-	t_asset	*player_up;
-	t_asset	*player_left;
-	t_asset	*player_right;
-	t_asset	*item;
-	t_asset	*enemy;
+
 }				t_img;
 
 typedef struct s_vars
@@ -104,5 +96,5 @@ void		check_map(char *argv, t_vars *vars);
 	//6_utils.c
 
 void		free_map(t_vars *vars);
-
+coucouc
 #endif
