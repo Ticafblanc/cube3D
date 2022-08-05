@@ -12,102 +12,67 @@
 
 #include <cube3d.h>
 
-static int  find_next_dir(t_check_map map, t_vars *vars);
-
-static int  find_next_one(t_check_map *map, t_vars *vars, int y, int x)
+void print_map(t_vars *vars)
 {
-	int     save_y;
-	int     save_x;
+	int i;
 
-	//printf("\ny = %d\nx = %d\n", y, x);
-	if (y >= 0 && x >= 0)
+	i  = 0;
+	while (vars->map[i])
 	{
-		save_y = map->y;
-		save_x = map->x;
-		map->y = y;
-		map->x = x;
-		printf("\nin find next ONE\ndir = %d\nvar->map = %c\nmap.y = %d\nmap.x = %d\n", map->dir, vars->map[map->y][map->x], map->y, map->x);
-		if (map->y == map->s_y && map->x == map->s_x
-			&& vars->map[map->y][map->x] && vars->map[map->y][map->x] == '1')
-			return(1);
-		if (vars->map[map->y][map->x] && vars->map[map->y][map->x] == '1')
-		{
-			if (map->dir == RIGHT)
-				map->dir = UP;
-			else if (map->dir == DOWN)
-				map->dir = RIGHT;
-			else if (map->dir == LEFT)
-				map->dir = DOWN;
-			else if (map->dir == UP)
-				map->dir = LEFT;
-			sleep(2);
-			if (find_next_dir(*map, vars))
-				return (1);
-		}
-		map->y = save_y;
-		map->x = save_x;
+		printf("%s\n", vars->map[i++]);
 	}
-	return (0);
+
 }
 
-static int  find_next_dir(t_check_map map, t_vars *vars)
+static void    check_fill(t_vars *vars, int y, int x)
 {
-	int     round;
-
-	round = 3;
-	while (round)
+	if ((y >= 0 && x >= 0 && y < ft_len_pp((void **)vars->map) && x < ft_str_len(vars->map[y]))
+		&& vars->map[y][x] != '1' && vars->map[y][x] != 'x' && vars->map[y][x] != 'P')
 	{
-		printf("\nin find next DIR\ndir = %d\nvar->map = %c\nmap.y = %d\nmap.x = %d\n", map.dir, vars->map[map.y][map.x], map.y, map.x);
-		round--;
-		if (map.dir == RIGHT)
+		//printf("\nmap = %c\ny = %d\nx = %d\n",vars->map[y][x], y, x);
+		print_map(vars);
+		if (check_invisible_characters(vars->map[y][x])
+			|| vars->map[y][x] == '0')
+			vars->map[y][x] = 'x';
+		else if ((vars->map[y][x] == 'N' || vars->map[y][x] == 'S'
+			|| vars->map[y][x] == 'E' || vars->map[y][x] == 'W')
+			&& !vars->pos)
 		{
-			if (find_next_one(&map, vars, map.y - 1, map.x))
-				return(1);
-			map.dir = DOWN;
+			vars->pos = vars->map[y][x];
+			vars->map[y][x] = 'P';
 		}
-		else if (map.dir == DOWN)
+		else
 		{
-			if (find_next_one(&map, vars, map.y, map.x + 1))
-				return(1);
-			map.dir = LEFT;
+			printf("\nmap = %c\ny = %d\nx = %d\n",vars->map[y][x], y, x);
+			exit(perror_cube3d("Map invalide caractere !!", vars, 0));
 		}
-		else if (map.dir == LEFT)
-		{
-			if (find_next_one(&map, vars, map.y + 1, map.x))
-				return(1);
-			map.dir = UP;
-		}
-		else if (map.dir == UP)
-		{
-			if (find_next_one(&map, vars, map.y, map.x - 1))
-				return(1);
-			map.dir = RIGHT;
-		}
+		usleep(100000);
+		check_fill(vars, y + 1, x);
+		check_fill(vars, y, x + 1);
+		check_fill(vars, y - 1, x);
+		check_fill(vars, y, x - 1);
 	}
-	return(0);
-}
-
-static int  turn_around(t_vars *vars)
-{
-	t_check_map map;
-   
-	map.y = 0;
-	map.x = 0;
-	map.s_y = 0;
-	map.s_x = 0;
-	map.dir = RIGHT;
-	while (vars->map[map.s_y][map.s_x] != '\0'
-		&& vars->map[map.s_y][map.s_x] != '1')
-		map.s_x++;
-	map.x = map.s_x;
-	if (vars->map[map.s_y][map.s_x] == '1')
-		return (find_next_dir(map, vars));
-	return (0);
+	return ;
 }
 
 void    check_map(t_vars *vars)
 {
-	if (turn_around(vars))
-		return ;
-	exit(perror_cube3d("Error\nmap not found", vars));
+	int	y;
+	int	x;
+
+	y = 0;
+	x = 0;
+	while (vars->map[y][x])
+	{
+		while (vars->map[y][x] != '\0')
+		{
+			//print_map(vars);
+			//printf("\nmap = %c\ny = %d\nx = %d\n",vars->map[y][x], y, x);
+			check_fill(vars, y, x);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
 }
+

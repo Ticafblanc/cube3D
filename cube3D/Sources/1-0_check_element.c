@@ -57,7 +57,7 @@ static int	find_element( t_vars *vars, char *temp, int fd)
 		if (check_element(vars->element[val]))
 			return (1);
 		close (fd);
-		exit(perror_cube3d("Error\nelement not found", vars));
+		exit(perror_cube3d("element not found", vars, 0));
 	}
 	return (0);	
 }
@@ -81,7 +81,7 @@ static	char	*find_map(int fd,  t_vars *vars)
 		else
 			return (temp);
 	}
-	exit(perror_cube3d("Error\nmap not found", vars));
+	exit(perror_cube3d("map not found", vars, 0));
 }
 
 char	*read_element(int fd, t_vars *vars)
@@ -99,7 +99,7 @@ char	*read_element(int fd, t_vars *vars)
 	if (i != 0)
 	{
 		close (fd);
-		exit(perror_cube3d("Error\nmissing element", vars));
+		exit(perror_cube3d("missing element", vars, 0));
 	}
 	i = 1;
 	return (find_map(fd, vars));

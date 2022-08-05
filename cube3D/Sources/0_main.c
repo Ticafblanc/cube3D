@@ -27,12 +27,12 @@ static void	check_file(char *argv, t_vars *vars)
 	i = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		exit(perror_cube3d("Error\nWrong path of the map", vars));
+		exit(perror_cube3d("Wrong path of the map", vars, 1));
 	t_map = (char **)ft_calloc(3, sizeof(char *));
 	if (!t_map)
 	{
 		close(fd);
-		exit(perror_cube3d("Error\nmalloc map", vars));
+		exit(perror_cube3d("Malloc map", vars, 1));
 	}
 	*t_map = read_element(fd, vars);
 	while (t_map[i++])
@@ -47,6 +47,8 @@ static void	check_file(char *argv, t_vars *vars)
 	ft_free_pp((void **)t_map);
 	close(fd);
 	check_map(vars);
+	print_map(vars);
+	exit(0);
 }
 
 static t_vars	*init_t_vars(void)
@@ -56,15 +58,12 @@ static t_vars	*init_t_vars(void)
 
 	vars = (t_vars *) malloc(sizeof(t_vars));
 	if (!vars)
-		exit(perror_cube3d("Error\ninit t_struct t_vars failure", NULL));
+		exit(perror_cube3d("Init t_struct t_vars failure", NULL, 1));
 	vars->element = (char **)ft_calloc(sizeof(char *), 6);
 	if (!vars->element)
-		exit(perror_cube3d("Error\ninit t_struct t_vars failure", vars));
-	vars->error_map = 0;
-	vars->enemy_win = 0;
+		exit(perror_cube3d("Init t_struct t_vars failure", vars, 1));
+	vars->pos = 0;
 	vars->end_game = 0;
-	vars->steps = 0;
-	vars->item = 0;
 	vars->time = 50000;
 	return (vars);
 }
@@ -83,5 +82,5 @@ int	main(int argc, char **argv)
 		//mlx_loop_hook(vars->mlx, update, vars);
 		mlx_loop(vars->mlx);
 	}
-	exit(perror_cube3d("Error\njust one map extension .cub !! ", NULL));
+	exit(perror_cube3d("Just one map extension .cub !! ", NULL, 1));
 }

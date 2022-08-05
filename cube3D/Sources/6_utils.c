@@ -12,10 +12,14 @@
 
 #include <cube3d.h>
 
-int	perror_cube3d(char *str, t_vars *vars)
+int	perror_cube3d(char *str, t_vars *vars, int flag)
 {
 	free_cube3d(vars);
-	perror(str);
+	dprintf(2,"Error\n");
+	if(flag)
+		perror(str);
+	else
+		dprintf(2,"%s\n", str);
 	return(EXIT_FAILURE);
 }
 

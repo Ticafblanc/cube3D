@@ -49,6 +49,13 @@ enum	e_element
 	EA = 4,
 	F = 5,
 	C = 6,
+	IN = 7,
+	OUT = 8,
+	UNK = 9,
+	N = 78,
+	S = 83,
+	E = 69,
+	W = 87,
 };
 
 typedef struct s_asset
@@ -71,6 +78,9 @@ typedef struct s_vars
 	t_img		*img;
 	char		**map;
 	char		**element;
+	int			pos;
+	int			pos_y;
+	int			pos_x;
 	int			error_map;
 	int			player_side;
 	int			item;
@@ -82,11 +92,8 @@ typedef struct s_vars
 
 typedef struct s_check_map
 {
-	int		y;
-	int		x;
-	int		s_y;
-	int		s_x;
-	int		dir;
+	
+	int		pos;
 }				t_check_map;
 
 	//1-0_check_element.c
@@ -95,7 +102,8 @@ char	*read_element(int fd, t_vars *vars);
 
 	//1-1_check.c
 
-void    check_map(t_vars *vars);
+void	check_map(t_vars *vars);
+void	print_map(t_vars *vars);
 
 	//2_init.c
 
@@ -108,7 +116,7 @@ void    check_map(t_vars *vars);
 
 	//6_utils.c
 
-int		perror_cube3d(char *str, t_vars *vars);
+int		perror_cube3d(char *str, t_vars *vars, int flag);
 void	free_cube3d(t_vars *vars);
 
 
