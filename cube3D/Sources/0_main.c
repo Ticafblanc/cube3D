@@ -21,32 +21,14 @@ static int	close_game(t_vars *vars)
 static void	check_file(char *argv, t_vars *vars)
 {
 	int		fd;
-	int		i;
-	char	**t_map;
 
-	i = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 		exit(perror_cube3d("Wrong path of the map", vars, 1));
-	t_map = (char **)ft_calloc(3, sizeof(char *));
-	if (!t_map)
-	{
-		close(fd);
-		exit(perror_cube3d("Malloc map", vars, 1));
-	}
-	*t_map = read_element(fd, vars);
-	while (t_map[i++])
-	{
-		vars->map = ft_dup_cpp(t_map, ft_len_pp((void **)t_map));
-		ft_free_pp((void **)t_map);
-		t_map = ft_dup_cpp(vars->map, ft_len_pp((void **)t_map) + 1);
-		t_map[i] = get_next_line(fd);
-		if (t_map[i])
-			ft_free_pp((void **)vars->map);
-	}
-	ft_free_pp((void **)t_map);
-	close(fd);
-	check_map(vars);
+	read_element(fd, vars);
+	printf("\ncoucou\n");
+	check_map(fd , vars);
+	printf("OK!!!\n");
 	print_map(vars);
 	exit(0);
 }
@@ -59,7 +41,7 @@ static t_vars	*init_t_vars(void)
 	vars = (t_vars *) malloc(sizeof(t_vars));
 	if (!vars)
 		exit(perror_cube3d("Init t_struct t_vars failure", NULL, 1));
-	vars->element = (char **)ft_calloc(sizeof(char *), 6);
+	vars->element = (char **)ft_calloc(sizeof(char *), 7);
 	if (!vars->element)
 		exit(perror_cube3d("Init t_struct t_vars failure", vars, 1));
 	vars->pos = 0;

@@ -58,24 +58,10 @@ enum	e_element
 	W = 87,
 };
 
-typedef struct s_asset
-{
-	void	*img;
-	int		width;
-	int		height;
-}				t_asset;
-
-typedef struct s_img
-{
-	t_asset	*wall;
-
-}				t_img;
-
 typedef struct s_vars
 {
 	void		*mlx;
 	void		*win;
-	t_img		*img;
 	char		**map;
 	char		**element;
 	int			pos;
@@ -93,16 +79,20 @@ typedef struct s_vars
 typedef struct s_check_map
 {
 	
-	int		pos;
+	int		y;
+	int		x;
+	int		s_y;
+	int		s_x;
+
 }				t_check_map;
 
 	//1-0_check_element.c
 
-char	*read_element(int fd, t_vars *vars);
+void	read_element(int fd, t_vars *vars);
 
 	//1-1_check.c
 
-void	check_map(t_vars *vars);
+void	check_map(int fd, t_vars *vars);
 void	print_map(t_vars *vars);
 
 	//2_init.c

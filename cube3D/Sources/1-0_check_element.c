@@ -15,7 +15,11 @@
 static int check_element(char *element)
 {
 	if(element)
+	{
+		printf("element = %s\n", element);
+		usleep(500000);
 		return (1);//vreification de la validiter de l'element 
+	}
 	return (0);
 }
 
@@ -62,45 +66,22 @@ static int	find_element( t_vars *vars, char *temp, int fd)
 	return (0);	
 }
 
-static	char	*find_map(int fd,  t_vars *vars)
-{
-	char	*temp;
-	int		i;
-
-	temp = get_next_line(fd);
-	while (temp)
-	{
-		i = 0;
-		while (check_invisible_characters(temp[i]))
-			i++;
-		if (!temp[i])
-		{
-			free(temp);
-			temp = get_next_line(fd);
-		}
-		else
-			return (temp);
-	}
-	exit(perror_cube3d("map not found", vars, 0));
-}
-
-char	*read_element(int fd, t_vars *vars)
+void read_element(int fd, t_vars *vars)
 {
 	int		i;
 	char	*temp;
 
 	i = 6;
+	temp = get_next_line(fd);
 	while (i && temp)
 	{
-		temp = get_next_line(fd);
 		i -= find_element(vars, temp, fd);
 		free(temp);
+		temp = get_next_line(fd);
 	}
 	if (i != 0)
 	{
 		close (fd);
 		exit(perror_cube3d("missing element", vars, 0));
 	}
-	i = 1;
-	return (find_map(fd, vars));
 }
