@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
@@ -74,41 +73,38 @@ typedef struct s_vars
 	int			end_game;
 	int			steps;
 	int			time;
+	int			init;
 }				t_vars;
 
 typedef struct s_check_map
 {
-	
-	int		y;
-	int		x;
-	int		s_y;
-	int		s_x;
-
+	int	y;
+	int	x;
+	int	s_y;
+	int	s_x;
+	int	dir;
 }				t_check_map;
 
 	//1-0_check_element.c
 
-void	read_element(int fd, t_vars *vars);
+void	read_element(int fd);
 
 	//1-1_check.c
 
-void	check_map(int fd, t_vars *vars);
-void	print_map(t_vars *vars);
+void	check_map(int fd);
 
 	//2_init.c
 
+t_vars	*ft_t_vars(void);
 
 	//4_put.c
 
-
 	//5_move.c
-
 
 	//6_utils.c
 
-int		perror_cube3d(char *str, t_vars *vars, int flag);
+int		perror_cube3d(char *str, int flag);
 void	free_cube3d(t_vars *vars);
-
-
+void	print_map(t_vars *vars);//utils pour debug a supprimer
 
 #endif

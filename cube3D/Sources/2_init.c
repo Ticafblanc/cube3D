@@ -12,4 +12,17 @@
 
 #include <cube3d.h>
 
+t_vars	*ft_t_vars(void)
+{
+	static t_vars	vars;
 
+	if (!vars.init)
+	{
+		vars.element = (char **)ft_calloc(sizeof(char *), 7);
+		if (!vars.element)
+			exit(perror_cube3d("Init t_struct t_vars failure", 1));
+		vars.pos = 0;
+		vars.init = 1;
+	}
+	return (&vars);
+}

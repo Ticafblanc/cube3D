@@ -12,56 +12,55 @@
 
 #include <cube3d.h>
 
-void print_map(t_vars *vars)
+static void	check_fill(t_vars *vars, int y, int x, int *i);
+
+static void	check_fill_2(t_vars *vars, int y, int x, int *i)
 {
-	int i;
-
-	i  = 0;
-	while (vars->map[i])
+	if (check_invisible_characters(vars->map[y][x])
+		|| vars->map[y][x] == '0')
+		vars->map[y][x] = 'x';
+	else if ((vars->map[y][x] == 'N' || vars->map[y][x] == 'S'
+		|| vars->map[y][x] == 'E' || vars->map[y][x] == 'W')
+		&& !vars->pos)
 	{
-		printf("%s\n", vars->map[i++]);
+		vars->pos = vars->map[y][x];
+		vars->map[y][x] = 'P';
 	}
-
+	else if (vars->map[y][x] != '1' && vars->map[y][x] != 'x'
+		&& vars->map[y][x] != 'P')
+		exit(perror_cube3d("Map invalide caracter!!", 0));
+	else
+		return ;
+	//usleep(10000);
+	check_fill(vars, y + 1, x, i);
+	check_fill(vars, y, x + 1, i);
+	check_fill(vars, y - 1, x, i);
+	check_fill(vars, y, x - 1, i);
+	check_fill(vars, y + 1, x - 1, i);
+	check_fill(vars, y - 1, x + 1, i);
+	check_fill(vars, y - 1, x - 1, i);
+	check_fill(vars, y + 1, x + 1, i);
 }
 
-static void    check_fill(t_vars *vars, int y, int x, int *i)
+static void	check_fill(t_vars *vars, int y, int x, int *i)
 {
-	if (y >= 0 && x >= 0)
+	if (y >= 0 && x >= 0 && y < ft_len_pp((void **)vars->map))
 	{
-		if (y >= ft_len_pp((void **)vars->map) || x >= ft_str_len(vars->map[y]))
-	 		*i = 0;
+		if (x >= ft_str_len(vars->map[y]))
+			*i = 0;
+		else if ((y == 0 || x == 0 || y >= ft_len_pp((void **)vars->map) - 1)
+			&& vars->map[y][x] != '1')
+			*i = 0;
 		if (y < ft_len_pp((void **)vars->map) && x < ft_str_len(vars->map[y]))
 		{
-			printf("\nmap = %c\ny = %d\nx = %d\ni = %d\n",vars->map[y][x], y, x, *i);
-			print_map(vars);
-			if ((y == 0 || x == 0 || y == ft_len_pp((void **)vars->map) - 1 || x == ft_str_len(vars->map[y]) - 1)
-				&& vars->map[y][x] != '1')
-			 	*i = 0;
-			if (check_invisible_characters(vars->map[y][x])
-				|| vars->map[y][x] == '0')
-				vars->map[y][x] = 'x';
-			else if ((vars->map[y][x] == 'N' || vars->map[y][x] == 'S'
-				|| vars->map[y][x] == 'E' || vars->map[y][x] == 'W')
-				&& !vars->pos)
-			{
-				vars->pos = vars->map[y][x];
-				vars->map[y][x] = 'P';
-			}
-			else if (vars->map[y][x] != '1' && vars->map[y][x] != 'x' && vars->map[y][x] != 'P')
-				exit(perror_cube3d("Map invalide caracter!!", vars, 0));
-			else
-				return;
-			usleep(10000);
-			check_fill(vars, y + 1, x, i);
-			check_fill(vars, y, x + 1, i);
-			check_fill(vars, y - 1, x, i);
-			check_fill(vars, y, x - 1, i);
+			//printf ("\nmap = %c\ny = %d\nx = %d\ni = %d\n",vars->map[y][x], y, x, *i);
+			//print_map(vars);
+			check_fill_2(vars, y, x, i);
 		}
 	}
-	return;
 }
 
-static char	*find_map(int fd,  t_vars *vars)
+static char	*find_map(int fd)
 {
 	char	*temp;
 	int		i;
@@ -80,7 +79,7 @@ static char	*find_map(int fd,  t_vars *vars)
 		else
 			return (temp);
 	}
-	exit(perror_cube3d("map not found", vars, 0));
+	exit(perror_cube3d("map not found", 0));
 }
 
 static void	fill_map(int fd, t_vars *vars)
@@ -91,12 +90,7 @@ static void	fill_map(int fd, t_vars *vars)
 
 	i = 0;
 	t_map = (char **)ft_calloc(3, sizeof(char *));
-	if (!t_map)
-	{
-		close(fd);
-		exit(perror_cube3d("Malloc map", vars, 1));
-	}
-	temp = find_map(fd, vars);
+	temp = find_map(fd);
 	*t_map = ft_strtrim(temp, "\n");
 	free(temp);
 	while (t_map[i++])
@@ -114,40 +108,39 @@ static void	fill_map(int fd, t_vars *vars)
 	close(fd);
 }
 
-void    check_map(int fd, t_vars *vars)
+void	check_map(int fd)
 {
 	int	y;
 	int	x;
-	int i;
-	int ok;
+	int	i;
+	int	ok;
 
-	y = 0;
-	x = 0;
-	i = 1;
+	y = -1;
 	ok = 0;
-	fill_map(fd, vars);
-	while (y < ft_len_pp((void **)vars->map))
+	fill_map(fd, ft_t_vars());
+	print_map(ft_t_vars());
+	while (++y < ft_len_pp((void **)ft_t_vars()->map))
 	{
-		while (x < ft_str_len(vars->map[y]))
+		x = -1;
+		while (++x < ft_str_len(ft_t_vars()->map[y]))
 		{
-			if (vars->map[y][x] != '1' && vars->map[y][x] != 'x' && vars->map[y][x] != 'P')
+			//printf("map = %c\n y = %d\nx = %d\n", ft_t_vars()->map[y][x], y, x);
+			i = 1;
+			if (ok != 1)
+				ft_t_vars()->pos = 0;
+			if (ft_t_vars()->map[y][x] != '1' && ft_t_vars()->map[y][x] != 'x'
+				&& ft_t_vars()->map[y][x] != 'P')
 			{
-				check_fill(vars, y, x, &i);
-				if (i == 1)
+				check_fill(ft_t_vars(), y, x, &i);
+				//print_map(ft_t_vars());
+				if (i == 1 && ft_t_vars()->pos != 0)
 					ok = 1;
-				i = 1;
+				//printf("\nok = %d\n y = %d\nx = %d\n", ok, y, x);
+				//print_map(ft_t_vars());
+				//sleep(2);
 			}
-			printf("ok = %d\n", ok);
-			//usleep(100000);
-			x++;
 		}
-		x = 1;
-		y++;
 	}
 	if (!ok)
-	{
-		printf("\nmap invalide !!\n");
-		print_map(vars);
-		exit(perror_cube3d("Map invalide !!", vars, 0));
-	}
+		exit(perror_cube3d("Map invalide !!", 0));
 }

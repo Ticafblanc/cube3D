@@ -26,12 +26,12 @@ static int  find_next_one(t_check_map *map, t_vars *vars, int y, int x)
 		save_x = map->x;
 		map->y = y;
 		map->x = x;
-		printf("\nin find next ONE\ndir = %d\nvar->map = %c\nmap.y/s_y = %d/%d\nmap.x/s_x = %d/%d\n", vars->map[map->y][map->x], map->dir,  map->y, map->s_y, map->x, map->s_x);
+		//printf("\nin find next ONE\ndir = %d\nvar->map = %c\nmap.y/s_y = %d/%d\nmap.x/s_x = %d/%d\n", vars->map[map->y][map->x], map->dir,  map->y, map->s_y, map->x, map->s_x);
 		if (map->y == map->s_y && map->x == map->s_x)
 			return(1);
 		if (vars->map[map->y][map->x] == '1')
 		{
-			printf("\ndoubel check%c\n", vars->map[map->y][map->x]);
+			//printf("\ndoubel check%c\n", vars->map[map->y][map->x]);
 			if (map->dir == RIGHT)
 				map->dir = UP;
 			else if (map->dir == DOWN)
@@ -40,7 +40,7 @@ static int  find_next_one(t_check_map *map, t_vars *vars, int y, int x)
 				map->dir = DOWN;
 			else if (map->dir == UP)
 				map->dir = LEFT;
-			sleep(1);
+			//usleep(1000000);
 			if (find_next_dir(*map, vars))
 				return (1);
 		}
@@ -84,31 +84,27 @@ static int  find_next_dir(t_check_map map, t_vars *vars)
 			map.dir = RIGHT;
 		}
 	}
+	//printf("\nin find next DIR\ndir = %d\nvar->map = %c\nmap.y = %d\nmap.x = %d\n", map.dir, vars->map[map.y][map.x], map.y, map.x);
 	if (map.y == map.s_y && map.x == map.s_x)
-		exit(perror_cube3d("map not close", vars, 0));
+		perror_cube3d("map not close", 0);
 	return(0);
 }
 
-static int  turn_around(t_vars *vars)
+int  turn_around(t_vars *vars, int y, int x)
 {
 	t_check_map map;
    
 	map.y = 0;
 	map.x = 0;
-	map.s_y = 0;
-	map.s_x = 0;
+	map.s_y = y;
+	map.s_x = x;
 	map.dir = RIGHT;
-	while (check_invisible_characters(vars->map[map.s_y][map.s_x]))
+	while (vars->map[map.s_y][map.s_x] != '1')
 		map.s_x++;
 	map.x = map.s_x;
 	if (vars->map[map.s_y][map.s_x] == '1')
-		return (find_next_dir(map, vars));
-	return (0);
+		if (!find_next_dir(map, vars))
+			return (0);
+	return(1);
 }
 
-void    check_map(t_vars *vars)
-{
-	if (turn_around(vars))
-		exit (printf("good map!!\n"));
-	exit(perror_cube3d("map not good", vars, 0));
-}
