@@ -116,6 +116,9 @@ $(BIN): libft minilibx title directory $(OBJ)
 		@$(CC) $(OBJ) $(LIB_FLAGS) $(LIB2_FLAGS) -o $(BIN)
 		@echo $(BLUE) $(notdir $(BIN)) is created !!
 
+run: all
+		@./Bin/cube3D Maps/test/mandatory.cub
+
 title: 
 		@echo $(GREEN)******************$(PROJECT)******************
 

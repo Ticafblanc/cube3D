@@ -12,15 +12,13 @@
 
 #include <libft.h>
 
-char	**ft_dup_cpp(char **argv)
+char	**ft_dup_cpp(char **argv, int len_pp)
 {
 	char	**str;
-	int		len_pp;
 	int		i;
 
 	i = 0;
-	len_pp = ft_len_pp((void **)argv);
-	str = (char **)malloc(sizeof(char *) * (len_pp + 1));
+	str = (char **)ft_calloc(sizeof(char *), (len_pp + 1));
 	if (!str)
 		return (NULL);
 	while (argv[i])

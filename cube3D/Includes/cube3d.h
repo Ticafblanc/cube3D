@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3D.h                                           :+:      :+:    :+:   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
 /*   By: adubeau <adubeau@student.42quebec.com>       +:+ +:+         +:+     */
 /*   By: mdoquocb <mdoquocb@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,9 +13,6 @@
 
 #ifndef CUBE3D_H
 # define CUBE3D_H
-
-# define TILES 50
-# define PATH_W "./Assets/wall.xpm"
 
 # include <mlx.h>
 # include <fcntl.h>
@@ -41,33 +38,36 @@ enum	e_mouse
 	ON_MOUSEUP = 5,
 	ON_MOUSEMOVE = 6,
 	ON_EXPOSE = 12,
-	ON_DESTROY = 17
+	ON_DESTROY = 17,
 };
 
-typedef struct s_asset
+enum	e_element
 {
-	void	*img;
-	int		width;
-	int		height;
-}				t_asset;
-
-typedef struct s_img
-{
-	t_asset	*wall;
-
-}				t_img;
+	NO = 1,
+	SO = 2,
+	WE = 3,
+	EA = 4,
+	F = 5,
+	C = 6,
+	IN = 7,
+	OUT = 8,
+	UNK = 9,
+	N = 78,
+	S = 83,
+	E = 69,
+	W = 87,
+};
 
 typedef struct s_vars
 {
 	void		*mlx;
 	void		*win;
-	t_img		*img;
 	char		**map;
+	char		**element;
+	int			pos;
+	int			pos_y;
+	int			pos_x;
 	int			error_map;
-	int			wall_x;
-	int			wall_y;
-	int			player_x;
-	int			player_y;
 	int			player_side;
 	int			item;
 	int			enemy_win;
@@ -78,11 +78,24 @@ typedef struct s_vars
 	int 		radian;
 }				t_vars;
 
-	//1-0_check.c
-void		check_map(char *argv, t_vars *vars);
+typedef struct s_check_map
+{
+	
+	int		y;
+	int		x;
+	int		s_y;
+	int		s_x;
+
+}				t_check_map;
+
+	//1-0_check_element.c
+
+void	read_element(int fd, t_vars *vars);
 
 	//1-1_check.c
 
+void	check_map(int fd, t_vars *vars);
+void	print_map(t_vars *vars);
 
 	//2_init.c
 
@@ -95,6 +108,9 @@ void		check_map(char *argv, t_vars *vars);
 
 	//6_utils.c
 
-void		free_map(t_vars *vars);
-coucouc
+int		perror_cube3d(char *str, t_vars *vars, int flag);
+void	free_cube3d(t_vars *vars);
+
+
+
 #endif

@@ -14,54 +14,30 @@
 
 static int	close_game(t_vars *vars)
 {
-	free_map(vars);
+	free_cube3d(vars);
 	exit(EXIT_SUCCESS);
 }
 
-// static int	read_key(int keycode, t_vars *vars)
-// {
-// 	int	y;
-// 	int	x;
+static void	check_file(char *argv, t_vars *vars)
+{
+	int		fd;
 
-// 	if (keycode == ESC)
-// 		close_game(vars);
-// 	if (vars->end_game == 1 || (keycode != UP && keycode != DOWN
-// 			&& keycode != LEFT && keycode != RIGHT))
-// 		return (0);
-// 	y = vars->player_y;
-// 	x = vars->player_x;
-// 	if (keycode == UP)
-// 		y--;
-// 	else if (keycode == DOWN)
-// 		y++;
-// 	else if (keycode == LEFT)
-// 		x--;
-// 	else if (keycode == RIGHT)
-// 		x++;
-// 	check_side(vars, keycode);
-// 	if (vars->map[y][x] != '1')
-// 		check_move (vars, y, x);
-// 	put_game(vars);
-// 	vars->time = 50000;
-// 	return (0);
-// }
-
-// static int	update(t_vars *vars)
-// {
-// 	if (vars->time > 0)
-// 	{
-// 		vars->time--;
-// 		return (0);
-// 	}
-// 	update_utils(vars);
-// 	put_game(vars);
-// 	return (0);
-// }
+	fd = open(argv, O_RDONLY);
+	if (fd < 0)
+		exit(perror_cube3d("Wrong path of the map", vars, 1));
+	read_element(fd, vars);
+	printf("\ncoucou\n");
+	check_map(fd , vars);
+	printf("OK!!!\n");
+	print_map(vars);
+	exit(0);
+}
 
 t_vars	*init_t_vars(void)
 {
 	static t_vars	*vars;
 
+<<<<<<< HEAD
 	if (vars->init != 1) {
 		vars = (t_vars *) malloc(sizeof(t_vars));
 		if (!vars)
@@ -81,6 +57,19 @@ t_vars	*init_t_vars(void)
 		vars->init = 1;
 	}
 	return (&vars);
+=======
+
+	vars = (t_vars *) malloc(sizeof(t_vars));
+	if (!vars)
+		exit(perror_cube3d("Init t_struct t_vars failure", NULL, 1));
+	vars->element = (char **)ft_calloc(sizeof(char *), 7);
+	if (!vars->element)
+		exit(perror_cube3d("Init t_struct t_vars failure", vars, 1));
+	vars->pos = 0;
+	vars->end_game = 0;
+	vars->time = 50000;
+	return (vars);
+>>>>>>> matthis/merge
 }
 
 int	main(int argc, char **argv)
@@ -90,12 +79,12 @@ int	main(int argc, char **argv)
 	if (argc == 2 && ft_check_extension(argv[1], ".cub") > 0)
 	{
 		vars = init_t_vars();
-		//check_map(argv[1], vars);
+		check_file(argv[1], vars);
 	//	init_game(vars);
 		mlx_hook(vars->win, ON_DESTROY, 0, close_game, (void *)vars);
 		//mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
 		//mlx_loop_hook(vars->mlx, update, vars);
 		mlx_loop(vars->mlx);
 	}
-	ft_exit_perror("just one map extension .cub !! ");
+	exit(perror_cube3d("Just one map extension .cub !! ", NULL, 1));
 }
