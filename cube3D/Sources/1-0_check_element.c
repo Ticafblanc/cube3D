@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #include <cube3d.h>
-
-static int check_element(char *element)
+//vreification de la validiter de l'element
+static int	check_element(char *element)
 {
-	if(element)
+	if (element)
 	{
 		printf("element = %s\n", element);
 		usleep(500000);
-		return (1);//vreification de la validiter de l'element 
+		return (1);
 	}
 	return (0);
 }
@@ -26,7 +26,7 @@ static int check_element(char *element)
 static int	check_val(t_vars *vars, char *temp)
 {
 	if (!*temp)
-		return(0);
+		return (0);
 	if (ft_strncmp(temp, "NO", 2) == 0 && !vars->element[NO])
 		return (NO);
 	if (ft_strncmp(temp, "SO", 2) == 0 && !vars->element[SO])
@@ -39,17 +39,17 @@ static int	check_val(t_vars *vars, char *temp)
 		return (F);
 	if (ft_strncmp(temp, "C", 1) == 0 && !vars->element[C])
 		return (C);
-	return(0);
+	return (0);
 }
 
-static int	find_element( t_vars *vars, char *temp, int fd)
+static int	find_element(char *temp, int fd)
 {
 	int	val;
 
 	val = 0;
 	while (*temp && check_invisible_characters(*temp))
 		temp++;
-	val = check_val(vars, temp);
+	val = check_val(ft_t_vars(), temp);
 	if (val > 0)
 	{
 		temp++;
@@ -57,16 +57,16 @@ static int	find_element( t_vars *vars, char *temp, int fd)
 			temp++;
 		while (check_invisible_characters(*temp))
 			temp++;
-		vars->element[val] = ft_strdup(temp);
-		if (check_element(vars->element[val]))
+		ft_t_vars()->element[val] = ft_strdup(temp);
+		if (check_element(ft_t_vars()->element[val]))
 			return (1);
 		close (fd);
-		exit(perror_cube3d("element not found", vars, 0));
+		exit(perror_cube3d("element not found", 0));
 	}
-	return (0);	
+	return (0);
 }
 
-void read_element(int fd, t_vars *vars)
+void	read_element(int fd)
 {
 	int		i;
 	char	*temp;
@@ -75,13 +75,13 @@ void read_element(int fd, t_vars *vars)
 	temp = get_next_line(fd);
 	while (i && temp)
 	{
-		i -= find_element(vars, temp, fd);
+		i -= find_element(temp, fd);
 		free(temp);
 		temp = get_next_line(fd);
 	}
 	if (i != 0)
 	{
 		close (fd);
-		exit(perror_cube3d("missing element", vars, 0));
+		exit(perror_cube3d("missing element", 0));
 	}
 }

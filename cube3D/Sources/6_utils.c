@@ -12,15 +12,15 @@
 
 #include <cube3d.h>
 
-int	perror_cube3d(char *str, t_vars *vars, int flag)
+int	perror_cube3d(char *str, int flag)
 {
-	free_cube3d(vars);
-	dprintf(2,"Error\n");
-	if(flag)
-		perror(str);
+	free_cube3d(ft_t_vars());
+	dprintf (2, "Error\n");
+	if (flag)
+		perror (str);
 	else
-		dprintf(2,"%s\n", str);
-	return(EXIT_FAILURE);
+		dprintf (2, "%s\n", str);
+	return (EXIT_FAILURE);
 }
 
 void	free_cube3d(t_vars *vars)
@@ -29,6 +29,15 @@ void	free_cube3d(t_vars *vars)
 		ft_free_pp((void **)vars->element);
 	if (vars->map)
 		ft_free_pp((void **)vars->map);
-	if (vars)
-		free(vars);
+}
+
+void	print_map(t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	while (vars->map[i])
+	{
+		printf("%s\n", vars->map[i++]);
+	}
 }
