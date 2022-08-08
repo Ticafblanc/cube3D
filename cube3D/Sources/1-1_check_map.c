@@ -31,7 +31,7 @@ static void	check_fill_2(t_vars *vars, int y, int x, int *i)
 		exit(perror_cube3d("Map invalide caracter!!", 0));
 	else
 		return ;
-	//usleep(10000);
+	usleep(50000);
 	check_fill(vars, y + 1, x, i);
 	check_fill(vars, y, x + 1, i);
 	check_fill(vars, y - 1, x, i);
@@ -54,7 +54,7 @@ static void	check_fill(t_vars *vars, int y, int x, int *i)
 		if (y < ft_len_pp((void **)vars->map) && x < ft_str_len(vars->map[y]))
 		{
 			//printf ("\nmap = %c\ny = %d\nx = %d\ni = %d\n",vars->map[y][x], y, x, *i);
-			//print_map(vars);
+			print_map(vars);
 			check_fill_2(vars, y, x, i);
 		}
 	}
