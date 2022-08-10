@@ -25,10 +25,30 @@ int	perror_cube3d(char *str, int flag)
 
 void	free_cube3d(t_vars *vars)
 {
-	if (vars->element)
-		ft_free_pp((void **)vars->element);
 	if (vars->map)
 		ft_free_pp((void **)vars->map);
+}
+
+void	size_map()
+{
+	int i;
+
+	i = 0;
+	ft_t_vars()->map_y = ft_len_pp((void**)ft_t_vars()->map);
+	while(i < ft_t_vars()->map_y)
+	{
+		if (ft_str_len(ft_t_vars()->map[i]) > ft_t_vars()->map_x)
+			ft_t_vars()->map_x = ft_str_len(ft_t_vars()->map[i]);
+		i++;
+	}
+}
+
+void	my_mlx_pixel_put(t_vars *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
 void	print_map(t_vars *vars)
