@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cube3d.h>
+#include "../Includes/cube3d.h"
 
 static void	check_fill(t_vars *vars, int y, int x, int *i);
 

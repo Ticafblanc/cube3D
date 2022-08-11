@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cube3d.h>
+#include "../Includes/cube3d.h"
 //vreification de la validiter de l'element
 static int	check_element(char *element)
 {

@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cube3d.h>
+#include "../Includes/cube3d.h"
+
 
 int	perror_cube3d(char *str, int flag)
 {

@@ -10,38 +10,46 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/cube3d.h"
+#include "cube3d.h"
 
-static int	close_game(t_vars *vars)
+
+typedef struct s_vars t_vars;
+
+typedef struct s_vtable_rays{
+
+}t_vtable_rays;
+
+typedef struct s_rays
 {
-	free_cube3d(vars);
-	exit(EXIT_SUCCESS);
-}
+	t_vtable_rays *operations;
+	double			posx;
+	double			posy;
+	double			dirx;
+	double			diry;
+	double			planx;
+	double			plany;//
+	double			raydirx;
+	double			raydiry;
+	double			camerax;
+	int				mapx;
+	int				mapy;
+	double			sidedistx;
+	double			sidedisty;
+	double			deltadistx;
+	double			deltadisty;
+	int				stepx;
+	int				stepy;
+	int				hit;//
+	int				side;
+	double			perpwalldist; //
+	int				lineheight;
+	int				drawstart;
+	int				drawend;
+	double			movespeed;
+	double			rotspeed;
+	int				x;
+	int				texture;
+} t_rays;
 
-static void	check_file(char *argv)
-{
-	int		fd;
-
-	fd = open(argv, O_RDONLY);
-	if (fd < 0)
-		exit(perror_cube3d("Wrong path of the map", 1));
-	read_element(fd);
-	check_map(fd);
-	printf ("OK!!!\n");
-	print_map(ft_t_vars());
-	exit(0);
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 2 && ft_check_extension(argv[1], ".cub") > 0)
-	{
-		check_file(argv[1]);
-	//	init_game(vars);
-		mlx_hook(ft_t_vars()->win, ON_DESTROY, 0, close_game, (void *)ft_t_vars());
-		//mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
-		//mlx_loop_hook(vars->mlx, update, vars);
-		mlx_loop(ft_t_vars()->mlx);
-	}
-	exit(perror_cube3d("Just one map extension .cub !! ", 1));
-}
+t_rays *ft_raycasting_init(t_vars *vars);
+t_vtable_rays *ft_init_vtable(void);

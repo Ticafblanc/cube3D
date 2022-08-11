@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cube3d.h>
+#include "../Includes/cube3d.h"
 
 t_vars	*ft_t_vars(void)
 {
@@ -19,6 +19,7 @@ t_vars	*ft_t_vars(void)
 	if (!vars.init)
 	{
 		vars.element = (char **)ft_calloc(sizeof(char *), 7);
+		vars.raycasting = ft_raycasting_init(&vars);
 		if (!vars.element)
 			exit(perror_cube3d("Init t_struct t_vars failure", 1));
 		vars.pos = 0;

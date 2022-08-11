@@ -17,6 +17,8 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <libft.h>
+# include <math.h>
+# include "raycasting.h"
 
 enum	e_key
 {
@@ -63,6 +65,7 @@ typedef struct s_vars
 	void		*win;
 	char		**map;
 	char		**element;
+	t_rays 		*raycasting;
 	int			pos;
 	int			pos_y;
 	int			pos_x;
