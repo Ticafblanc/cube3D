@@ -35,13 +35,13 @@ static int	read_key(int keycode, t_vars *vars)
 	if (keycode == ESC)
 		close_game(vars);
 	if (keycode == UP)
-		vars->pos_y -= 0.1;
+		vars->pos_y -= 1;
 	else if (keycode == DOWN)
-		vars->pos_y += 0.1;
+		vars->pos_y += 1;
 	else if (keycode == LEFT)
-		vars->pos_x -= 0.1;
+		vars->pos_x -= 1;
 	else if (keycode == RIGHT)
-		vars->pos_x += 0.1;
+		vars->pos_x += 1;
 	put_game();
 	return (0);
 }

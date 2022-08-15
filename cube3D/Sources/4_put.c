@@ -81,4 +81,3 @@ void	put_game(void)
 	put_mini_map();
 	mlx_put_image_to_window(ft_t_vars()->mlx, ft_t_vars()->win, ft_t_vars()->img, 0, 0);
 }
->>>>>>> matthis/master
