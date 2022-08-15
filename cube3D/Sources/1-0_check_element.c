@@ -33,7 +33,6 @@ static int	init_element(char *element, int val)
 
 static int	check_val(t_img *img, char *temp)
 {
-	printf("checkval =%s\n", temp);
 	if (!*temp)
 		return (0);
 	if (ft_strncmp(temp, "NO", 2) == 0 && !img->NO->img)
@@ -61,7 +60,6 @@ static int	find_element(char *element, int fd)
 	while (*element && check_invisible_characters(*element))
 		element++;
 	val = check_val(ft_t_img(), element);
-	printf("val = %d\n", val);
 	if (val > 0)
 	{
 		element++;

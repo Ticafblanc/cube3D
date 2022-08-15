@@ -28,8 +28,22 @@ static void	check_file(char *argv)
 	read_element(fd);
 	check_map(fd);
 	size_map();
-	//init_game(ft_t_vars(), ft_t_img());
-	//put_game();
+}
+
+static int	read_key(int keycode, t_vars *vars)
+{
+	if (keycode == ESC)
+		close_game(vars);
+	if (keycode == UP)
+		vars->pos_y -= 0.1;
+	else if (keycode == DOWN)
+		vars->pos_y += 0.1;
+	else if (keycode == LEFT)
+		vars->pos_x -= 0.1;
+	else if (keycode == RIGHT)
+		vars->pos_x += 0.1;
+	put_game();
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -38,16 +52,14 @@ int	main(int argc, char **argv)
 	{
 	
 		ft_t_vars()->mlx = mlx_init();
-	 	ft_t_vars()->win = mlx_new_window(ft_t_vars()->mlx, 2000, 1000, "cube3D");
+		check_file(argv[1]);
+		ft_t_vars()->win = mlx_new_window(ft_t_vars()->mlx, 2000, 1000, "cube3D");
 		ft_t_vars()->img = mlx_new_image(ft_t_vars()->mlx, 2000, 1000);
 		ft_t_vars()->addr = mlx_get_data_addr(ft_t_vars()->img, &ft_t_vars()->bits_per_pixel, &ft_t_vars()->line_length,
 								&ft_t_vars()->endian);
-		my_mlx_pixel_put(ft_t_vars(), 5, 5, 0x00FF0000);
-		mlx_put_image_to_window(ft_t_vars()->mlx, ft_t_vars()->win, ft_t_vars()->img, 0, 0);
-		check_file(argv[1]);
+		put_game();
 	 	mlx_hook(ft_t_vars()->win, ON_DESTROY, 0, close_game, (void *)ft_t_vars());
-	// 	//mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
-	// 	//mlx_loop_hook(vars->mlx, update, vars);
+		mlx_hook(ft_t_vars()->win, ON_KEYDOWN, 1L << 0, read_key, (void *)ft_t_vars());
 	 	mlx_loop(ft_t_vars()->mlx);
 	 }
 	// if (argc == 2 && ft_strncmp(argv[1], "-b", 2))

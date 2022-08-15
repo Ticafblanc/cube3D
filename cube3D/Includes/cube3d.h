@@ -89,6 +89,8 @@ typedef struct s_vars
 	int			map_y;
 	int			map_x;
 	int			pos;
+	float		pos_x;
+	float		pos_y;
 	int			player_side;
 	int			item;
 	int			enemy_win;
@@ -121,7 +123,6 @@ t_vars	*ft_t_vars(void);
 t_img	*ft_t_img(void);
 void	init_texture(t_vars *vars, t_texture *txt, char *element);
 void	init_color(int *color, char *element);
-//void	init_game(t_vars *vars, t_img *img);
 
 	//4_put.c
 
@@ -136,6 +137,6 @@ int		perror_cube3d(char *str, int flag);
 void	free_cube3d(t_vars *vars);
 void	size_map();
 void	my_mlx_pixel_put(t_vars *data, int x, int y, int color);
-void	print_map(t_vars *vars);
+// void	print_map(t_vars *vars);
 
 #endif

@@ -34,7 +34,7 @@ void	size_map()
 	int i;
 
 	i = 0;
-	ft_t_vars()->map_y = ft_len_pp((void**)ft_t_vars()->map);
+	ft_t_vars()->map_y = ft_len_pp((void**)ft_t_vars()->map) - 1;
 	while(i < ft_t_vars()->map_y)
 	{
 		if (ft_str_len(ft_t_vars()->map[i]) > ft_t_vars()->map_x)
@@ -51,13 +51,13 @@ void	my_mlx_pixel_put(t_vars *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	print_map(t_vars *vars)
-{
-	int	i;
+// void	print_map(t_vars *vars)
+// {
+// 	int	i;
 
-	i = 0;
-	while (vars->map[i])
-	{
-		printf("%s\n", vars->map[i++]);
-	}
-}
+// 	i = 0;
+// 	while (vars->map[i])
+// 	{
+// 		printf("%s\n", vars->map[i++]);
+// 	}
+// }

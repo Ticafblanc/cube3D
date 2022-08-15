@@ -64,36 +64,13 @@ void	init_color(int *color, char *element)
 		if (r <= 255 && r >= 0 && g <= 255 && g >= 0 && b <= 255 && b >= 0)
 		{
 			*color = 65536 * r + 256 * g + b;
-			printf("color = %d\n", *color);
 			return ;
 		}		
 	}
 	exit(perror_cube3d("Color invalide !!", 0));
 }
 
-// void	init_game(t_vars *vars, t_img *img)
-// {
-// 	int	x;
-// 	int y;
-	
 
-// 	y = 0;
-// 	while (y++ < 500)
-// 	{
-// 		x = 0;
-// 		printf("coucou\n");
-// 		while (x++ < 2000)
-// 			my_mlx_pixel_put(vars->data, x, y, img->F);
-// 	}
-// 	y--;
-// 	while (y++ < 1000)
-// 	{
-// 		x = 0;
-// 		while (x++ < 2000)
-// 			my_mlx_pixel_put(vars->data, x, y, img->C);
-// 	}
-// 	printf("coucou\n");
-// }
 
 void	init_texture(t_vars *vars, t_texture *txt, char *element)
 {
