@@ -24,14 +24,14 @@ static void	check_fill_2(t_vars *vars, int y, int x, int *i)
 		&& !vars->pos)
 	{
 		vars->pos = vars->map[y][x];
-		vars->map[y][x] = 'P';
+		vars->pos_y = y;
+		vars->pos_x = x;
+		vars->map[y][x] = 'x';
 	}
-	else if (vars->map[y][x] != '1' && vars->map[y][x] != 'x'
-		&& vars->map[y][x] != 'P')
+	else if (vars->map[y][x] != '1' && vars->map[y][x] != 'x')
 		exit(perror_cube3d("Map invalide caracter!!", 0));
 	else
 		return ;
-	//usleep(10000);
 	check_fill(vars, y + 1, x, i);
 	check_fill(vars, y, x + 1, i);
 	check_fill(vars, y - 1, x, i);
@@ -52,11 +52,7 @@ static void	check_fill(t_vars *vars, int y, int x, int *i)
 			&& vars->map[y][x] != '1')
 			*i = 0;
 		if (y < ft_len_pp((void **)vars->map) && x < ft_str_len(vars->map[y]))
-		{
-			//printf ("\nmap = %c\ny = %d\nx = %d\ni = %d\n",vars->map[y][x], y, x, *i);
-			//print_map(vars);
 			check_fill_2(vars, y, x, i);
-		}
 	}
 }
 
@@ -118,13 +114,11 @@ void	check_map(int fd)
 	y = -1;
 	ok = 0;
 	fill_map(fd, ft_t_vars());
-	print_map(ft_t_vars());
 	while (++y < ft_len_pp((void **)ft_t_vars()->map))
 	{
 		x = -1;
 		while (++x < ft_str_len(ft_t_vars()->map[y]))
 		{
-			//printf("map = %c\n y = %d\nx = %d\n", ft_t_vars()->map[y][x], y, x);
 			i = 1;
 			if (ok != 1)
 				ft_t_vars()->pos = 0;
@@ -132,12 +126,8 @@ void	check_map(int fd)
 				&& ft_t_vars()->map[y][x] != 'P')
 			{
 				check_fill(ft_t_vars(), y, x, &i);
-				//print_map(ft_t_vars());
 				if (i == 1 && ft_t_vars()->pos != 0)
 					ok = 1;
-				//printf("\nok = %d\n y = %d\nx = %d\n", ok, y, x);
-				//print_map(ft_t_vars());
-				//sleep(2);
 			}
 		}
 	}

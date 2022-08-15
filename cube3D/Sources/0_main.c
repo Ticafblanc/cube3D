@@ -27,21 +27,48 @@ static void	check_file(char *argv)
 		exit(perror_cube3d("Wrong path of the map", 1));
 	read_element(fd);
 	check_map(fd);
-	printf ("OK!!!\n");
-	print_map(ft_t_vars());
-	exit(0);
+	size_map();
+}
+
+static int	read_key(int keycode, t_vars *vars)
+{
+	if (keycode == ESC)
+		close_game(vars);
+	if (keycode == UP)
+		vars->pos_y -= 0.1;
+	else if (keycode == DOWN)
+		vars->pos_y += 0.1;
+	else if (keycode == LEFT)
+		vars->pos_x -= 0.1;
+	else if (keycode == RIGHT)
+		vars->pos_x += 0.1;
+	put_game();
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	if (argc == 2 && ft_check_extension(argv[1], ".cub") > 0)
 	{
+	
+		ft_t_vars()->mlx = mlx_init();
 		check_file(argv[1]);
-	//	init_game(vars);
-		mlx_hook(ft_t_vars()->win, ON_DESTROY, 0, close_game, (void *)ft_t_vars());
-		//mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
-		//mlx_loop_hook(vars->mlx, update, vars);
-		mlx_loop(ft_t_vars()->mlx);
-	}
+		ft_t_vars()->win = mlx_new_window(ft_t_vars()->mlx, 2000, 1000, "cube3D");
+		ft_t_vars()->img = mlx_new_image(ft_t_vars()->mlx, 2000, 1000);
+		ft_t_vars()->addr = mlx_get_data_addr(ft_t_vars()->img, &ft_t_vars()->bits_per_pixel, &ft_t_vars()->line_length,
+								&ft_t_vars()->endian);
+		put_game();
+	 	mlx_hook(ft_t_vars()->win, ON_DESTROY, 0, close_game, (void *)ft_t_vars());
+		mlx_hook(ft_t_vars()->win, ON_KEYDOWN, 1L << 0, read_key, (void *)ft_t_vars());
+	 	mlx_loop(ft_t_vars()->mlx);
+	 }
+	// if (argc == 2 && ft_strncmp(argv[1], "-b", 2))
+	// {
+	// 	init_game(ft_t_vars());
+	// 	mlx_hook(ft_t_vars()->win, ON_DESTROY, 0, close_game, (void *)ft_t_vars());
+	// 	//mlx_hook(vars->win, ON_KEYDOWN, 1L << 0, read_key, (void *)vars);
+	// 	//mlx_loop_hook(vars->mlx, update, vars);
+	// 	mlx_loop(ft_t_vars()->mlx);
+	// }
 	exit(perror_cube3d("Just one map extension .cub !! ", 1));
 }

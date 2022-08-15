@@ -57,19 +57,43 @@ enum	e_element
 	S = 83,
 	E = 69,
 	W = 87,
+	TILES = 50,
 };
+
+typedef struct s_texture
+{
+	void	*img;
+	int		width;
+	int		height;
+}				t_texture;
+
+typedef struct s_img
+{
+	t_texture	*NO;
+	t_texture	*SO;
+	t_texture	*WE;
+	t_texture	*EA;
+	int			F;
+	int			C;
+	int			init;
+}				t_img;
 
 typedef struct s_vars
 {
 	void		*mlx;
 	void		*win;
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 	char		**map;
-	char		**element;
 	t_rays 		*raycasting;
+	int			map_y;
+	int			map_x;
 	int			pos;
-	int			pos_y;
-	int			pos_x;
-	int			error_map;
+	float		pos_x;
+	float		pos_y;
 	int			player_side;
 	int			item;
 	int			enemy_win;
@@ -100,8 +124,14 @@ void	check_map(int fd);
 	//2_init.c
 
 t_vars	*ft_t_vars(void);
+t_img	*ft_t_img(void);
+void	init_texture(t_vars *vars, t_texture *txt, char *element);
+void	init_color(int *color, char *element);
 
 	//4_put.c
+
+void	put_game(void);
+
 
 	//5_move.c
 
@@ -109,6 +139,8 @@ t_vars	*ft_t_vars(void);
 
 int		perror_cube3d(char *str, int flag);
 void	free_cube3d(t_vars *vars);
-void	print_map(t_vars *vars);//utils pour debug a supprimer
+void	size_map();
+void	my_mlx_pixel_put(t_vars *data, int x, int y, int color);
+// void	print_map(t_vars *vars);
 
 #endif
