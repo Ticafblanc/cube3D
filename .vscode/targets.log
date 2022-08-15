@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Tue Aug  9 19:27:49 2022
+# Make data base, printed on Mon Aug 15 12:55:28 2022
 
 # Variables
 
@@ -39,13 +39,13 @@ MAKEFILE_LIST :=
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cb3w0032rz/T/vscode-ipc-45c86abf-c674-40a4-aefb-111adbf58a9c.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cb3w0032rz/T/vscode-ipc-4941058e-7fcb-455a-9d9b-af991222d301.sock
 # environment
 VSCODE_CWD = /
 # environment
 PATH = /System/Volumes/Data/sgoinfre/Perso/mdoquocb/.brew/bin:/System/Volumes/Data/sgoinfre/Perso/mdoquocb/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin
 # environment
-LaunchInstanceID = DAB01B08-92BC-45CE-B992-5BD73B6C3901
+LaunchInstanceID = 037AA738-8466-4ED4-8B8F-FA40509A29FB
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -53,7 +53,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.zSodeNbEvX/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ChFS9T0MCH/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -75,7 +75,7 @@ VSCODE_CODE_CACHE_PATH = /Users/mdoquocb/Library/Application Support/Code/Cached
 # environment
 LOGNAME = mdoquocb
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -115,7 +115,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000001.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000003.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -131,7 +131,7 @@ MAKEFILES :=
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 186a7
+SECURITYSESSIONID = 1871c
 # automatic
 ^F = $(notdir $^)
 # default
@@ -143,7 +143,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 5909
+VSCODE_PID = 91243
 # variable set hash-table stats:
 # Load=65/1024=6%, Rehash=0, Collisions=1/86=1%
 
@@ -227,6 +227,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Tue Aug  9 19:27:49 2022
+# Finished Make data base on Mon Aug 15 12:55:28 2022
 
  
