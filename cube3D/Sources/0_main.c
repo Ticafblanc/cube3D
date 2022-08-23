@@ -53,8 +53,8 @@ int	main(int argc, char **argv)
 	
 		ft_t_vars()->mlx = mlx_init();
 		check_file(argv[1]);
-		ft_t_vars()->win = mlx_new_window(ft_t_vars()->mlx, 2000, 1000, "cube3D");
-		ft_t_vars()->img = mlx_new_image(ft_t_vars()->mlx, 2000, 1000);
+		ft_t_vars()->win = mlx_new_window(ft_t_vars()->mlx, WW, WH, "cube3D");
+		ft_t_vars()->img = mlx_new_image(ft_t_vars()->mlx, WW, WH);
 		ft_t_vars()->addr = mlx_get_data_addr(ft_t_vars()->img, &ft_t_vars()->bits_per_pixel, &ft_t_vars()->line_length,
 								&ft_t_vars()->endian);
 		put_game();

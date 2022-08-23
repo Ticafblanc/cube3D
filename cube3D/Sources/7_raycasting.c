@@ -12,7 +12,7 @@
 
 #include "../Includes/cube3d.h"
 
-t_rays *ft_raycasting_init(t_vars *vars)
+/*t_rays *ft_raycasting_init(t_vars *vars)
 {
 	t_rays *raycasting;
 
@@ -53,6 +53,7 @@ t_rays *ft_raycasting_init(t_vars *vars)
 	else
 		raycasting->deltadistx = sqrt(1 + raycasting->raydiry * raycasting->raydiry)
 				/ (raycasting->raydirx * raycasting->raydirx);
+
 	return (raycasting);
 }
 
@@ -61,5 +62,55 @@ t_vtable_rays *ft_init_vtable(void)
 	t_vtable_rays *operations = malloc(sizeof(t_vtable_rays));
 
 	return (operations);
+}*/
 
+void ft_rayCasting(t_vars *vars)
+{
+	//double halfW = WW / 2;
+	double halfH = WH / 2;
+	double incrementAngle = 0.045; // FOV / WW
+	double halfFOV = FOV / 2;
+	double rayAngle = 90 - halfFOV;
+	int rayCount = 0;
+	double rayX = vars->pos_x;
+	double rayY = vars->pos_y;
+	double rayCos = 0;
+	double raySin = 0;
+	int wall = 0;
+	double distance = 0;
+	int wallH = 0;
+
+	while (rayCount < WW)
+	{
+		distance = 0;
+		wallH = 0;
+		rayX = vars->pos_x;
+		rayY = vars->pos_y;
+		rayCos = cos(((rayAngle * PI) / 180) / 64);
+		raySin = sin(((rayAngle * PI) / 180) / 64);
+		wall = 0;
+		//printf("rayCos = %f, raySin = %f \n", cos(((rayAngle * PI) / 180) /64), sin(((rayAngle * PI) / 180) /64));
+		while (wall != '1')
+		{
+			rayX += rayCos;
+			rayY += raySin;
+			wall = vars->map[(int)floor(rayY)][(int)floor(rayX)];
+			//printf("map ctn at %dX & %dY = %d \n",(int)floor(rayX), (int)floor(rayY), vars->map[(int)floor(rayY)][(int)floor(rayX)]);
+		}
+		//printf("posX = %f, posY = %f\n", vars->pos_x,vars->pos_y);
+		//printf("rayX = %f, rayY = %f \n", rayX,rayY);
+		distance = sqrt(pow(vars->pos_x - rayX, 2) + pow(vars->pos_y - rayY, 2));
+		//printf("distance = %f\n", distance);
+		distance = distance * cos(((rayAngle - 90) * PI) / 180);
+		wallH = floor(halfH / distance);
+		//printf("wallH = %d\n", wallH);
+		rayAngle += incrementAngle;
+		//printf("rayAngle = %f\n", rayAngle);
+		rayCount++;
+		while (wallH)
+		{
+			mlx_pixel_put(vars->mlx, vars->win,rayCount, ((WH / 2) - (wallH / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
+			wallH--;
+		}
+	}
 }

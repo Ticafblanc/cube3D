@@ -14,7 +14,7 @@
 
 
 typedef struct s_vars t_vars;
-
+/*
 typedef struct s_vtable_rays{
 
 }t_vtable_rays;
@@ -49,7 +49,8 @@ typedef struct s_rays
 	double			rotspeed;
 	int				x;
 	int				texture;
-} t_rays;
+} t_rays;*/
 
-t_rays *ft_raycasting_init(t_vars *vars);
-t_vtable_rays *ft_init_vtable(void);
+/*t_rays *ft_raycasting_init(t_vars *vars);
+t_vtable_rays *ft_init_vtable(void);*/
+void ft_rayCasting(t_vars *vars);

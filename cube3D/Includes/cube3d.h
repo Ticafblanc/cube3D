@@ -20,6 +20,11 @@
 # include <math.h>
 # include "raycasting.h"
 
+# define WW 2000
+# define WH 1000
+# define FOV 60
+#define PI 3.14159265
+
 enum	e_key
 {
 	UP = 13,
@@ -88,7 +93,7 @@ typedef struct s_vars
 	int			line_length;
 	int			endian;
 	char		**map;
-	t_rays 		*raycasting;
+	//t_rays 		*raycasting;
 	int			map_y;
 	int			map_x;
 	int			pos;
