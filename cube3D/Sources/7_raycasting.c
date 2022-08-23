@@ -107,9 +107,10 @@ void ft_rayCasting(t_vars *vars)
 		rayAngle += incrementAngle;
 		//printf("rayAngle = %f\n", rayAngle);
 		rayCount++;
+		int tmp = wallH;
 		while (wallH)
 		{
-			mlx_pixel_put(vars->mlx, vars->win,rayCount, ((WH / 2) - (wallH / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
+			mlx_pixel_put(vars->mlx, vars->win,rayCount, ((WH / 2) - (tmp / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
 			wallH--;
 		}
 	}
