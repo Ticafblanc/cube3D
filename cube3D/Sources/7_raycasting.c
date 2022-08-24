@@ -63,14 +63,17 @@ t_vtable_rays *ft_init_vtable(void)
 
 	return (operations);
 }*/
-
+static double degreeToRadian(double degree)
+{
+	return degree * PI / 180;
+}
 void ft_rayCasting(t_vars *vars)
 {
 	//double halfW = WW / 2;
 	double halfH = WH / 2;
-	double incrementAngle = 0.045; // FOV / WW
-	double halfFOV = FOV / 2;
-	double rayAngle = 90 - halfFOV;
+	double incrementAngle = 0.09375;// FOV / WW;
+	//double halfFOV = 30;//FOV / 2;
+	double rayAngle = 60;//90 - halfFOV;
 	int rayCount = 0;
 	double rayX = vars->pos_x;
 	double rayY = vars->pos_y;
@@ -86,8 +89,8 @@ void ft_rayCasting(t_vars *vars)
 		wallH = 0;
 		rayX = vars->pos_x;
 		rayY = vars->pos_y;
-		rayCos = cos(((rayAngle * PI) / 180) / 64);
-		raySin = sin(((rayAngle * PI) / 180) / 64);
+		rayCos = cos(degreeToRadian(rayAngle)) / 64;
+		raySin = sin(degreeToRadian(rayAngle)) / 64;
 		wall = 0;
 		//printf("rayCos = %f, raySin = %f \n", cos(((rayAngle * PI) / 180) /64), sin(((rayAngle * PI) / 180) /64));
 		while (wall != '1')
@@ -100,18 +103,22 @@ void ft_rayCasting(t_vars *vars)
 		//printf("posX = %f, posY = %f\n", vars->pos_x,vars->pos_y);
 		//printf("rayX = %f, rayY = %f \n", rayX,rayY);
 		distance = sqrt(pow(vars->pos_x - rayX, 2) + pow(vars->pos_y - rayY, 2));
+		distance = distance * cos(degreeToRadian(rayAngle - 90));
 		//printf("distance = %f\n", distance);
-		distance = distance * cos(((rayAngle - 90) * PI) / 180);
 		wallH = floor(halfH / distance);
 		//printf("wallH = %d\n", wallH);
 		rayAngle += incrementAngle;
 		//printf("rayAngle = %f\n", rayAngle);
-		rayCount++;
 		int tmp = wallH;
-		while (wallH)
+		while (wallH > 1)
 		{
-			mlx_pixel_put(vars->mlx, vars->win,rayCount, ((WH / 2) - (tmp / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
+			//my_mlx_pixel_put(vars, rayCount, ((WH / 2) - (tmp / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
+			mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
+
 			wallH--;
+			//printf("tmp = %d, wallH = %d, raycount = %d\n",tmp, wallH, rayCount);
 		}
+		rayCount++;
+		//sleep(1);
 	}
 }

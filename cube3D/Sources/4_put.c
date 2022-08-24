@@ -59,17 +59,17 @@ static void	put_background(void)
 	
 
 	y = -1;
-	while (y++ < 500)
+	while (y++ < WH / 2)
 	{
 		x = -1;
-		while (x++ < 2000)
+		while (x++ < WW)
 			my_mlx_pixel_put(ft_t_vars(), x, y, ft_t_img()->F);
 	}
 	y--;
-	while (y++ < 999)
+	while (y++ < WH - 2)
 	{
 		x = -1;
-		while (x++ < 2000)
+		while (x++ < WW)
 			my_mlx_pixel_put(ft_t_vars(), x, y, ft_t_img()->C);
 	}
 }
@@ -78,6 +78,7 @@ void	put_game(void)
 {
 	put_background();
 	//put_wall();
+
 	put_mini_map();
 	mlx_put_image_to_window(ft_t_vars()->mlx, ft_t_vars()->win, ft_t_vars()->img, 0, 0);
 	ft_rayCasting(ft_t_vars());

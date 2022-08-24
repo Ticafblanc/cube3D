@@ -20,8 +20,8 @@
 # include <math.h>
 # include "raycasting.h"
 
-# define WW 2000
-# define WH 1000
+# define WW 640
+# define WH 480
 # define FOV 60
 #define PI 3.14159265
 
