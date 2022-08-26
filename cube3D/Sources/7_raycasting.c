@@ -175,8 +175,6 @@ void ft_rayCasting(t_vars *vars)
 			//Check if ray has hit a wall
 			hit = vars->map[(int)floor(mapY)][(int)floor(mapX)];
 	//		printf("hit = %d\n", hit);
-			if (hit == 49)
-				break;
 		}
 	//	printf("sideDistX = %f, deltaDistX = %f\n", sideDistX, deltaDistX);
 	//	printf("sideDistY = %f, deltaDistY = %f\n", sideDistY, deltaDistY);
