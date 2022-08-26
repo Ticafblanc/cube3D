@@ -77,8 +77,7 @@ static void	put_background(void)
 void	put_game(void)
 {
 	put_background();
-	//put_wall();
-
+	//raycasting
 	put_mini_map();
 	mlx_put_image_to_window(ft_t_vars()->mlx, ft_t_vars()->win, ft_t_vars()->img, 0, 0);
 	ft_rayCasting(ft_t_vars());

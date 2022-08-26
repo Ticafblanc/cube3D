@@ -34,13 +34,13 @@ static int	read_key(int keycode, t_vars *vars)
 {
 	if (keycode == ESC)
 		close_game(vars);
-	if (keycode == UP)
+	if (keycode == UP)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y - 1)] != '1')
 		vars->pos_y -= 1;
-	else if (keycode == DOWN)
+	else if (keycode == DOWN)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y + 1)] != '1')
 		vars->pos_y += 1;
-	else if (keycode == LEFT)
+	else if (keycode == LEFT)// && vars->map[(int)floor(vars->pos_x - 1)][(int)floor(vars->pos_y)] != '1')
 		vars->pos_x -= 1;
-	else if (keycode == RIGHT)
+	else if (keycode == RIGHT)// && vars->map[(int)floor(vars->pos_x + 1)][(int)floor(vars->pos_y)] != '1')
 		vars->pos_x += 1;
 	put_game();
 	return (0);
