@@ -63,10 +63,7 @@ t_vtable_rays *ft_init_vtable(void)
 
 	return (operations);
 }*/
-/*static double degreeToRadian(double degree)
-{
-	return degree * PI / 180;
-}*/
+/*
 
 static void get_dir (t_vars *vars, double *dirX, double *dirY, double *planX, double *planY)
 {
@@ -106,6 +103,7 @@ static void ft_draw(t_vars *vars, int rayCount, int drawStart, int wallH, int si
 		wallH--;
 	}
 }
+
 void ft_rayCasting(t_vars *vars)
 {
 	double dirX = 0;
@@ -195,14 +193,18 @@ void ft_rayCasting(t_vars *vars)
 	}
 }
 
-/*
- * void ft_rayCasting(t_vars *vars)
+*/
+ static double degreeToRadian(double degree)
+{
+	return degree * PI / 180;
+}
+  void ft_rayCasting(t_vars *vars)
 {
 	//double halfW = WW / 2;
-	//double halfH = WH / 2;
-	double incrementAngle = 0.09375;// FOV / WW;
-	//double halfFOV = 30;//FOV / 2;
-	double rayAngle = 60;//90 - halfFOV;
+	double halfH = (double)WH / 2;
+	double incrementAngle = (double)FOV / (double)WW;
+	double halfFOV = (double)FOV / 2;
+	double rayAngle = vars->playerAngle - halfFOV;
 	int rayCount = 0;
 	double rayX = vars->pos_x;
 	double rayY = vars->pos_y;
@@ -218,8 +220,8 @@ void ft_rayCasting(t_vars *vars)
 		wallH = 0;
 		rayX = vars->pos_x;
 		rayY = vars->pos_y;
-		rayCos = cos(degreeToRadian(rayAngle)) / 64;
-		raySin = sin(degreeToRadian(rayAngle)) / 64;
+		rayCos = cos(degreeToRadian(rayAngle)) / 100;
+		raySin = sin(degreeToRadian(rayAngle)) / 100;
 		wall = 0;
 		//printf("rayCos = %f, raySin = %f \n", cos(((rayAngle * PI) / 180) /64), sin(((rayAngle * PI) / 180) /64));
 		while (wall != '1')
@@ -233,9 +235,9 @@ void ft_rayCasting(t_vars *vars)
 		//printf("posX = %f, posY = %f\n", vars->pos_x,vars->pos_y);
 		//printf("rayX = %f, rayY = %f \n", rayX,rayY);
 		distance = sqrt(pow(vars->pos_x - rayX, 2) + pow(vars->pos_y - rayY, 2));
-		distance = distance * cos(degreeToRadian(rayAngle - 90));
+		distance = distance * cos(degreeToRadian(rayAngle - vars->playerAngle));
 		//printf("distance = %f\n", distance);
-		wallH = (floor(WH / distance)) / 2;
+		wallH = (floor(halfH / distance));
 		printf("wallH = %d\n", wallH);
 		rayAngle += incrementAngle;
 		//printf("rayAngle = %f\n", rayAngle);
@@ -253,4 +255,3 @@ void ft_rayCasting(t_vars *vars)
 	}
 }
 
- */

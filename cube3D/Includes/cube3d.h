@@ -107,6 +107,11 @@ typedef struct s_vars
 	int			time;
 	int 		init;
 	int 		radian;
+	int 		playerAngle;
+	int 		rotation;
+	double 		playerCos;
+	double 		playerSin;
+	double 		speed;
 }				t_vars;
 
 typedef struct s_check_map

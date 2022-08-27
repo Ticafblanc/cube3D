@@ -30,18 +30,41 @@ static void	check_file(char *argv)
 	size_map();
 }
 
-static int	read_key(int keycode, t_vars *vars)
+static double degreeToRadian(double degree)
 {
+	return degree * PI / 180;
+}
+
+static int	read_key(int keycode, t_vars *vars) {
+
+	double newX = 0;
+	double newY = 0;
 	if (keycode == ESC)
 		close_game(vars);
-	if (keycode == UP)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y - 1)] != '1')
-		vars->pos_y -= 1;
-	else if (keycode == DOWN)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y + 1)] != '1')
-		vars->pos_y += 1;
-	else if (keycode == LEFT)// && vars->map[(int)floor(vars->pos_x - 1)][(int)floor(vars->pos_y)] != '1')
-		vars->pos_x -= 1;
+	if (keycode == DOWN)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y - 1)] != '1')
+	{
+		vars->playerCos = cos((degreeToRadian(vars->playerAngle)) * vars->speed);
+		vars->playerSin = sin((degreeToRadian(vars->playerAngle)) * vars->speed);
+		newX = vars->pos_x + vars->playerCos;
+		newY = vars->pos_y + vars->playerSin;
+		vars->pos_x = newX;
+		vars->pos_y = newY;
+	} else if (keycode == UP)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y + 1)] != '1')
+	{
+		vars->playerCos = cos((degreeToRadian(vars->playerAngle)) * vars->speed);
+		vars->playerSin = sin((degreeToRadian(vars->playerAngle)) * vars->speed);
+		newX = vars->pos_x - vars->playerCos;
+		newY = vars->pos_y - vars->playerSin;
+		vars->pos_x = newX;
+		vars->pos_y = newY;
+	} else if (keycode == LEFT)// && vars->map[(int)floor(vars->pos_x - 1)][(int)floor(vars->pos_y)] != '1')
+	{
+		vars->playerAngle -= vars->rotation;
+	}
 	else if (keycode == RIGHT)// && vars->map[(int)floor(vars->pos_x + 1)][(int)floor(vars->pos_y)] != '1')
-		vars->pos_x += 1;
+	{
+		vars->playerAngle += vars->rotation;
+	}
 	put_game();
 	return (0);
 }
