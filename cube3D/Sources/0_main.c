@@ -45,6 +45,7 @@ static int	read_key(int keycode, t_vars *vars) {
 	{
 		vars->playerCos = cos((degreeToRadian(vars->playerAngle)) * vars->speed);
 		vars->playerSin = sin((degreeToRadian(vars->playerAngle)) * vars->speed);
+		printf("pAngle = %d, pCos = %f, pSin = %f\n",vars->playerAngle, vars->playerCos, vars->playerSin);
 		newX = vars->pos_x + vars->playerCos;
 		newY = vars->pos_y + vars->playerSin;
 		vars->pos_x = newX;
@@ -53,6 +54,7 @@ static int	read_key(int keycode, t_vars *vars) {
 	{
 		vars->playerCos = cos((degreeToRadian(vars->playerAngle)) * vars->speed);
 		vars->playerSin = sin((degreeToRadian(vars->playerAngle)) * vars->speed);
+		printf("pAngle = %d, pCos = %f, pSin = %f\n",vars->playerAngle, vars->playerCos, vars->playerSin);
 		newX = vars->pos_x - vars->playerCos;
 		newY = vars->pos_y - vars->playerSin;
 		vars->pos_x = newX;
@@ -60,10 +62,12 @@ static int	read_key(int keycode, t_vars *vars) {
 	} else if (keycode == LEFT)// && vars->map[(int)floor(vars->pos_x - 1)][(int)floor(vars->pos_y)] != '1')
 	{
 		vars->playerAngle -= vars->rotation;
+		vars->playerAngle %= 360;
 	}
 	else if (keycode == RIGHT)// && vars->map[(int)floor(vars->pos_x + 1)][(int)floor(vars->pos_y)] != '1')
 	{
 		vars->playerAngle += vars->rotation;
+		vars->playerAngle %= 360;
 	}
 	put_game();
 	return (0);

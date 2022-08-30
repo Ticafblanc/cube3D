@@ -109,8 +109,8 @@ typedef struct s_vars
 	int 		radian;
 	int 		playerAngle;
 	int 		rotation;
-	double 		playerCos;
-	double 		playerSin;
+	float 		playerCos;
+	float 		playerSin;
 	double 		speed;
 }				t_vars;
 

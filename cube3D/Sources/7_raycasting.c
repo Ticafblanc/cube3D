@@ -65,7 +65,7 @@ t_vtable_rays *ft_init_vtable(void)
 }*/
 /*
 
-static void get_dir (t_vars *vars, double *dirX, double *dirY, double *planX, double *planY)
+static void get_dir(t_vars *vars, double *dirX, double *dirY, double *planX, double *planY)
 {
 	*dirX = 0;
 	*dirY = 0;
@@ -194,7 +194,37 @@ void ft_rayCasting(t_vars *vars)
 }
 
 */
- static double degreeToRadian(double degree)
+/*
+static void get_dir(t_vars *vars, float *dirX, float *dirY, float *planX, float *planY)
+{
+	*dirX = 0;
+	*dirY = 0;
+	*planX = 0;
+	*planY = 0;
+	if (vars->pos == 'N')
+	{
+		*dirX = -1;
+		*planY = 0.66;
+	}
+	if (vars->pos == 'S')
+	{
+		*dirX = 1;
+		*planY = -0.66;
+	}
+	if (vars->pos == 'E')
+	{
+		*dirY = 1;
+		*planX = 0.66;
+	}
+	if (vars->pos == 'W')
+	{
+		*dirY = -1;
+		*planX = -0.66;
+	}
+	printf("dirX = %f, dirY = %f, planX = %f, planY = %f \n", *dirX, *dirY, *planX, *planY);
+	sleep(2);
+}*/
+ static float degreeToRadian(double degree)
 {
 	return degree * PI / 180;
 }
@@ -223,7 +253,7 @@ void ft_rayCasting(t_vars *vars)
 		rayCos = cos(degreeToRadian(rayAngle)) / 100;
 		raySin = sin(degreeToRadian(rayAngle)) / 100;
 		wall = 0;
-		//printf("rayCos = %f, raySin = %f \n", cos(((rayAngle * PI) / 180) /64), sin(((rayAngle * PI) / 180) /64));
+		//printf("rayCos = %f, raySin = %f, degreeToRadian(rayAngle) = %f \n",  rayCos, raySin, degreeToRadian(rayAngle));
 		while (wall != '1')
 		{
 			rayX += rayCos;
@@ -236,22 +266,41 @@ void ft_rayCasting(t_vars *vars)
 		//printf("rayX = %f, rayY = %f \n", rayX,rayY);
 		distance = sqrt(pow(vars->pos_x - rayX, 2) + pow(vars->pos_y - rayY, 2));
 		distance = distance * cos(degreeToRadian(rayAngle - vars->playerAngle));
-		//printf("distance = %f\n", distance);
+	//	printf("distance = %f\n", distance);
 		wallH = (floor(halfH / distance));
-		printf("wallH = %d\n", wallH);
+	//	printf("wallH = %d\n", wallH);
 		rayAngle += incrementAngle;
-		//printf("rayAngle = %f\n", rayAngle);
+		//printf("dX = %f, dY = %f\n", pow(vars->pos_x - rayX, 2),pow(vars->pos_y - rayY, 2));
 		int tmp = wallH;
 		while (wallH > 1)
 		{
+			float difx = (rayX - (int)(rayX + 0.01));
+			float dify = (rayY - (int)(rayY + 0.01));
+			//printf("posX = %f, rayX = %f, difX = %f posY = %f, rayY = %f, difY = %f\n", vars->pos_x, rayX,difx,vars->pos_y, rayY,dify);
 			//my_mlx_pixel_put(vars, rayCount, ((WH / 2) - (tmp / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
-			mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,(3 << 16 | 186 << 8 | 252) );
+			if (fabs(difx) > fabs(dify) && rayY > vars->pos_y)
+				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,(3 << 16 | 186 << 8 | 252) );
+			else if (fabs(difx) > fabs(dify))
+				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 2) );
+			else if (fabs(difx) < fabs(dify) && rayX > vars->pos_x)
+				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 4) );
+			else
+				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 6) );
 
+
+			/*if (vars->pos_x < rayX && vars->pos_y > rayY) //N
+				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252)) );
+			else if (vars->pos_x > rayX && vars->pos_y < rayY) //S
+				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 2) );
+			else if (vars->pos_x < rayX) //E
+				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 4) );
+			else
+				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 8) );
+*/
 			wallH--;
 			//printf("tmp = %d, wallH = %d, raycount = %d\n",tmp, wallH, rayCount);
 		}
 		rayCount++;
-		//sleep(1);
 	}
 }
 
