@@ -47,7 +47,7 @@ static int	read_key(int keycode, t_vars *vars) {
 		//vars->playerCos *= 2;
 		vars->playerSin = (sin(degreeToRadian(vars->playerAngle)));
 	//	vars->playerSin *= 2;
-		printf("pAngle = %d, pCos = %f, pSin = %f\n",vars->playerAngle, vars->playerCos, vars->playerSin);
+		//printf("pAngle = %d, pCos = %f, pSin = %f\n",vars->playerAngle, vars->playerCos, vars->playerSin);
 		newX = vars->pos_x + vars->playerCos;
 		newY = vars->pos_y + vars->playerSin;
 		vars->pos_x = newX;
@@ -60,7 +60,7 @@ static int	read_key(int keycode, t_vars *vars) {
 		//vars->playerCos *= 2;
 		vars->playerSin = (sin(degreeToRadian(vars->playerAngle)));
 		//avars->playerSin *= 2;
-		printf("pAngle = %d, pCos = %f, pSin = %f\n",vars->playerAngle, vars->playerCos, vars->playerSin);
+		//printf("pAngle = %d, pCos = %f, pSin = %f\n",vars->playerAngle, vars->playerCos, vars->playerSin);
 		newX = vars->pos_x - vars->playerCos;
 		newY = vars->pos_y - vars->playerSin;
 		vars->pos_x = newX;

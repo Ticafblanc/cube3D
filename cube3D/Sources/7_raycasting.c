@@ -63,22 +63,21 @@ void ft_print_walls(t_rays *self)
 	{
 		self->difx = (self->rayX - (int)(self->rayX + 0.1));
 		self->dify = (self->rayY - (int)(self->rayY + 0.1));
-	//	printf("posX = %f, rayX = %f, difX = %f posY = %f, rayY = %f, difY = %f\n", self->vars->pos_x, self->rayX,self->difx,self->vars->pos_y, self->rayY,self->dify);
-		//my_mlx_pixel_put(vars, rayCount, ((WH / 2) - (tmp / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
-		if (fabs(self->difx) > fabs(self->dify) && self->rayY > self->vars->pos_y)
-			mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) );
-		else if (fabs(self->difx) > fabs(self->dify))
-			mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /2 );
-		else if (fabs(self->difx) < fabs(self->dify) && self->rayX > self->vars->pos_x)
-			mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /4 );
-		else
-			mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /6 );
 		if (self->rayCount == WW / 2) {
 			while (i < WH - 1) {
-				mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, i, ((255 << 16 | 186 << 8 | 252)));
+				my_mlx_pixel_put(self->vars, self->rayCount, i, ((255 << 16 | 186 << 8 | 252)));
 				i++;
 			}
 		}
+		if (fabs(self->difx) > fabs(self->dify) && self->rayY > self->vars->pos_y)
+			my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) );
+		else if (fabs(self->difx) > fabs(self->dify))
+			my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /2 );
+		else if (fabs(self->difx) < fabs(self->dify) && self->rayX > self->vars->pos_x)
+			my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /4 );
+		else
+			my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /6 );
+
 		self->wallH--;
 		//printf("tmp = %d, wallH = %d, raycount = %d\n",self->tmp, self->wallH, self->rayCount);
 	}
