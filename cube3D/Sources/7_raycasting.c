@@ -12,295 +12,132 @@
 
 #include "../Includes/cube3d.h"
 
-/*t_rays *ft_raycasting_init(t_vars *vars)
-{
-	t_rays *raycasting;
-
-	raycasting = malloc(sizeof(t_rays));
-	raycasting->operations = ft_init_vtable();
-	raycasting->posx = 0;
-	raycasting->posy = 0;
-	raycasting->dirx = 0;
-	raycasting->diry = 0;
-	raycasting->planx = 0;
-	raycasting->plany = 0;
-	raycasting->hit = 0;
-	raycasting->perpwalldist = 0;
-	if (vars->pos == 'N')
-	{
-		raycasting->dirx = -1;
-		raycasting->plany = 0.66;
-	}
-	if (vars->pos == 'S')
-	{
-		raycasting->dirx = 1;
-		raycasting->plany = -0.66;
-	}
-	if (vars->pos == 'E')
-	{
-		raycasting->diry = 1;
-		raycasting->planx = 0.66;
-	}
-	if (vars->pos == 'W')
-	{
-		raycasting->diry = -1;
-		raycasting->planx = -0.66;
-	}
-	if (raycasting->raydirx == 0)
-		raycasting->deltadisty = 1;
-	else if (raycasting->raydiry == 0)
-		raycasting->deltadistx = 0;
-	else
-		raycasting->deltadistx = sqrt(1 + raycasting->raydiry * raycasting->raydiry)
-				/ (raycasting->raydirx * raycasting->raydirx);
-
-	return (raycasting);
-}
-
-t_vtable_rays *ft_init_vtable(void)
-{
-	t_vtable_rays *operations = malloc(sizeof(t_vtable_rays));
-
-	return (operations);
-}*/
-/*
-
-static void get_dir(t_vars *vars, double *dirX, double *dirY, double *planX, double *planY)
-{
-	*dirX = 0;
-	*dirY = 0;
-	*planX = 0;
-	*planY = 0;
-	if (vars->pos == 'N')
-	{
-		*dirX = -1;
-		*planY = 0.66;
-	}
-	if (vars->pos == 'S')
-	{
-		*dirX = 1;
-		*planY = -0.66;
-	}
-	if (vars->pos == 'E')
-	{
-		*dirY = 1;
-		*planX = 0.66;
-	}
-	if (vars->pos == 'W')
-	{
-		*dirY = -1;
-		*planX = -0.66;
-	}
-}
-static void ft_draw(t_vars *vars, int rayCount, int drawStart, int wallH, int side)
-{
-	while (wallH)
-	{
-		if (side == 1)
-			mlx_pixel_put(vars->mlx, vars->win, rayCount, drawStart + wallH,((3 << 16 | 186 << 8 | 252) / 2) );
-		else
-			mlx_pixel_put(vars->mlx, vars->win, rayCount, drawStart + wallH,(3 << 16 | 186 << 8 | 252) );
-		wallH--;
-	}
-}
-
-void ft_rayCasting(t_vars *vars)
-{
-	double dirX = 0;
-	double dirY = 0;
-	double planX = 0;
-	double planY = 0;
-	get_dir(vars, &dirX, &dirY, &planX, &planY);
-	double cameraX = 0;
-
-	int rayCount = 0;
-	double perpWallDist;
-	int stepX;
-	int stepY;
-
-	int side;
-
-	while (rayCount < WW)
-	{
-		cameraX = 2 * rayCount / (double)WW - 1;
-		int hit = 0;
-		double sideDistX = 0;
-		double sideDistY = 0;
-		double mapX = vars->pos_x;
-		double mapY = vars->pos_y;
-		dirX = dirX + planX * cameraX;
-		dirY = dirY + planY * cameraX;
-		double deltaDistX = sqrt(1 + (dirY * dirY) / (dirX * dirX));
-		double deltaDistY = sqrt(1 + (dirX * dirX) / (dirY * dirY));
-		printf("deltaDistX = %f\n", deltaDistX);
-		printf("deltaDistY = %f\n", deltaDistY);
-		if(dirX < 0)
-		{
-			stepX = -1;
-			sideDistX = (vars->pos_x - mapX) * deltaDistX;
-		}
-		else
-		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - vars->pos_x) * deltaDistX;
-		}
-		if(dirY < 0)
-		{
-			stepY = -1;
-			sideDistY = (vars->pos_y - mapY) * deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - vars->pos_y) * deltaDistY;
-		}
-
-		while(hit != 49)
-		{
-			//jump to next map square, either in x-direction, or in y-direction
-			if(sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
-			}
-			//Check if ray has hit a wall
-			hit = vars->map[(int)floor(mapY)][(int)floor(mapX)];
-	//		printf("hit = %d\n", hit);
-		}
-	//	printf("sideDistX = %f, deltaDistX = %f\n", sideDistX, deltaDistX);
-	//	printf("sideDistY = %f, deltaDistY = %f\n", sideDistY, deltaDistY);
-
-		if(side == 0)
-			perpWallDist = (sideDistX - deltaDistX);
-		else
-			perpWallDist = (sideDistY - deltaDistY);
-		int h = WH;
-	//	printf("wallDist = %f\n", perpWallDist);
-		int wallH = (h / perpWallDist);
-		printf("wallH = %d\n", wallH);
-
-		int drawStart = -wallH / 2 + h / 2;
-		ft_draw(vars, rayCount, drawStart, wallH, side);
-		rayCount++;
-		//sleep(1);
-	}
-}
-
-*/
-/*
-static void get_dir(t_vars *vars, float *dirX, float *dirY, float *planX, float *planY)
-{
-	*dirX = 0;
-	*dirY = 0;
-	*planX = 0;
-	*planY = 0;
-	if (vars->pos == 'N')
-	{
-		*dirX = -1;
-		*planY = 0.66;
-	}
-	if (vars->pos == 'S')
-	{
-		*dirX = 1;
-		*planY = -0.66;
-	}
-	if (vars->pos == 'E')
-	{
-		*dirY = 1;
-		*planX = 0.66;
-	}
-	if (vars->pos == 'W')
-	{
-		*dirY = -1;
-		*planX = -0.66;
-	}
-	printf("dirX = %f, dirY = %f, planX = %f, planY = %f \n", *dirX, *dirY, *planX, *planY);
-	sleep(2);
-}*/
  static float degreeToRadian(double degree)
 {
 	return degree * PI / 180;
 }
-  void ft_rayCasting(t_vars *vars)
+
+void ft_reset_values(t_rays *self)
 {
-	//double halfW = WW / 2;
-	double halfH = (double)WH / 2;
-	double incrementAngle = (double)FOV / (double)WW;
-	double halfFOV = (double)FOV / 2;
-	double rayAngle = vars->playerAngle - halfFOV;
-	int rayCount = 0;
-	double rayX = vars->pos_x;
-	double rayY = vars->pos_y;
-	double rayCos = 0;
-	double raySin = 0;
-	int wall = 0;
-	double distance = 0;
-	int wallH = 0;
+	self->distance = 0;
+	self->wallH = 0;
+	self->rayX = self->vars->pos_x;
+	self->rayY = self->vars->pos_y;
+	self->rayCos = cos(degreeToRadian(self->rayAngle)) / 100;
+	self->raySin = sin(degreeToRadian(self->rayAngle)) / 100;
+	self->wall = 0;
+}
 
-	while (rayCount < WW)
+void ft_hit_wall(t_rays *self)
+{
+	while (self->wall != '1')
 	{
-		distance = 0;
-		wallH = 0;
-		rayX = vars->pos_x;
-		rayY = vars->pos_y;
-		rayCos = cos(degreeToRadian(rayAngle)) / 100;
-		raySin = sin(degreeToRadian(rayAngle)) / 100;
-		wall = 0;
-		//printf("rayCos = %f, raySin = %f, degreeToRadian(rayAngle) = %f \n",  rayCos, raySin, degreeToRadian(rayAngle));
-		while (wall != '1')
-		{
-			rayX += rayCos;
-			rayY += raySin;
-			wall = vars->map[(int)floor(rayY)][(int)floor(rayX)];
-			//printf("map ctn at %dX & %dY = %d \n",(int)floor(rayX), (int)floor(rayY), vars->map[(int)floor(rayY)][(int)floor(rayX)]);
+		self->rayX += self->rayCos;
+		self->rayY += self->raySin;
+		self->wall = self->vars->map[(int)floor(self->rayY)][(int)floor(self->rayX)];
+		//printf("map ctn at %dX & %dY = %d \n",(int)floor(self->rayX), (int)floor(self->rayY), self->vars->map[(int)floor(self->rayY)][(int)floor(self->rayX)]);
+	}
+}
+
+void ft_calculate_distance(t_rays *self)
+{
+	self->distance = sqrt(pow(self->vars->pos_x - self->rayX, 2) + pow(self->vars->pos_y - self->rayY, 2));
+	self->distance = self->distance * cos(degreeToRadian(self->rayAngle - self->vars->playerAngle));
+}
+
+void ft_calculate_wall_height(t_rays *self)
+{
+	self->wallH = (floor(self->halfH / self->distance));
+}
+void ft_increment_angle(t_rays *self)
+{
+	self->rayAngle += self->incrementAngle;
+}
+
+void ft_print_walls(t_rays *self)
+{
+	int i;
+	i = 0;
+	 self->tmp = self->wallH;
+	while (self->wallH > 1)
+	{
+		self->difx = (self->rayX - (int)(self->rayX + 0.1));
+		self->dify = (self->rayY - (int)(self->rayY + 0.1));
+	//	printf("posX = %f, rayX = %f, difX = %f posY = %f, rayY = %f, difY = %f\n", self->vars->pos_x, self->rayX,self->difx,self->vars->pos_y, self->rayY,self->dify);
+		//my_mlx_pixel_put(vars, rayCount, ((WH / 2) - (tmp / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
+		if (fabs(self->difx) > fabs(self->dify) && self->rayY > self->vars->pos_y)
+			mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) );
+		else if (fabs(self->difx) > fabs(self->dify))
+			mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /2 );
+		else if (fabs(self->difx) < fabs(self->dify) && self->rayX > self->vars->pos_x)
+			mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /4 );
+		else
+			mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /6 );
+		if (self->rayCount == WW / 2) {
+			while (i < WH - 1) {
+				mlx_pixel_put(self->vars->mlx, self->vars->win, self->rayCount, i, ((255 << 16 | 186 << 8 | 252)));
+				i++;
+			}
 		}
+		self->wallH--;
+		//printf("tmp = %d, wallH = %d, raycount = %d\n",self->tmp, self->wallH, self->rayCount);
+	}
+}
 
-		//printf("posX = %f, posY = %f\n", vars->pos_x,vars->pos_y);
-		//printf("rayX = %f, rayY = %f \n", rayX,rayY);
-		distance = sqrt(pow(vars->pos_x - rayX, 2) + pow(vars->pos_y - rayY, 2));
-		distance = distance * cos(degreeToRadian(rayAngle - vars->playerAngle));
-	//	printf("distance = %f\n", distance);
-		wallH = (floor(halfH / distance));
-	//	printf("wallH = %d\n", wallH);
-		rayAngle += incrementAngle;
-		//printf("dX = %f, dY = %f\n", pow(vars->pos_x - rayX, 2),pow(vars->pos_y - rayY, 2));
-		int tmp = wallH;
-		while (wallH > 1)
-		{
-			float difx = (rayX - (int)(rayX + 0.01));
-			float dify = (rayY - (int)(rayY + 0.01));
-			//printf("posX = %f, rayX = %f, difX = %f posY = %f, rayY = %f, difY = %f\n", vars->pos_x, rayX,difx,vars->pos_y, rayY,dify);
-			//my_mlx_pixel_put(vars, rayCount, ((WH / 2) - (tmp / 2)) + wallH,(216 << 16 | 129 << 8 | 47) );
-			if (fabs(difx) > fabs(dify) && rayY > vars->pos_y)
-				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,(3 << 16 | 186 << 8 | 252) );
-			else if (fabs(difx) > fabs(dify))
-				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 2) );
-			else if (fabs(difx) < fabs(dify) && rayX > vars->pos_x)
-				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 4) );
-			else
-				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 6) );
+t_vtable_rays *ft_init_vtable()
+{
+	t_vtable_rays *vtable;
+	vtable = malloc(sizeof(t_vtable_rays));
+	vtable->reset_values = &ft_reset_values;
+	vtable->wall_collision = &ft_hit_wall;
+	vtable->get_distance = &ft_calculate_distance;
+	vtable->get_wall_height = &ft_calculate_wall_height;
+	vtable->increment_angle = &ft_increment_angle;
+	vtable->print = &ft_print_walls;
+	return (vtable);
+}
 
+t_rays 	*get_raycaster()
+{
+	static t_rays self;
+	if (self.init != 1)
+	{
+		self.operations = ft_init_vtable();
+		self.halfH = (double) WH / 2;
+		self.incrementAngle = (double) FOV / (double) WW;
+		self.halfFOV = (double) FOV / 2;
+		self.rayCount = 0;
+		self.rayCos = 0;
+		self.raySin = 0;
+		self.wall = 0;
+		self.distance = 0;
+		self.wallH = 0;
+		self.difx = 0;
+		self.dify = 0;
+		self.tmp = 0;
+	}
+	return (&self);
 
-			/*if (vars->pos_x < rayX && vars->pos_y > rayY) //N
-				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252)) );
-			else if (vars->pos_x > rayX && vars->pos_y < rayY) //S
-				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 2) );
-			else if (vars->pos_x < rayX) //E
-				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 4) );
-			else
-				mlx_pixel_put(vars->mlx, vars->win, rayCount, ((WH / 2) - (tmp / 2)) + wallH,((3 << 16 | 186 << 8 | 252) / 8) );
-*/
-			wallH--;
-			//printf("tmp = %d, wallH = %d, raycount = %d\n",tmp, wallH, rayCount);
-		}
-		rayCount++;
+}
+
+void ft_rayCasting(t_vars *vars)
+{
+	t_rays *self;
+	self = get_raycaster();
+	self->vars = vars;
+	self->rayAngle = self->vars->playerAngle - self->halfFOV;
+	self->rayX = self->vars->pos_x;
+	self->rayY = self->vars->pos_y;
+
+	while (self->rayCount < WW)
+	{
+		self->operations->reset_values(self);
+		self->operations->wall_collision(self);
+		self->operations->get_distance(self);
+		self->operations->get_wall_height(self);
+	    self->operations->increment_angle(self);
+		self->operations->print(self);
+		self->rayCount+= 1;
 	}
 }
 

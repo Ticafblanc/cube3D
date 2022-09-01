@@ -41,19 +41,25 @@ static int	read_key(int keycode, t_vars *vars) {
 	double newY = 0;
 	if (keycode == ESC)
 		close_game(vars);
-	if (keycode == DOWN)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y - 1)] != '1')
+	if (keycode == UP)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y - 1)] != '1')
 	{
-		vars->playerCos = cos((degreeToRadian(vars->playerAngle)) * vars->speed);
-		vars->playerSin = sin((degreeToRadian(vars->playerAngle)) * vars->speed);
+		vars->playerCos = (cos(degreeToRadian(vars->playerAngle)));
+		//vars->playerCos *= 2;
+		vars->playerSin = (sin(degreeToRadian(vars->playerAngle)));
+	//	vars->playerSin *= 2;
 		printf("pAngle = %d, pCos = %f, pSin = %f\n",vars->playerAngle, vars->playerCos, vars->playerSin);
 		newX = vars->pos_x + vars->playerCos;
 		newY = vars->pos_y + vars->playerSin;
 		vars->pos_x = newX;
 		vars->pos_y = newY;
-	} else if (keycode == UP)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y + 1)] != '1')
+	} else if (keycode == DOWN)// && vars->map[(int)floor(vars->pos_x)][(int)floor(vars->pos_y + 1)] != '1')
 	{
-		vars->playerCos = cos((degreeToRadian(vars->playerAngle)) * vars->speed);
-		vars->playerSin = sin((degreeToRadian(vars->playerAngle)) * vars->speed);
+	//	vars->playerCos = cos(degreeToRadian(vars->playerAngle)) * vars->speed;
+	//	vars->playerSin = sin(degreeToRadian(vars->playerAngle)) * vars->speed;
+		vars->playerCos = (cos(degreeToRadian(vars->playerAngle)));
+		//vars->playerCos *= 2;
+		vars->playerSin = (sin(degreeToRadian(vars->playerAngle)));
+		//avars->playerSin *= 2;
 		printf("pAngle = %d, pCos = %f, pSin = %f\n",vars->playerAngle, vars->playerCos, vars->playerSin);
 		newX = vars->pos_x - vars->playerCos;
 		newY = vars->pos_y - vars->playerSin;
@@ -61,8 +67,10 @@ static int	read_key(int keycode, t_vars *vars) {
 		vars->pos_y = newY;
 	} else if (keycode == LEFT)// && vars->map[(int)floor(vars->pos_x - 1)][(int)floor(vars->pos_y)] != '1')
 	{
-		vars->playerAngle -= vars->rotation;
-		vars->playerAngle %= 360;
+		if (vars->playerAngle - vars->rotation < 0)
+			vars->playerAngle = 360 + vars->playerAngle - vars->rotation;
+		else
+			vars->playerAngle -= vars->rotation;
 	}
 	else if (keycode == RIGHT)// && vars->map[(int)floor(vars->pos_x + 1)][(int)floor(vars->pos_y)] != '1')
 	{

@@ -1,0 +1,59 @@
+[32m[M******************libft******************
+[34m[M Binary libft directory created !!
+[34m[M libft.a is created !!
+[32m[M Compilation libft is completed !!
+make[1]: Nothing to be done for `all'.
+[32m[M******************cube3D******************
+[34m[M Binary cube3D directory created !!
+[34m[M cube3D is created !!
+[32m[M Compilation cube3D is completed !!
+pAngle = 89, pCos = 0.017452, pSin = 0.999848
+pAngle = 89, pCos = 0.017452, pSin = 0.999848
+pAngle = 104, pCos = -0.241922, pSin = 0.970296
+pAngle = 104, pCos = -0.241922, pSin = 0.970296
+pAngle = 119, pCos = -0.484810, pSin = 0.874620
+pAngle = 119, pCos = -0.484810, pSin = 0.874620
+pAngle = 134, pCos = -0.694658, pSin = 0.719340
+pAngle = 134, pCos = -0.694658, pSin = 0.719340
+pAngle = 149, pCos = -0.857167, pSin = 0.515038
+pAngle = 149, pCos = -0.857167, pSin = 0.515038
+pAngle = 164, pCos = -0.961262, pSin = 0.275637
+pAngle = 164, pCos = -0.961262, pSin = 0.275637
+pAngle = 179, pCos = -0.999848, pSin = 0.017452
+pAngle = 179, pCos = -0.999848, pSin = 0.017452
+pAngle = 194, pCos = -0.970296, pSin = -0.241922
+pAngle = 194, pCos = -0.970296, pSin = -0.241922
+pAngle = 209, pCos = -0.874620, pSin = -0.484810
+pAngle = 209, pCos = -0.874620, pSin = -0.484810
+pAngle = 224, pCos = -0.719340, pSin = -0.694658
+pAngle = 224, pCos = -0.719340, pSin = -0.694658
+pAngle = 239, pCos = -0.515038, pSin = -0.857167
+pAngle = 239, pCos = -0.515038, pSin = -0.857167
+pAngle = 254, pCos = -0.275637, pSin = -0.961262
+pAngle = 254, pCos = -0.275637, pSin = -0.961262
+pAngle = 269, pCos = -0.017452, pSin = -0.999848
+pAngle = 269, pCos = -0.017452, pSin = -0.999848
+pAngle = 289, pCos = 0.325568, pSin = -0.945519
+pAngle = 289, pCos = 0.325568, pSin = -0.945519
+pAngle = 304, pCos = 0.559193, pSin = -0.829038
+pAngle = 304, pCos = 0.559193, pSin = -0.829038
+pAngle = 319, pCos = 0.754710, pSin = -0.656059
+pAngle = 319, pCos = 0.754710, pSin = -0.656059
+pAngle = 334, pCos = 0.898794, pSin = -0.438371
+pAngle = 334, pCos = 0.898794, pSin = -0.438371
+pAngle = 349, pCos = 0.981627, pSin = -0.190809
+pAngle = 349, pCos = 0.981627, pSin = -0.190809
+pAngle = 4, pCos = 0.997564, pSin = 0.069756
+pAngle = 4, pCos = 0.997564, pSin = 0.069756
+pAngle = 19, pCos = 0.945519, pSin = 0.325568
+pAngle = 19, pCos = 0.945519, pSin = 0.325568
+pAngle = 34, pCos = 0.829038, pSin = 0.559193
+pAngle = 34, pCos = 0.829038, pSin = 0.559193
+pAngle = 49, pCos = 0.656059, pSin = 0.754710
+pAngle = 49, pCos = 0.656059, pSin = 0.754710
+pAngle = 64, pCos = 0.438371, pSin = 0.898794
+pAngle = 64, pCos = 0.438371, pSin = 0.898794
+pAngle = 79, pCos = 0.190809, pSin = 0.981627
+pAngle = 79, pCos = 0.190809, pSin = 0.981627
+pAngle = 94, pCos = -0.069756, pSin = 0.997564
+pAngle = 94, pCos = -0.069756, pSin = 0.997564
