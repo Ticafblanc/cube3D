@@ -23,8 +23,8 @@ void ft_reset_values(t_rays *self)
 	self->wallH = 0;
 	self->rayX = self->vars->pos_x;
 	self->rayY = self->vars->pos_y;
-	self->rayCos = cos(degreeToRadian(self->rayAngle)) / 100;
-	self->raySin = sin(degreeToRadian(self->rayAngle)) / 100;
+	self->rayCos = cosf(degreeToRadian(self->rayAngle)) / 100;
+	self->raySin = sinf(degreeToRadian(self->rayAngle)) / 100;
 	self->wall = 0;
 }
 
@@ -35,14 +35,13 @@ void ft_hit_wall(t_rays *self)
 		self->rayX += self->rayCos;
 		self->rayY += self->raySin;
 		self->wall = self->vars->map[(int)floor(self->rayY)][(int)floor(self->rayX)];
-		//printf("map ctn at %dX & %dY = %d \n",(int)floor(self->rayX), (int)floor(self->rayY), self->vars->map[(int)floor(self->rayY)][(int)floor(self->rayX)]);
 	}
 }
 
 void ft_calculate_distance(t_rays *self)
 {
 	self->distance = sqrt(pow(self->vars->pos_x - self->rayX, 2) + pow(self->vars->pos_y - self->rayY, 2));
-	self->distance = self->distance * cos(degreeToRadian(self->rayAngle - self->vars->playerAngle));
+	self->distance = self->distance * cosf(degreeToRadian(self->rayAngle - self->vars->playerAngle));
 }
 
 void ft_calculate_wall_height(t_rays *self)
@@ -54,33 +53,64 @@ void ft_increment_angle(t_rays *self)
 	self->rayAngle += self->incrementAngle;
 }
 
+/*
+void ft_get_texture(t_rays *self, t_texture *texture)
+{
+	char *dst =  mlx_get_data_addr(texture->img, &self->vars->bits_per_pixel, &self->vars->line_length, &self->vars->endian);
+	int color;
+	float a = self->wallH / texture->height;
+	int y = 1;
+	while (self->wallH--)
+	{
+		color = dst[(int)floor(y * texture->width + texture->count)];
+
+		y = floor(y + a);
+		my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH, color );
+		if (y > 0)
+			printf("y = %d, count = %d, dst = %c\n", y, texture->count, color);
+	}
+	texture->count++;
+	texture->count %= 64;
+}*/
+
 void ft_print_walls(t_rays *self)
 {
 	int i;
 	i = 0;
+	//int a = 0;
+	//int b = 0;
 	 self->tmp = self->wallH;
-	while (self->wallH > 1)
-	{
-		self->difx = (self->rayX - (int)(self->rayX + 0.1));
-		self->dify = (self->rayY - (int)(self->rayY + 0.1));
-		if (self->rayCount == WW / 2) {
-			while (i < WH - 1) {
-				my_mlx_pixel_put(self->vars, self->rayCount, i, ((255 << 16 | 186 << 8 | 252)));
-				i++;
-			}
-		}
-		if (fabs(self->difx) > fabs(self->dify) && self->rayY > self->vars->pos_y)
-			my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) );
-		else if (fabs(self->difx) > fabs(self->dify))
-			my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /2 );
-		else if (fabs(self->difx) < fabs(self->dify) && self->rayX > self->vars->pos_x)
-			my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /4 );
-		else
-			my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,(3 << 16 | 186 << 8 | 252) /6 );
-
-		self->wallH--;
-		//printf("tmp = %d, wallH = %d, raycount = %d\n",self->tmp, self->wallH, self->rayCount);
-	}
+	 while (self->wallH--) {
+		 self->difx = (self->rayX - (int) (self->rayX + 0.1));
+		 self->dify = (self->rayY - (int) (self->rayY + 0.1));
+		 if (self->rayCount == WW / 2) {
+			 while (i < WH - 1) {
+				 my_mlx_pixel_put(self->vars, self->rayCount, i, ((255 << 16 | 186 << 8 | 252)));
+				 i++;
+			 }
+		 }
+		 if (fabs(self->difx) > fabs(self->dify) && self->rayY > self->vars->pos_y)
+			 my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,
+							  (3 << 16 | 186 << 8 | 252));
+		 else if (fabs(self->difx) > fabs(self->dify))
+			 my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,
+							  (3 << 16 | 186 << 8 | 252) / 2);
+		 else if (fabs(self->difx) < fabs(self->dify) && self->rayX > self->vars->pos_x)
+			 my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,
+							  (3 << 16 | 186 << 8 | 252) / 4);
+		 else
+			 my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,
+							  (3 << 16 | 186 << 8 | 252) / 6);
+		 /*
+		 if (fabs(self->difx) > fabs(self->dify) && self->rayY > self->vars->pos_y)
+			 ft_get_texture(self, ft_t_img()->NO);
+		  else if (fabs(self->difx) > fabs(self->dify))
+			  ft_get_texture(self, ft_t_img()->SO);
+		  else if (fabs(self->difx) < fabs(self->dify) && self->rayX > self->vars->pos_x)
+			  ft_get_texture(self, ft_t_img()->WE);
+		 else
+			 ft_get_texture(self, ft_t_img()->EA);*/
+	 }
 }
 
 t_vtable_rays *ft_init_vtable()
@@ -118,6 +148,7 @@ t_rays 	*get_raycaster()
 	return (&self);
 
 }
+
 
 void ft_rayCasting(t_vars *vars)
 {

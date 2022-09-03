@@ -80,6 +80,7 @@ void	init_texture(t_vars *vars, t_texture *txt, char *element)
 {
 	txt->img = mlx_xpm_file_to_image(vars->mlx, element,
 			&txt->width, &txt->height);
+	txt->count = 0;
 	if (!txt->img)
 		exit(perror_cube3d("Texture invalide !!", 0));
 }

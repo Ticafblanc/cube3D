@@ -44,8 +44,8 @@ typedef struct s_rays
 	double distance;
 	int wallH;
 	int init;
-	float difx;
-	float dify;
+	double difx;
+	double dify;
 	int tmp;
 } t_rays;
 
