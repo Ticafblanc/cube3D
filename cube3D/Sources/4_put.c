@@ -6,7 +6,7 @@
 /*   By: mdoquocb <mdoquocb@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:31:05 by mdoquocb          #+#    #+#             */
-/*   Updated: 2022/08/01 18:31:09 by mdoquocb         ###   ########.ca       */
+/*   Updated: 2022/09/04 18:24:26 by adubeau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	put_multipix(int x, int y, int color, int size)
 {
-	int i;
+	int	i;
 	int	i2;
 
 	i = -1;
@@ -29,9 +29,8 @@ static void	put_multipix(int x, int y, int color, int size)
 static void	put_mini_map(void)
 {
 	int	x;
-	int y;
+	int	y;
 	int	size;
-	
 
 	size = 8;
 	y = -1;
@@ -48,15 +47,14 @@ static void	put_mini_map(void)
 				put_multipix(x, y, 000000, size);
 		}
 	}
-	my_mlx_pixel_put(ft_t_vars(), ft_t_vars()->pos_x * size + size / 2, ft_t_vars()->pos_y * size + size / 2, 16711680);
-	
+	my_mlx_pixel_put(ft_t_vars(), ft_t_vars()->pos_x * size + size / 2, \
+		ft_t_vars()->pos_y * size + size / 2, 16711680);
 }
 
 static void	put_background(void)
 {
 	int	x;
-	int y;
-	
+	int	y;
 
 	y = -1;
 	while (y++ < WH / 2)
@@ -79,6 +77,25 @@ void	put_game(void)
 	put_background();
 	ft_rayCasting(ft_t_vars());
 	put_mini_map();
-	mlx_put_image_to_window(ft_t_vars()->mlx, ft_t_vars()->win, ft_t_vars()->img, 0, 0);
+	mlx_put_image_to_window(ft_t_vars()->mlx, \
+		ft_t_vars()->win, ft_t_vars()->img, 0, 0);
+}
 
+void	ft_raycasting(t_vars *vars)
+{
+	t_rays	*self;
+
+	self = get_raycaster();
+	self->vars = vars;
+	self->rayAngle = self->vars->playerAngle - self->halfFOV;
+	while (self->rayCount < WW)
+	{
+		self->operations->reset_values(self);
+		self->operations->wall_collision(self);
+		self->operations->get_distance(self);
+		self->operations->get_wall_height(self);
+		self->operations->increment_angle(self);
+		self->operations->print(self);
+		self->rayCount += 1;
+	}
 }

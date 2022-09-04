@@ -49,6 +49,14 @@ typedef struct s_rays
 	int tmp;
 } t_rays;
 
-/*t_rays *ft_raycasting_init(t_vars *vars);
-t_vtable_rays *ft_init_vtable(void);*/
 void ft_rayCasting(t_vars *vars);
+void ft_reset_values(t_rays *self);
+void ft_hit_wall(t_rays *self);
+void ft_calculate_distance(t_rays *self);
+void ft_calculate_wall_height(t_rays *self);
+void ft_increment_angle(t_rays *self);
+t_vtable_rays *ft_init_vtable();
+t_rays 	*get_raycaster();
+float degreeToRadian(double degree);
+void ft_print_walls(t_rays *self);
+
