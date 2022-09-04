@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../Includes/cube3d.h"
-//vreification de la validiter de l'element
+
 static int	init_element(char *element, int val)
 {
 	if (element && val == NO)

@@ -74,14 +74,13 @@ void	init_color(int *color, char *element)
 	exit(perror_cube3d("Color invalide !!", 0));
 }
 
-
-
 void	init_texture(t_vars *vars, t_texture *txt, char *element)
 {
 	txt->img = mlx_xpm_file_to_image(vars->mlx, element,
 			&txt->width, &txt->height);
-	txt->count = 0;
-	if (!txt->img)
-		exit(perror_cube3d("Texture invalide !!", 0));
+		if (!txt->img)
+	exit(perror_cube3d("Texture invalide !!", 0));
+	txt->addr = mlx_get_data_addr(txt->img, &txt->bits_per_pixel, &txt->line_length,
+								&txt->endian);		
 }
 

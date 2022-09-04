@@ -12,7 +12,6 @@
 
 #include "../Includes/cube3d.h"
 
-
 int	perror_cube3d(char *str, int flag)
 {
 	free_cube3d(ft_t_vars());
@@ -52,13 +51,3 @@ void	my_mlx_pixel_put(t_vars *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-// void	print_map(t_vars *vars)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (vars->map[i])
-// 	{
-// 		printf("%s\n", vars->map[i++]);
-// 	}
-// }
