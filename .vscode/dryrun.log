@@ -1,7 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/mdoquocb/Desktop/cube3D'
- 
-make: Leaving directory `/Users/mdoquocb/Desktop/cube3D'
+make: Entering directory `/Users/matthisdoquocbao/Documents/1-Travail/1-Matthis/42/cube3D'
+make: Leaving directory `/Users/matthisdoquocbao/Documents/1-Travail/1-Matthis/42/cube3D'
  
 make: *** No targets specified and no makefile found.  Stop.
 
