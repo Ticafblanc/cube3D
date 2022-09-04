@@ -34,7 +34,8 @@ void ft_hit_wall(t_rays *self)
 	{
 		self->rayX += self->rayCos;
 		self->rayY += self->raySin;
-		self->wall = self->vars->map[(int)floor(self->rayY)][(int)floor(self->rayX)];
+		if ((int)floor(self->rayY) >= 0 && (int)floor(self->rayX) >= 0)
+			self->wall = self->vars->map[(int)floor(self->rayY)][(int)floor(self->rayX)];
 	}
 }
 
@@ -52,6 +53,7 @@ void ft_increment_angle(t_rays *self)
 {
 	self->rayAngle += self->incrementAngle;
 }
+
 
 /*
 void ft_get_texture(t_rays *self, t_texture *texture)
@@ -88,19 +90,22 @@ void ft_print_walls(t_rays *self)
 				 my_mlx_pixel_put(self->vars, self->rayCount, i, ((255 << 16 | 186 << 8 | 252)));
 				 i++;
 			 }
+			 printf("difx = %f, dify = %f, rayX = %f, rayY = %f, posX = %f, posY = %f\n", self->difx,self->dify, self->rayX, self->rayY, self->vars->pos_x, self->vars->pos_y);
+
 		 }
 		 if (fabs(self->difx) > fabs(self->dify) && self->rayY > self->vars->pos_y)
 			 my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,
-							  (3 << 16 | 186 << 8 | 252));
+							  (3 << 16 | 186 << 8 | 252)); //S bleu ciel
 		 else if (fabs(self->difx) > fabs(self->dify))
 			 my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,
-							  (3 << 16 | 186 << 8 | 252) / 2);
+							  (3 << 16 | 186 << 8 | 252) / 2); //N vert pomme
 		 else if (fabs(self->difx) < fabs(self->dify) && self->rayX > self->vars->pos_x)
 			 my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,
-							  (3 << 16 | 186 << 8 | 252) / 4);
+							  (3 << 16 | 186 << 8 | 252) / 4); //E cyan
 		 else
 			 my_mlx_pixel_put(self->vars, self->rayCount, ((WH / 2) - (self->tmp / 2)) + self->wallH,
-							  (3 << 16 | 186 << 8 | 252) / 6);
+							  (3 << 16 | 186 << 8 | 252) / 6); //O vert fonce
+		//printf("difx = %f, dify = %f, rayX = %f, rayY = %f, posX = %f, posY = %f\n", self->difx,self->dify, self->rayX, self->rayY, self->vars->pos_x, self->vars->pos_y);
 		 /*
 		 if (fabs(self->difx) > fabs(self->dify) && self->rayY > self->vars->pos_y)
 			 ft_get_texture(self, ft_t_img()->NO);
@@ -121,8 +126,8 @@ t_vtable_rays *ft_init_vtable()
 	vtable->wall_collision = &ft_hit_wall;
 	vtable->get_distance = &ft_calculate_distance;
 	vtable->get_wall_height = &ft_calculate_wall_height;
-	vtable->increment_angle = &ft_increment_angle;
 	vtable->print = &ft_print_walls;
+	vtable->increment_angle = &ft_increment_angle;
 	return (vtable);
 }
 
@@ -146,7 +151,6 @@ t_rays 	*get_raycaster()
 		self.tmp = 0;
 	}
 	return (&self);
-
 }
 
 
@@ -156,8 +160,6 @@ void ft_rayCasting(t_vars *vars)
 	self = get_raycaster();
 	self->vars = vars;
 	self->rayAngle = self->vars->playerAngle - self->halfFOV;
-	self->rayX = self->vars->pos_x;
-	self->rayY = self->vars->pos_y;
 
 	while (self->rayCount < WW)
 	{
