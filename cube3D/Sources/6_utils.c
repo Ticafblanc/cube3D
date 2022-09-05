@@ -51,3 +51,8 @@ void	my_mlx_pixel_put(t_vars *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+float degreeToRadian(double degree)
+{
+	return degree * PI / 180;
+}
+
