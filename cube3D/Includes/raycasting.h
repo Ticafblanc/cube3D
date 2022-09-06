@@ -13,8 +13,10 @@
 #include "cube3d.h"
 
 
+
 typedef struct s_vars t_vars;
 typedef struct s_rays t_rays;
+typedef struct s_texture t_texture;
 
 
 typedef struct s_vtable_rays{
@@ -23,7 +25,7 @@ typedef struct s_vtable_rays{
 	void (*get_distance)(t_rays *self);
 	void (*get_wall_height)(t_rays *self);
 	void (*increment_angle)(t_rays *self);
-	void (*print)(t_rays *self);
+	void (*print)(t_rays *self, t_texture *texture);
 
 }t_vtable_rays;
 
@@ -58,5 +60,6 @@ void ft_increment_angle(t_rays *self);
 t_vtable_rays *ft_init_vtable();
 t_rays 	*get_raycaster();
 float degreeToRadian(double degree);
-void ft_print_walls(t_rays *self);
+void ft_print_walls(t_rays *self, t_texture *texture);
+t_texture *ft_get_sprite(t_rays *self);
 

@@ -58,10 +58,10 @@ enum	e_element
 	IN = 7,
 	OUT = 8,
 	UNK = 9,
-	N = 78,
-	S = 83,
-	E = 69,
-	W = 87,
+	N = 0,
+	S = 180,
+	E = 90,
+	W = 270,
 	TILES = 50,
 };
 
@@ -70,7 +70,8 @@ typedef struct s_texture
 	void		*img;
 	int			width;
 	int			height;
-	int 		count;
+	float		pix_x;
+	float		pix_y;
 	char		*addr;
 	int			bits_per_pixel;
 	int			line_length;

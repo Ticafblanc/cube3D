@@ -81,6 +81,10 @@ void	init_texture(t_vars *vars, t_texture *txt, char *element)
 		if (!txt->img)
 	exit(perror_cube3d("Texture invalide !!", 0));
 	txt->addr = mlx_get_data_addr(txt->img, &txt->bits_per_pixel, &txt->line_length,
-								&txt->endian);		
+								&txt->endian);
+	txt->height = 64;
+	txt->width = 64;
+	txt->pix_y = 0;
+	txt->pix_x = 0;
 }
 
