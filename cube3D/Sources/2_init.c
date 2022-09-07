@@ -18,14 +18,13 @@ t_vars	*ft_t_vars(void)
 
 	if (!vars.init)
 	{
-		//vars.raycasting = ft_raycasting_init(&vars);
 		vars.map_x = 0;
 		vars.map_y = 0;
 		vars.pos = 0;
 		vars.init = 1;
 		vars.playerAngle = 89;
-		vars.speed = 3.0;
-		vars.rotation = 5;
+		vars.speed = 1.0;
+		vars.rotation = 3;
 	}
 	return (&vars);
 }

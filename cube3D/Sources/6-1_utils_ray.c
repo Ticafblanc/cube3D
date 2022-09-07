@@ -18,8 +18,8 @@ void	ft_reset_values(t_rays *self)
 	self->wallH = 0;
 	self->rayX = self->vars->pos_x;
 	self->rayY = self->vars->pos_y;
-	self->rayCos = cosf(degreeToRadian(self->rayAngle)) / 100;
-	self->raySin = sinf(degreeToRadian(self->rayAngle)) / 100;
+	self->rayCos = cosf(degreeToRadian(self->rayAngle)) / 4000;
+	self->raySin = sinf(degreeToRadian(self->rayAngle)) / 4000;
 	self->wall = 0;
 }
 

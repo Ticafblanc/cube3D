@@ -60,6 +60,6 @@ void ft_increment_angle(t_rays *self);
 t_vtable_rays *ft_init_vtable();
 t_rays 	*get_raycaster();
 float degreeToRadian(double degree);
-void ft_print_walls(t_rays *self, t_texture *texture);
+void ft_print_walls(t_rays *self);
 t_texture *ft_get_sprite(t_rays *self);
 
