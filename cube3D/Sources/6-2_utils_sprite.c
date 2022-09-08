@@ -15,8 +15,8 @@
 static t_texture *ft_reset_sprite(t_rays *self, t_texture *txt)
 {
 	txt->pix_x+= self->rayCount / self->wallH;
-	if (txt->pix_x > 64)
-		txt->pix_x = self->rayCount / self->wallH;
+	if (txt->pix_x >= 64)
+		txt->pix_x = 0;//self->rayCount / self->wallH;
 	txt->pix_y = 0 ;
 	return (txt);
 }
@@ -53,8 +53,8 @@ t_texture *ft_get_sprite(t_rays *self)
 int	ft_get_texture(t_texture *texture, t_rays *self)
 {
 	texture->pix_y += texture->width / self->tmp;
-	if (texture->pix_y > 64)
-		texture->pix_y = texture->width / self->tmp ;
+	if (texture->pix_y >= 64)
+		texture->pix_y = 0;//texture->width / self->tmp ;
 	return (texture->addr[((int)texture->pix_y * texture->line_length)
 		+ ((int)texture->pix_x * (texture->bits_per_pixel / 8))]);
 }
@@ -73,7 +73,7 @@ void	ft_print_walls(t_rays *self)
 		self->dify = (self->rayY - (int)(self->rayY));
 		if (self->rayCount == WW / 2)
 		{
-			printf("pAngle = %d, rAngle = %f, difx = %f, dify = %f, rayx = %f, posx = %f, rayy = %f, posy = %f\n", self->vars->playerAngle, self->rayAngle, self->difx, self->dify, self->rayX, self->vars->pos_x, self->rayY, self->vars->pos_y);
+			//printf("pAngle = %d, rAngle = %f, difx = %f, dify = %f, rayx = %f, posx = %f, rayy = %f, posy = %f\n", self->vars->playerAngle, self->rayAngle, self->difx, self->dify, self->rayX, self->vars->pos_x, self->rayY, self->vars->pos_y);
 			while (i < WH - 1)
 			{
 				my_mlx_pixel_put(self->vars, self->rayCount, i, \
@@ -86,23 +86,24 @@ void	ft_print_walls(t_rays *self)
 			my_mlx_pixel_put(self->vars, self->rayCount, \
 				((WH / 2) - (self->tmp / 2)) + self->wallH, \
 			(3 << 16 | 186 << 8 | 252));
-							// ft_get_texture(ft_t_img()->EA, self));		//E
+				//	 ft_get_texture(ft_t_img()->EA, self));
+
 		else if (fabs(self->difx) >= fabs(self->dify) \
 				&& self->rayY >= self->vars->pos_y)		//S
 			my_mlx_pixel_put(self->vars, self->rayCount, \
 					((WH / 2) - (self->tmp / 2)) + self->wallH,
 							 (3 << 16 | 186 << 8 | 252) / 2);
-					//		 ft_get_texture(ft_t_img()->SO, self));
+			//				 ft_get_texture(ft_t_img()->SO, self));
 		else if (fabs(self->difx) >= fabs(self->dify)) //N
 			my_mlx_pixel_put(self->vars, self->rayCount, \
 					((WH / 2) - (self->tmp / 2)) + self->wallH, \
-							 (3 << 16 | 186 << 8 | 252) / 4);
-				//(ft_get_texture(ft_t_img()->NO, self)));
+						 (3 << 16 | 186 << 8 | 252) / 4);
+			//	 ft_get_texture(ft_t_img()->NO, self));
 		else 											//W
 			my_mlx_pixel_put(self->vars, self->rayCount, \
 					((WH / 2) - (self->tmp / 2)) + self->wallH, \
 							 (3 << 16 | 186 << 8 | 252) / 8);
-				//	(ft_get_texture(ft_t_img()->WE, self)));
+			//	 ft_get_texture(ft_t_img()->WE, self));
 	}
 }
 /*
@@ -122,8 +123,8 @@ void	ft_print_walls(t_rays *self, t_texture *texture)
 				color);
 	}
 }
-
 */
+
 
 // 		self->difx = (self->rayX - (int)(self->rayX + 0.1));
 // 		self->dify = (self->rayY - (int)(self->rayY + 0.1));

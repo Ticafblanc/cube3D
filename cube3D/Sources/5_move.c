@@ -46,7 +46,7 @@ void	ft_up(t_vars *vars)
 	new_y = vars->pos_y + vars->playerSin;
 	printf("%f X, %f Y, len X %d, len Y %d \n", new_x, new_y,vars->map_y, ft_str_len(ft_t_vars()->map[(int)floor(new_y)]));
 
-	if ((int)floor(new_y) < vars->map_y - 2 && (int)floor(new_x) < (ft_str_len(ft_t_vars()->map[(int)floor(new_y)])) - 2) {
+	if ((int)floor(new_y) < vars->map_y - 1 && (int)floor(new_x) < (ft_str_len(ft_t_vars()->map[(int)floor(new_y)])) - 1) {
 			if ((int) floor(new_x) > 0 && (int) floor(new_y) > 0) {
 				vars->pos_x = new_x;
 				vars->pos_y = new_y;
@@ -62,7 +62,7 @@ void	ft_down(t_vars *vars)
 	new_y = vars->pos_y - vars->playerSin;
 	printf("%f X, %f Y, len X %d, len Y %d \n", vars->pos_x, vars->pos_y,ft_str_len(ft_t_vars()->map[(int)floor(new_y)]),vars->map_y);
 
-	if ((int)floor(new_x) < (ft_str_len(ft_t_vars()->map[(int)floor(new_y)]) - 2) && (int)floor(new_y) < vars->map_y - 2)
+	if ((int)floor(new_x) < (ft_str_len(ft_t_vars()->map[(int)floor(new_y)]) - 1) && (int)floor(new_y) < vars->map_y - 1)
 		if ((int)floor(new_x) > 0 && (int)floor(new_y) > 0)
 		{
 			vars->pos_x = new_x;

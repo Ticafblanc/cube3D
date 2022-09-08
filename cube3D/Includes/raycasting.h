@@ -12,8 +12,6 @@
 
 #include "cube3d.h"
 
-
-
 typedef struct s_vars t_vars;
 typedef struct s_rays t_rays;
 typedef struct s_texture t_texture;
@@ -25,7 +23,7 @@ typedef struct s_vtable_rays{
 	void (*get_distance)(t_rays *self);
 	void (*get_wall_height)(t_rays *self);
 	void (*increment_angle)(t_rays *self);
-	void (*print)(t_rays *self, t_texture *texture);
+	void (*print)(t_rays *self);
 
 }t_vtable_rays;
 

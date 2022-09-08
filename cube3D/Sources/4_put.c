@@ -85,7 +85,7 @@ void	ft_rayCasting(t_vars *vars)
 		self->operations->wall_collision(self);
 		self->operations->get_distance(self);
 		self->operations->get_wall_height(self);
-		self->operations->print(self, ft_get_sprite(self));
+		self->operations->print(self);
 		self->operations->increment_angle(self);
 		self->rayCount += 1;
 	}

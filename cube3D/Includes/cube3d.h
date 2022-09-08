@@ -23,7 +23,7 @@
 # define WW 640
 # define WH 640
 # define FOV 60
-#define PI 3.14159265
+# define PI 3.14159265
 
 enum	e_key
 {
