@@ -29,9 +29,8 @@ void	ft_hit_wall(t_rays *self)
 	{
 		self->rayX += self->rayCos;
 		self->rayY += self->raySin;
-		if ((int)floor(self->rayY) >= 0 && (int)floor(self->rayX) >= 0)
-			self->wall = self->vars->map[(int)floor(self->rayY)] \
-				[(int)floor(self->rayX)];
+		self->wall = self->vars->map[(int)floor(self->rayY)] \
+			[(int)floor(self->rayX)];
 	}
 }
 

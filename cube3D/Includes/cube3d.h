@@ -34,6 +34,7 @@ enum	e_key
 	ESC = 53,
 	ARROW_L = 123,
 	ARROW_R = 124,
+	MAP = 46,
 };
 
 enum	e_mouse
@@ -58,10 +59,6 @@ enum	e_element
 	IN = 7,
 	OUT = 8,
 	UNK = 9,
-	N = 0,
-	S = 180,
-	E = 90,
-	W = 270,
 	TILES = 50,
 };
 
@@ -106,7 +103,7 @@ typedef struct s_vars
 	float		pos_x;
 	float		pos_y;
 	int			player_side;
-	int			item;
+	int			map_on;
 	int			enemy_win;
 	int			end_game;
 	int			steps;

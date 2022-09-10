@@ -17,6 +17,10 @@ int	read_key(int keycode, t_vars *vars)
 	void	(*keys[5])(t_vars *)= {&ft_left, &ft_down, &ft_right, &ft_up, &ft_esc};
 	int realKey;
 
+	if(keycode == MAP && vars->map_on == 0)
+		vars->map_on = 1;
+	if(keycode == MAP && vars->map_on == 1)
+		vars->map_on = 0;
 	realKey = get_keycode(keycode);
 	if (realKey >= 0 && realKey <= 4)
 		keys[realKey](vars);
