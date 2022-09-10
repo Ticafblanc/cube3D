@@ -52,7 +52,7 @@ LIB2 = $(addprefix $(LIB2_PATH),$(LIB2_NAME))
 
 INC2_FLAGS += -I $(LIB2_PATH)
 
-LIB2_FLAGS = -L $(LIB2_PATH) -l $(LIB2_NAME) -framework OpenGL -framework Appkit
+LIB2_FLAGS = -L $(LIB2_PATH) -l $(LIB2_NAME) -framework OpenGL -framework Appkit 
 
 	#  SOURCES  #
 
@@ -77,6 +77,10 @@ CC = gcc
 CC_FLAGS = -Wall -Wextra -Werror 
 
 CL = rm -rf
+
+LEAK = leaks -atExit --
+
+LEAKS = valgrind --leak-check=full --track-fds=yes #--trace-children=yes -s -q
 
 
 	#  COLORS STR #
@@ -117,7 +121,7 @@ $(BIN): libft minilibx title directory $(OBJ)
 		@echo $(BLUE) $(notdir $(BIN)) is created !!
 
 run: all
-		@./Bin/cube3D Maps/test/mandatory.cub
+		@$(LEAK) ./Bin/cube3D Maps/test/mandatory.cub
 
 title: 
 		@echo $(GREEN)******************$(PROJECT)******************

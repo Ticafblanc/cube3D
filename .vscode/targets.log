@@ -10,13 +10,14 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Mon Sep  5 11:04:47 2022
+# Make data base, printed on Sat Sep 10 11:02:14 2022
 
 # Variables
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
+ 
 ?F = $(notdir $?)
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
@@ -29,7 +30,7 @@ CURDIR := /Users/matthisdoquocbao/Documents/1-Travail/1-Matthis/42/cube3D
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePackId":"5e9f786f0aff7d5ccaa5f6af9d58a1b7.fr","_translationsConfigFile":"/Users/matthisdoquocbao/Library/Application Support/Code/clp/5e9f786f0aff7d5ccaa5f6af9d58a1b7.fr/tcf.json","_cacheRoot":"/Users/matthisdoquocbao/Library/Application Support/Code/clp/5e9f786f0aff7d5ccaa5f6af9d58a1b7.fr","_resolvedLanguagePackCoreLocation":"/Users/matthisdoquocbao/Library/Application Support/Code/clp/5e9f786f0aff7d5ccaa5f6af9d58a1b7.fr/784b0177c56c607789f9638da7b6bf3230d47a8c","_corruptedFile":"/Users/matthisdoquocbao/Library/Application Support/Code/clp/5e9f786f0aff7d5ccaa5f6af9d58a1b7.fr/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePackId":"3a2b2ea5c7987765b22e223f36feda4a.fr","_translationsConfigFile":"/Users/matthisdoquocbao/Library/Application Support/Code/clp/3a2b2ea5c7987765b22e223f36feda4a.fr/tcf.json","_cacheRoot":"/Users/matthisdoquocbao/Library/Application Support/Code/clp/3a2b2ea5c7987765b22e223f36feda4a.fr","_resolvedLanguagePackCoreLocation":"/Users/matthisdoquocbao/Library/Application Support/Code/clp/3a2b2ea5c7987765b22e223f36feda4a.fr/784b0177c56c607789f9638da7b6bf3230d47a8c","_corruptedFile":"/Users/matthisdoquocbao/Library/Application Support/Code/clp/3a2b2ea5c7987765b22e223f36feda4a.fr/corrupted.info","_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
 # makefile
@@ -45,14 +46,13 @@ PATH = /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-LaunchInstanceID = C004B15E-9040-4B70-BDD7-4B566534D50F
+LaunchInstanceID = 294C431C-523C-49A0-841D-7B355DECE5FD
 # environment
- 
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.7I5Idwoxzq/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.C7mtJuj4vI/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -114,8 +114,6 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-MAIL = mdoquocb@student.42quebec.com
-# environment
 XPC_SERVICE_NAME = application.com.microsoft.VSCode.4064340.4064346
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
@@ -140,15 +138,16 @@ SECURITYSESSIONID = 186a6
 # default
 SUFFIXES := 
 # default
+ 
 .INCLUDE_DIRS = /usr/local/include
 # environment
 MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 432
+VSCODE_PID = 433
 # variable set hash-table stats:
-# Load=66/1024=6%, Rehash=0, Collisions=1/87=1%
+# Load=65/1024=6%, Rehash=0, Collisions=1/86=1%
 
 # Pattern-specific Variable Values
 
@@ -227,10 +226,9 @@ GNUmakefile:
 
 # # of strings in strcache: 0
 # # of strcache buffers: 0
- 
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Mon Sep  5 11:04:47 2022
+# Finished Make data base on Sat Sep 10 11:02:14 2022
 
  

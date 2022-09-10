@@ -67,6 +67,7 @@ enum	e_element
 
 typedef struct s_texture
 {
+	int			txt;
 	void		*img;
 	int			width;
 	int			height;
@@ -99,7 +100,6 @@ typedef struct s_vars
 	int			line_length;
 	int			endian;
 	char		**map;
-	//t_rays 		*raycasting;
 	int			map_y;
 	int			map_x;
 	int			pos;
@@ -135,19 +135,19 @@ void	read_element(int fd);
 
 	//1-1_check.c
 
-void	check_map(int fd);
+void	fill_map(int fd, t_vars *vars);
+int		check_map(void);
 
 	//2_init.c
 
 t_vars	*ft_t_vars(void);
 t_img	*ft_t_img(void);
-void	init_texture(t_vars *vars, t_texture *txt, char *element);
+void	init_texture(t_vars *vars, t_texture *txt, char *element, int val);
 void	init_color(int *color, char *element);
 
-	//4_put.c
+	//3_put.c
 
 void	put_game(void);
-
 
 	//5_move.c
 
@@ -158,7 +158,7 @@ void ft_down(t_vars *vars);
 void ft_left(t_vars *vars);
 void ft_right(t_vars *vars);
 void ft_esc(t_vars *vars);
-int	ft_mouse(int button, int x, int y, t_vars *vars);
+int	ft_mouse(int button/*, int x, int y*/, t_vars *vars);
 
 	//6_utils.c
 
@@ -168,7 +168,5 @@ void	size_map();
 void	my_mlx_pixel_put(t_vars *data, int x, int y, int color);
 int	close_game(t_vars *vars);
 int	ft_get_texture(t_texture *texture, t_rays *self);
-
-// void	print_map(t_vars *vars);
 
 #endif

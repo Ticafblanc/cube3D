@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   1-1_check_file.c                                   :+:      :+:    :+:   */
-/*   By: adubeau <adubeau@student.42quebec.com>       +:+ +:+         +:+     */
-/*   By: mdoquocb <mdoquocb@student.42quebec.com>   +#+  +:+       +#+        */
+/*   By: mdoquocb <mdoquocb@student.42quebec.com>     +:+ +:+         +:+     */
+/*   By: adubeau <adubeau@student.42quebec.com>	    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:30:37 by mdoquocb          #+#    #+#             */
 /*   Updated: 2022/08/01 18:30:41 by mdoquocb         ###   ########.ca       */
@@ -78,14 +78,14 @@ static char	*find_map(int fd)
 	exit(perror_cube3d("map not found", 0));
 }
 
-static void	fill_map(int fd, t_vars *vars)
+void	fill_map(int fd, t_vars *vars)
 {
 	char	**t_map;
 	char	*temp;
 	int		i;
 
 	i = 0;
-	t_map = (char **)ft_calloc(3, sizeof(char *));
+	t_map = (char **)ft_calloc(2, sizeof(char *));
 	temp = find_map(fd);
 	*t_map = ft_strtrim(temp, "\n");
 	free(temp);
@@ -104,7 +104,7 @@ static void	fill_map(int fd, t_vars *vars)
 	close(fd);
 }
 
-void	check_map(int fd)
+int	check_map(void)
 {
 	int	y;
 	int	x;
@@ -113,7 +113,6 @@ void	check_map(int fd)
 
 	y = -1;
 	ok = 0;
-	fill_map(fd, ft_t_vars());
 	while (++y < ft_len_pp((void **)ft_t_vars()->map))
 	{
 		x = -1;
@@ -131,6 +130,5 @@ void	check_map(int fd)
 			}
 		}
 	}
-	if (!ok)
-		exit(perror_cube3d("Map invalide !!", 0));
+	return (ok);
 }

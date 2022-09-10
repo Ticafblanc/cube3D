@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   1-0_check_element.c                                :+:      :+:    :+:   */
-/*   By: adubeau <adubeau@student.42quebec.com>       +:+ +:+         +:+     */
-/*   By: mdoquocb <mdoquocb@student.42quebec.com>   +#+  +:+       +#+        */
+/*   By: mdoquocb <mdoquocb@student.42quebec.com>     +:+ +:+         +:+     */
+/*   By: adubeau <adubeau@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:30:15 by mdoquocb          #+#    #+#             */
 /*   Updated: 2022/08/01 18:35:11 by mdoquocb         ###   ########.ca       */
@@ -15,13 +15,13 @@
 static int	init_element(char *element, int val)
 {
 	if (element && val == NO)
-		init_texture(ft_t_vars(), ft_t_img()->NO, element);
+		init_texture(ft_t_vars(), ft_t_img()->NO, element, val);
 	else if (element && val == SO)
-		init_texture(ft_t_vars(), ft_t_img()->SO, element);
+		init_texture(ft_t_vars(), ft_t_img()->SO, element, val);
 	else if (element && val == WE)
-		init_texture(ft_t_vars(), ft_t_img()->WE, element);
+		init_texture(ft_t_vars(), ft_t_img()->WE, element, val);
 	else if (element && val == EA)
-		init_texture(ft_t_vars(), ft_t_img()->EA, element);
+		init_texture(ft_t_vars(), ft_t_img()->EA, element, val);
 	else if (element && val == F)
 		init_color(&ft_t_img()->F, element);
 	else if (element && val == C)
