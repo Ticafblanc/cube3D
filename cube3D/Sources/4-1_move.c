@@ -14,10 +14,15 @@
 
 int	ft_mouse(int button, int x, int y, t_vars *vars)
 {
+	int	i;
+
+	i = 3;
 	if (button == ON_MOUSEUP)
-		ft_left(vars);
+		while (i--)
+			ft_left(vars);
 	else if (button == ON_MOUSDOWN)
-		ft_right(vars);
+		while (i--)
+			ft_right(vars);
 	read_key(-1, vars);
 	y = 0;
 	x = 0;
