@@ -23,7 +23,7 @@ t_vars	*ft_t_vars(void)
 		vars.pos = 0;
 		vars.init = 1;
 		vars.playerAngle = 0;
-		vars.speed = 3.0;
+		vars.speed = 1.0;
 		vars.rotation = 3;
 		vars.map_on = 1;
 	}
