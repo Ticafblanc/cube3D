@@ -39,16 +39,13 @@ int	read_key(int keycode, t_vars *vars)
 	keys[2] = &ft_right;
 	keys[3] = &ft_up;
 	keys[4] = &ft_esc;
-	printf("keycode = %d\n", keycode);
 	if (keycode == MAP && vars->map_on == 0)
 		vars->map_on = 1;
 	if (keycode == MAP && vars->map_on == 1)
 		vars->map_on = 0;
 	real_key = get_keycode(keycode);
-	printf("real key = %d\n", real_key);
 	if (real_key >= 0 && real_key <= 4)
 		keys[real_key](vars);
-	printf("here\n");
 	vars->playerCos = (cos(degreetoradian(vars->playerAngle)));
 	vars->playerSin = (sin(degreetoradian(vars->playerAngle)));
 	put_game();
