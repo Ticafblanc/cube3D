@@ -69,7 +69,7 @@ int	main(int argc, char **argv)
 		mlx_hook(vars->win, ON_DESTROY, 0, close_game, (void *)vars);
 		mlx_hook(vars->win, ON_KEYDOWN,
 			1L << 0, read_key, (void *)vars);
-		//mlx_mouse_hook(vars->win, &ft_mouse, vars);
+		mlx_mouse_hook(vars->win, &ft_mouse, (void *)vars);
 		mlx_loop(vars->mlx);
 	}
 	exit (perror_cube3d("Just one map extension .cub !! ", 1));
