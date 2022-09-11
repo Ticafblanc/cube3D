@@ -12,17 +12,15 @@
 
 #include "../Includes/cube3d.h"
 
-int	ft_mouse(int button, t_vars *vars)
+int	ft_mouse(int button, int x, int y, t_vars *vars)
 {
-	printf("here with button %d\n", button);
 	if (button == ON_MOUSEUP)
-		read_key(0, vars);
-		//ft_left(vars);
+		ft_left(vars);
 	else if (button == ON_MOUSDOWN)
-		read_key(2, vars);
-	//ft_right(vars);
-	//read_key(-1, vars);
-//	button = 0;
+		ft_right(vars);
+	read_key(-1, vars);
+	y = 0;
+	x = 0;
 	return (0);
 }
 
