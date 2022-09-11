@@ -155,7 +155,7 @@ void ft_down(t_vars *vars);
 void ft_left(t_vars *vars);
 void ft_right(t_vars *vars);
 void ft_esc(t_vars *vars);
-int	ft_mouse(int button/*, int x, int y*/, t_vars *vars);
+int	ft_mouse(int button, t_vars *vars);
 
 	//6_utils.c
 

@@ -14,12 +14,15 @@
 
 int	ft_mouse(int button, t_vars *vars)
 {
+	printf("here with button %d\n", button);
 	if (button == ON_MOUSEUP)
-		ft_left(vars);
+		read_key(0, vars);
+		//ft_left(vars);
 	else if (button == ON_MOUSDOWN)
-		ft_right(vars);
-	read_key(-1, vars);
-	button = 0;
+		read_key(2, vars);
+	//ft_right(vars);
+	//read_key(-1, vars);
+//	button = 0;
 	return (0);
 }
 
@@ -33,13 +36,16 @@ int	read_key(int keycode, t_vars *vars)
 	keys[2] = &ft_right;
 	keys[3] = &ft_up;
 	keys[4] = &ft_esc;
+	printf("keycode = %d\n", keycode);
 	if (keycode == MAP && vars->map_on == 0)
 		vars->map_on = 1;
 	if (keycode == MAP && vars->map_on == 1)
 		vars->map_on = 0;
 	real_key = get_keycode(keycode);
+	printf("real key = %d\n", real_key);
 	if (real_key >= 0 && real_key <= 4)
 		keys[real_key](vars);
+	printf("here\n");
 	vars->playerCos = (cos(degreetoradian(vars->playerAngle)));
 	vars->playerSin = (sin(degreetoradian(vars->playerAngle)));
 	put_game();
@@ -55,5 +61,5 @@ int	get_keycode(int keycode)
 	else if (keycode <= 2 && keycode >= 0)
 		return (keycode);
 	else
-		return (6);
+		return (-1);
 }
