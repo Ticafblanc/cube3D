@@ -32,7 +32,7 @@ static void	put_mini_map(void)
 	int	y;
 	int	size;
 
-	size = 8;
+	size = 6;
 	y = -1;
 	while (y++ < ft_t_vars()->map_y)
 	{
@@ -47,8 +47,9 @@ static void	put_mini_map(void)
 				put_multipix(x, y, 000000, size);
 		}
 	}
-	my_mlx_pixel_put(ft_t_vars(), ft_t_vars()->pos_x * size + size / 2, \
-		ft_t_vars()->pos_y * size + size / 2, 16711680);
+	put_multipix(ft_t_vars()->pos_x, ft_t_vars()->pos_y, 16711680, size);
+	//my_mlx_pixel_put(ft_t_vars(), ft_t_vars()->pos_x * size + size / 2, \
+	//	ft_t_vars()->pos_y * size + size / 2, 16711680);
 }
 
 static void	put_background(void)
