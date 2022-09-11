@@ -14,6 +14,12 @@
 
 int	close_game(t_vars *vars)
 {
+	mlx_destroy_image(ft_t_vars()->mlx, ft_t_vars()->img);
+	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->NO->img);
+	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->SO->img);
+	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->WE->img);
+	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->EA->img);
+	mlx_destroy_window(ft_t_vars()->mlx, ft_t_vars()->win);
 	free_cube3d(vars);
 	exit(EXIT_SUCCESS);
 }
@@ -26,11 +32,13 @@ static void	check_file(char *argv)
 	if (fd < 0)
 		exit(perror_cube3d("Wrong path of the map", 1));
 	read_element(fd);
-	check_map(fd);
+	fill_map(fd, ft_t_vars());
+	if (!check_map())
+		exit(perror_cube3d("Map invalide !!", 0));
 	size_map();
 }
 
-static void ft_set_pos(t_vars *vars)
+static void	ft_set_pos(t_vars *vars)
 {
 	if (vars->pos == 'N')
 		vars->playerAngle = 269;
@@ -42,24 +50,27 @@ static void ft_set_pos(t_vars *vars)
 		vars->playerAngle = 179;
 }
 
-
 int	main(int argc, char **argv)
 {
+	t_vars	*vars;
+
+	vars = ft_t_vars();
 	if (argc == 2 && ft_check_extension(argv[1], ".cub") > 0)
 	{
-	
-		ft_t_vars()->mlx = mlx_init();
+		vars->mlx = mlx_init();
 		check_file(argv[1]);
-		ft_set_pos(ft_t_vars());
-		ft_t_vars()->win = mlx_new_window(ft_t_vars()->mlx, WW, WH, "cube3D");
-		ft_t_vars()->img = mlx_new_image(ft_t_vars()->mlx, WW, WH);
-		ft_t_vars()->addr = mlx_get_data_addr(ft_t_vars()->img, &ft_t_vars()->bits_per_pixel, &ft_t_vars()->line_length,
-								&ft_t_vars()->endian);
+		ft_set_pos(vars);
+		vars->win = mlx_new_window(vars->mlx, \
+			WW, WH, "cube3D");
+		vars->img = mlx_new_image(vars->mlx, WW, WH);
+		vars->addr = mlx_get_data_addr(vars->img, &vars->bits_per_pixel, \
+			&vars->line_length, &vars->endian);
 		put_game();
-	 	mlx_hook(ft_t_vars()->win, ON_DESTROY, 0, close_game, (void *)ft_t_vars());
-		mlx_hook(ft_t_vars()->win, ON_KEYDOWN, 1L << 0, read_key, (void *)ft_t_vars());
-		mlx_mouse_hook(ft_t_vars()->win, &ft_mouse, ft_t_vars());
-		mlx_loop(ft_t_vars()->mlx);
-	 }
-	exit(perror_cube3d("Just one map extension .cub !! ", 1));
+		mlx_hook(vars->win, ON_DESTROY, 0, close_game, (void *)vars);
+		mlx_hook(vars->win, ON_KEYDOWN,
+			1L << 0, read_key, (void *)vars);
+		//mlx_mouse_hook(vars->win, &ft_mouse, vars);
+		mlx_loop(vars->mlx);
+	}
+	exit (perror_cube3d("Just one map extension .cub !! ", 1));
 }

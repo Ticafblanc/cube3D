@@ -2,8 +2,8 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   2_init.c                                           :+:      :+:    :+:   */
-/*   By: adubeau <adubeau@student.42quebec.com        +:+ +:+         +:+     */
-/*   By: mdoquocb <mdoquocb@student.42quebec.com>   +#+  +:+       +#+        */
+/*   By: mdoquocb <mdoquocb@student.42quebec.com>     +:+ +:+         +:+     */
+/*   By: adubeau <adubeau@student.42quebec.com      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:30:47 by mdoquocb          #+#    #+#             */
 /*   Updated: 2022/08/01 18:30:53 by mdoquocb         ###   ########.ca       */
@@ -22,9 +22,10 @@ t_vars	*ft_t_vars(void)
 		vars.map_y = 0;
 		vars.pos = 0;
 		vars.init = 1;
-		vars.playerAngle = 89;
+		vars.playerAngle = 0;
 		vars.speed = 1.0;
 		vars.rotation = 3;
+		vars.map_on = 1;
 	}
 	return (&vars);
 }
@@ -32,17 +33,17 @@ t_vars	*ft_t_vars(void)
 t_img	*ft_t_img(void)
 {
 	static t_img			img;
-	static t_texture		NO;
-	static t_texture		SO;
-	static t_texture		WE;
-	static t_texture		EA;
+	static t_texture		no;
+	static t_texture		so;
+	static t_texture		we;
+	static t_texture		ea;
 
 	if (!img.init)
 	{
-		img.NO = &NO;
-		img.SO = &SO;
-		img.WE = &WE;
-		img.EA = &EA;
+		img.NO = &no;
+		img.SO = &so;
+		img.WE = &we;
+		img.EA = &ea;
 		img.F = 0;
 		img.C = 0;
 		img.init = 1;
@@ -73,17 +74,15 @@ void	init_color(int *color, char *element)
 	exit(perror_cube3d("Color invalide !!", 0));
 }
 
-void	init_texture(t_vars *vars, t_texture *txt, char *element)
+void	init_texture(t_vars *vars, t_texture *txt, char *element, int val)
 {
 	txt->img = mlx_xpm_file_to_image(vars->mlx, element,
 			&txt->width, &txt->height);
-		if (!txt->img)
-	exit(perror_cube3d("Texture invalide !!", 0));
-	txt->addr = mlx_get_data_addr(txt->img, &txt->bits_per_pixel, &txt->line_length,
-								&txt->endian);
-	txt->height = 64;
-	txt->width = 64;
+	if (!txt->img)
+		exit(perror_cube3d("Texture invalide !!", 0));
+	txt->addr = mlx_get_data_addr(txt->img, &txt->bits_per_pixel,
+			&txt->line_length, &txt->endian);
 	txt->pix_y = 0;
 	txt->pix_x = 0;
+	txt->txt = val;
 }
-

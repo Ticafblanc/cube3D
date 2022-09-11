@@ -21,6 +21,7 @@ t_vtable_rays	*ft_init_vtable(void)
 	vtable->wall_collision = &ft_hit_wall;
 	vtable->get_distance = &ft_calculate_distance;
 	vtable->get_wall_height = &ft_calculate_wall_height;
+	vtable->select_sprite = &ft_get_sprite;
 	vtable->print = &ft_print_walls;
 	vtable->increment_angle = &ft_increment_angle;
 	return (vtable);
@@ -45,6 +46,7 @@ t_rays	*get_raycaster(void)
 		self.difx = 0;
 		self.dify = 0;
 		self.tmp = 0;
+		self.texture = ft_t_img()->NO;
 	}
 	return (&self);
 }
