@@ -32,7 +32,7 @@ static void	put_mini_map(void)
 	int	y;
 	int	size;
 
-	size = 6;
+	size = 7;
 	y = -1;
 	while (y++ < ft_t_vars()->map_y)
 	{
@@ -44,12 +44,10 @@ static void	put_mini_map(void)
 				&& ft_t_vars()->map[y][x] == '1')
 				put_multipix(x, y, 255, size);
 			else
-				put_multipix(x, y, 000000, size);
+				put_multipix(x, y, 42562, size);
 		}
 	}
 	put_multipix(ft_t_vars()->pos_x, ft_t_vars()->pos_y, 16711680, size);
-	//my_mlx_pixel_put(ft_t_vars(), ft_t_vars()->pos_x * size + size / 2, \
-	//	ft_t_vars()->pos_y * size + size / 2, 16711680);
 }
 
 static void	put_background(void)
@@ -75,23 +73,20 @@ static void	put_background(void)
 
 void	ft_raycasting(t_vars *vars)
 {
-	t_rays	*self;
-
-	self = get_raycaster();
-	self->vars = vars;
-	self->rayAngle = self->vars->playerAngle - self->halfFOV;
-	ft_reset_sprite();
-	while (self->rayCount < WW)
+	t_ray ray;
+	
+	ray.raycount = 0;
+	while (ray.raycount < WW)
 	{
-		self->operations->reset_values(self);
-		self->operations->wall_collision(self);
-		self->operations->get_distance(self);
-		self->operations->get_wall_height(self);
-		self->operations->select_sprite(self);
-		self->operations->print(self);
-		self->operations->increment_angle(self);
-		self->rayCount += 1;
-	}
+		ft_init_vtable()->reset_values(ft_t_vars(), &ray);
+		ft_init_vtable()->wall_collision(ft_t_vars(), &ray);
+		ft_init_vtable()->get_distance(&ray);
+		ft_init_vtable()->get_wall_height(&ray);
+		ft_init_vtable()->get_wall_h_l_pix(&ray);
+		ft_init_vtable()->select_sprite(&ray);// //give x and y sides different brightnessif (side == 1) {color = color / 2;}
+		ft_init_vtable()->print(&ray);
+		ray.raycount += 1;
+	}//update time to do
 }
 
 void	put_game(void)
@@ -102,4 +97,6 @@ void	put_game(void)
 		put_mini_map();
 	mlx_put_image_to_window(ft_t_vars()->mlx, \
 		ft_t_vars()->win, ft_t_vars()->img, 0, 0);
+	//if (ft_t_vars()->map_on)
+	put_mini_map();
 }

@@ -21,6 +21,13 @@ t_vars	*ft_t_vars(void)
 		vars.map_x = 0;
 		vars.map_y = 0;
 		vars.pos = 0;
+		vars.dir_x = -1;
+		vars.dir_y = 0;
+		vars.plane_x = 0;
+		vars.plane_y = 0.66;
+		vars.time = 0;
+		vars.old_time = 0;
+		
 		vars.init = 1;
 		vars.playerAngle = 0;
 		vars.speed = 3.0;

@@ -87,6 +87,28 @@ typedef struct s_img
 	int			init;
 }				t_img;
 
+typedef struct s_ray
+{
+	double		camera_x;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			raycount;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	char		hit;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+
+
+}				t_ray;
+
 typedef struct s_vars
 {
 	void		*mlx;
@@ -97,17 +119,23 @@ typedef struct s_vars
 	int			line_length;
 	int			endian;
 	char		**map;
-	int			map_y;
-	int			map_x;
+	int			map_y;//size map
+	int			map_x;//size map
 	int			pos;
-	float		pos_x;
-	float		pos_y;
-	int			player_side;
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	double		time;
+	double		old_time;
+	t_ray		*ray;
+
 	int			map_on;
 	int			enemy_win;
 	int			end_game;
 	int			steps;
-	int			time;
 	int 		init;
 	int 		radian;
 	int 		playerAngle;
@@ -126,6 +154,19 @@ typedef struct s_check_map
 	int	dir;
 }				t_check_map;
 
+typedef struct s_vtable_rays{
+	void	(*reset_values)(t_vars *vars, t_ray *ray);
+	void	(*wall_collision)(t_vars *vars, t_ray *ray);
+	void	(*get_distance)(t_vars *vars);
+	void	(*get_wall_height)(t_vars *vars);
+	void	(*get_wall_h_l_pix)(t_vars *vars);
+	void	(*select_sprite)(t_vars *vars);
+	void	(*print)(t_vars *vars);
+	void	(*increment_angle)(t_vars *vars);
+	int		init;
+
+}t_vtable_rays;
+
 	//1-0_check_element.c
 
 void	read_element(int fd);
@@ -137,33 +178,59 @@ int		check_map(void);
 
 	//2_init.c
 
-t_vars	*ft_t_vars(void);
-t_img	*ft_t_img(void);
-void	init_texture(t_vars *vars, t_texture *txt, char *element, int val);
-void	init_color(int *color, char *element);
+t_vars			*ft_t_vars(void);
+t_img			*ft_t_img(void);
+void			init_texture(t_vars *vars, t_texture *txt, char *element, int val);
+void			init_color(int *color, char *element);
+
+	//2_init.c
+
+t_vtable_rays	*ft_init_vtable();
+void			ft_reset_values(t_vars *vars, t_ray *ray);
 
 	//3_put.c
 
-void	put_game(void);
+void			put_game(void);
 
 	//5_move.c
 
-int	read_key(int keycode, t_vars *vars);
-int	get_keycode(int keycode);
-void ft_up(t_vars *vars);
-void ft_down(t_vars *vars);
-void ft_left(t_vars *vars);
-void ft_right(t_vars *vars);
-void ft_esc(t_vars *vars);
-int	ft_mouse(int button, int x, int y, t_vars *vars);
+int				read_key(int keycode, t_vars *vars);
+int				get_keycode(int keycode);
+void			ft_up(t_vars *vars);
+void			ft_down(t_vars *vars);
+void 			t_left(t_vars *vars);
+void			ft_right(t_vars *vars);
+void 			t_esc(t_vars *vars);
+int				ft_mouse(int button, int x, int y, t_vars *vars);
 
-	//6_utils.c
+	//5_utils.c
 
-int		perror_cube3d(char *str, int flag);
-void	free_cube3d(t_vars *vars);
-void	size_map();
-void	my_mlx_pixel_put(t_vars *data, int x, int y, int color);
-int	close_game(t_vars *vars);
-int	ft_get_texture(t_texture *texture, t_rays *self);
+int				perror_cube3d(char *str, int flag);
+void			free_cube3d(t_vars *vars);
+void			size_map();
+void			my_mlx_pixel_put(t_vars *data, int x, int y, int color);
+int				close_game(t_vars *vars);
+int				ft_get_texture(t_texture *texture, t_rays *self);
+
+	//5-1_utils_ray.c
+
+double 			delta_dist(double ray_dir);
+void			ft_hit_wall(t_vars *vars, t_ray *ray);
+void			ft_calculate_distance(t_ray *ray);
+void			ft_calculate_wall_height(t_ray *ray);
+void			ft_get_wall_h_l_pix(t_ray *ray);
+
+
+void			ft_reset_sprite();
+void			ft_raycasting(t_vars *vars);
+void			ft_reset_values(t_vars *vars, t_ray *ray);		
+
+
+
+void ft_increment_angle(t_rays *self);
+
+float degreetoradian(double degree);
+void ft_get_sprite(t_rays *self);
+void ft_print_walls(t_rays *self);
 
 #endif
