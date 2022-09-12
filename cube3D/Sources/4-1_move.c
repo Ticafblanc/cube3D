@@ -31,7 +31,7 @@ int	ft_mouse(int button, int x, int y, t_vars *vars)
 
 int	read_key(int keycode, t_vars *vars)
 {
-	void	(*keys[5])(t_vars *);
+	void	(*keys[7])(t_vars *);
 	int		real_key;
 
 	keys[0] = &ft_left;
@@ -39,12 +39,13 @@ int	read_key(int keycode, t_vars *vars)
 	keys[2] = &ft_right;
 	keys[3] = &ft_up;
 	keys[4] = &ft_esc;
-	if (keycode == MAP && vars->map_on == 0)
-		vars->map_on = 1;
-	if (keycode == MAP && vars->map_on == 1)
-		vars->map_on = 0;
+	keys[5] = &ft_look_left;
+	keys[6] = &ft_look_right;
+	if (keycode == MAP)
+		vars->map_on *= -1;
+	printf("map_on = %d\n", vars->map_on);
 	real_key = get_keycode(keycode);
-	if (real_key >= 0 && real_key <= 4)
+	if (real_key >= 0 && real_key <= 6)
 		keys[real_key](vars);
 	vars->playerCos = (cos(degreetoradian(vars->playerAngle)));
 	vars->playerSin = (sin(degreetoradian(vars->playerAngle)));
@@ -54,12 +55,54 @@ int	read_key(int keycode, t_vars *vars)
 
 int	get_keycode(int keycode)
 {
+	printf("keycode = %d\n", keycode);
 	if (keycode == ESC)
 		return (4);
 	else if (keycode == UP)
 		return (3);
+	else if (keycode == LOOK_LEFT)
+		return (5);
+	else if (keycode == LOOK_RIGHT)
+		return (6);
 	else if (keycode <= 2 && keycode >= 0)
 		return (keycode);
 	else
 		return (-1);
+}
+
+void	ft_up(t_vars *vars)
+{
+	double	new_x;
+	double	new_y;
+
+	new_x = vars->pos_x + (vars->playerCos / vars->speed);
+	new_y = vars->pos_y + (vars->playerSin / vars->speed);
+	if ((int)floor(new_y) < vars->map_y - 1 && (int)floor(new_x) < \
+		(ft_str_len(ft_t_vars()->map[(int)floor(new_y)])) - 1)
+	{
+		if ((int) floor(new_x) > 0 && (int) floor(new_y) > 0)
+		{
+			vars->pos_x = new_x;
+			vars->pos_y = new_y;
+		}
+	}
+}
+
+void	ft_down(t_vars *vars)
+{
+	double	new_x;
+	double	new_y;
+
+	new_x = vars->pos_x - (vars->playerCos / vars->speed);
+	new_y = vars->pos_y - (vars->playerSin / vars->speed);
+	if ((int)floor(new_x) < \
+		(ft_str_len(ft_t_vars()->map[(int)floor(new_y)]) - 1) && \
+		(int)floor(new_y) < vars->map_y - 1)
+	{
+		if ((int) floor(new_x) > 0 && (int) floor(new_y) > 0)
+		{
+			vars->pos_x = new_x;
+			vars->pos_y = new_y;
+		}
+	}
 }

@@ -57,5 +57,9 @@ void	my_mlx_pixel_put(t_vars *data, int x, int y, int color)
 
 float	degreetoradian(double degree)
 {
+	if (degree > 360)
+		degree = degree - 360;
+	else if (degree < 0)
+		degree = degree + 360;
 	return (degree * PI / 180);
 }
