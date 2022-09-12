@@ -43,7 +43,6 @@ int	read_key(int keycode, t_vars *vars)
 	keys[6] = &ft_look_right;
 	if (keycode == MAP)
 		vars->map_on *= -1;
-	printf("map_on = %d\n", vars->map_on);
 	real_key = get_keycode(keycode);
 	if (real_key >= 0 && real_key <= 6)
 		keys[real_key](vars);
@@ -55,7 +54,6 @@ int	read_key(int keycode, t_vars *vars)
 
 int	get_keycode(int keycode)
 {
-	printf("keycode = %d\n", keycode);
 	if (keycode == ESC)
 		return (4);
 	else if (keycode == UP)
