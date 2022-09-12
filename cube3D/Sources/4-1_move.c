@@ -19,10 +19,10 @@ int	ft_mouse(int button, int x, int y, t_vars *vars)
 	i = 3;
 	if (button == ON_MOUSEUP)
 		while (i--)
-			ft_left(vars);
+			ft_look_left(vars);
 	else if (button == ON_MOUSDOWN)
 		while (i--)
-			ft_right(vars);
+			ft_look_right(vars);
 	read_key(-1, vars);
 	y = 0;
 	x = 0;
