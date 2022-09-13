@@ -49,6 +49,7 @@ typedef struct s_rays
 	double difx;
 	double dify;
 	int tmp;
+	int	pix;
 } t_rays;
 
 void	ft_reset_sprite();

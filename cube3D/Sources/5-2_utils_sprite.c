@@ -27,7 +27,11 @@ static int	ft_get_pixel(t_rays *self)
 {
 	char	*dst;
 
-	self->texture->pix_y += (float)self->texture->height / (float)self->tmp;
+	if (self->pix > WH && self->texture->pix_y == 0)
+		self->texture->pix_y = ((float)self->texture->height / (float)self->pix)
+			* (self->pix - WH) / 2;
+	else
+		self->texture->pix_y += (float)self->texture->height / (float)self->pix;
 	dst = self->texture->addr
 		+ ((int)self->texture->pix_y * self->texture->line_length)
 		+ ((int)self->texture->pix_x * (self->texture->bits_per_pixel / 8));
@@ -73,6 +77,7 @@ void	ft_get_sprite(t_rays *self)
 
 void	ft_print_walls(t_rays *self)
 {
+	self->pix = self->wallH;
 	if (self->wallH > WH)
 		self->wallH = WH;
 	self->tmp = self->wallH;
