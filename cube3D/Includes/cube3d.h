@@ -35,6 +35,8 @@ enum	e_key
 	ARROW_L = 123,
 	ARROW_R = 124,
 	MAP = 46,
+	LOOK_LEFT = 123,
+	LOOK_RIGHT = 124,
 };
 
 enum	e_mouse
@@ -156,6 +158,8 @@ void ft_left(t_vars *vars);
 void ft_right(t_vars *vars);
 void ft_esc(t_vars *vars);
 int	ft_mouse(int button, int x, int y, t_vars *vars);
+void	ft_look_right(t_vars *vars);
+void	ft_look_left(t_vars *vars);
 
 	//6_utils.c
 

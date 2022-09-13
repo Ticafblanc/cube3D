@@ -12,11 +12,13 @@
 
 #include "../Includes/cube3d.h"
 
-void	ft_up(t_vars *vars)
+void	ft_left(t_vars *vars)
 {
 	double	new_x;
 	double	new_y;
 
+	vars->playerCos = (cos(degreetoradian(vars->playerAngle - 90)));
+	vars->playerSin = (sin(degreetoradian(vars->playerAngle - 90)));
 	new_x = vars->pos_x + (vars->playerCos / vars->speed);
 	new_y = vars->pos_y + (vars->playerSin / vars->speed);
 	if ((int)floor(new_y) < vars->map_y - 1 && (int)floor(new_x) < \
@@ -30,16 +32,17 @@ void	ft_up(t_vars *vars)
 	}
 }
 
-void	ft_down(t_vars *vars)
+void	ft_right(t_vars *vars)
 {
 	double	new_x;
 	double	new_y;
 
-	new_x = vars->pos_x - (vars->playerCos / vars->speed);
-	new_y = vars->pos_y - (vars->playerSin / vars->speed);
-	if ((int)floor(new_x) < \
-		(ft_str_len(ft_t_vars()->map[(int)floor(new_y)]) - 1) && \
-		(int)floor(new_y) < vars->map_y - 1)
+	vars->playerCos = (cos(degreetoradian(vars->playerAngle + 90)));
+	vars->playerSin = (sin(degreetoradian(vars->playerAngle + 90)));
+	new_x = vars->pos_x + (vars->playerCos / vars->speed);
+	new_y = vars->pos_y + (vars->playerSin / vars->speed);
+	if ((int)floor(new_y) < vars->map_y - 1 && (int)floor(new_x) < \
+		(ft_str_len(ft_t_vars()->map[(int)floor(new_y)])) - 1)
 	{
 		if ((int) floor(new_x) > 0 && (int) floor(new_y) > 0)
 		{
@@ -49,7 +52,7 @@ void	ft_down(t_vars *vars)
 	}
 }
 
-void	ft_left(t_vars *vars)
+void	ft_look_left(t_vars *vars)
 {
 	if (vars->playerAngle - vars->rotation < 0)
 		vars->playerAngle = 360 + vars->playerAngle - vars->rotation;
@@ -57,7 +60,7 @@ void	ft_left(t_vars *vars)
 		vars->playerAngle -= vars->rotation;
 }
 
-void	ft_right(t_vars *vars)
+void	ft_look_right(t_vars *vars)
 {
 	vars->playerAngle += vars->rotation;
 	vars->playerAngle %= 360;

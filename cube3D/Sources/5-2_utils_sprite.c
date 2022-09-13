@@ -76,6 +76,7 @@ void	ft_print_walls(t_rays *self)
 	if (self->wallH > WH)
 		self->wallH = WH;
 	self->tmp = self->wallH;
+	self->wallH -= 1;
 	while (self->wallH--)
 	{
 		my_mlx_pixel_put(self->vars, self->rayCount,
