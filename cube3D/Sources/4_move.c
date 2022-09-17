@@ -26,8 +26,11 @@ void	ft_left(t_vars *vars)
 	{
 		if ((int) floor(new_x) > 0 && (int) floor(new_y) > 0)
 		{
-			vars->pos_x = new_x;
-			vars->pos_y = new_y;
+			if (vars->map[(int)floor(new_y + vars->radius)][(int)floor(new_x + vars->radius)] != '1')
+			{
+				vars->pos_x = new_x;
+				vars->pos_y = new_y;
+			}
 		}
 	}
 }
@@ -46,8 +49,11 @@ void	ft_right(t_vars *vars)
 	{
 		if ((int) floor(new_x) > 0 && (int) floor(new_y) > 0)
 		{
-			vars->pos_x = new_x;
-			vars->pos_y = new_y;
+			if (vars->map[(int)floor(new_y + vars->radius)][(int)floor(new_x + vars->radius)] != '1')
+			{
+				vars->pos_x = new_x;
+				vars->pos_y = new_y;
+			}
 		}
 	}
 }

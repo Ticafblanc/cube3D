@@ -25,6 +25,8 @@ typedef struct s_vtable_rays{
 	void (*select_sprite)(t_rays *self);
 	void (*print)(t_rays *self);
 	void (*increment_angle)(t_rays *self);
+	void (*free)(t_rays *self);
+
 
 }t_vtable_rays;
 
@@ -64,3 +66,4 @@ t_rays 	*get_raycaster();
 float degreetoradian(double degree);
 void ft_get_sprite(t_rays *self);
 void ft_print_walls(t_rays *self);
+void free_table(t_rays *self);

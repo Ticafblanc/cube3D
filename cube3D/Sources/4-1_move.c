@@ -75,13 +75,17 @@ void	ft_up(t_vars *vars)
 
 	new_x = vars->pos_x + (vars->playerCos / vars->speed);
 	new_y = vars->pos_y + (vars->playerSin / vars->speed);
-	if ((int)floor(new_y) < vars->map_y - 1 && (int)floor(new_x) < \
-		(ft_str_len(ft_t_vars()->map[(int)floor(new_y)])) - 1)
+	printf("newX = %f, newY = %f\n", new_x, new_y);
+	if ((int)floor(new_y) < vars->map_y && (int)(new_x) < \
+		(ft_str_len(ft_t_vars()->map[(int)(new_y)])))
 	{
-		if ((int) floor(new_x) > 0 && (int) floor(new_y) > 0)
+		if ((int)floor(new_x) > 0 && (int)floor(new_y) > 0)
 		{
-			vars->pos_x = new_x;
-			vars->pos_y = new_y;
+			if (vars->map[(int)floor(new_y + vars->radius)][(int)floor(new_x + vars->radius)] != '1')
+			{
+				vars->pos_x = new_x;
+				vars->pos_y = new_y;
+			}
 		}
 	}
 }
@@ -94,13 +98,16 @@ void	ft_down(t_vars *vars)
 	new_x = vars->pos_x - (vars->playerCos / vars->speed);
 	new_y = vars->pos_y - (vars->playerSin / vars->speed);
 	if ((int)floor(new_x) < \
-		(ft_str_len(ft_t_vars()->map[(int)floor(new_y)]) - 1) && \
-		(int)floor(new_y) < vars->map_y - 1)
+		(ft_str_len(ft_t_vars()->map[(int)floor(new_y)])) && \
+		(int)floor(new_y) < vars->map_y)
 	{
 		if ((int) floor(new_x) > 0 && (int) floor(new_y) > 0)
 		{
-			vars->pos_x = new_x;
-			vars->pos_y = new_y;
+			if (vars->map[(int)floor(new_y + vars->radius)][(int)floor(new_x + vars->radius)] != '1')
+			{
+				vars->pos_x = new_x;
+				vars->pos_y = new_y;
+			}
 		}
 	}
 }

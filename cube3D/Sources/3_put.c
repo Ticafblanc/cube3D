@@ -79,6 +79,7 @@ void	ft_raycasting(t_vars *vars)
 
 	self = get_raycaster();
 	self->vars = vars;
+	self->vars->rays = self;
 	self->rayAngle = self->vars->playerAngle - self->halfFOV;
 	ft_reset_sprite();
 	while (self->rayCount < WW)

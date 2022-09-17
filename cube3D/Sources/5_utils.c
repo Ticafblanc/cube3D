@@ -27,6 +27,7 @@ void	free_cube3d(t_vars *vars)
 {
 	if (vars->map)
 		ft_free_pp((void **)vars->map);
+	//vars->rays->operations->free(vars->rays);
 }
 
 void	size_map(void)
