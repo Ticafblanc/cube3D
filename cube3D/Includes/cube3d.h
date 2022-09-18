@@ -80,12 +80,12 @@ typedef struct s_texture
 
 typedef struct s_img
 {
-	t_texture	*NO;
-	t_texture	*SO;
-	t_texture	*WE;
-	t_texture	*EA;
-	int			F;
-	int			C;
+	t_texture	*no;
+	t_texture	*so;
+	t_texture	*we;
+	t_texture	*ea;
+	int			f;
+	int			c;
 	int			init;
 }				t_img;
 
@@ -110,15 +110,15 @@ typedef struct s_vars
 	int			end_game;
 	int			steps;
 	int			time;
-	int 		init;
-	int 		radian;
-	int 		playerAngle;
-	int 		rotation;
-	float 		playerCos;
-	float 		playerSin;
+	int			init;
+	int			radian;
+	int			player_angle;
+	int			rotation;
+	float		player_cos;
+	float		player_sin;
 	float		radius;
-	double 		speed;
-	t_rays 		*rays;
+	double		speed;
+	t_rays		*rays;
 }				t_vars;
 
 typedef struct s_check_map
@@ -152,14 +152,14 @@ void	put_game(void);
 
 	//5_move.c
 
-int	read_key(int keycode, t_vars *vars);
-int	get_keycode(int keycode);
-void ft_up(t_vars *vars);
-void ft_down(t_vars *vars);
-void ft_left(t_vars *vars);
-void ft_right(t_vars *vars);
-void ft_esc(t_vars *vars);
-int	ft_mouse(int button, int x, int y, t_vars *vars);
+int		read_key(int keycode, t_vars *vars);
+int		get_keycode(int keycode);
+void	ft_up(t_vars *vars);
+void	ft_down(t_vars *vars);
+void	ft_left(t_vars *vars);
+void	ft_right(t_vars *vars);
+void	ft_esc(t_vars *vars);
+int		ft_mouse(int button, int x, int y, t_vars *vars);
 void	ft_look_right(t_vars *vars);
 void	ft_look_left(t_vars *vars);
 
@@ -167,9 +167,9 @@ void	ft_look_left(t_vars *vars);
 
 int		perror_cube3d(char *str, int flag);
 void	free_cube3d(t_vars *vars);
-void	size_map();
+void	size_map(void);
 void	my_mlx_pixel_put(t_vars *data, int x, int y, int color);
-int	close_game(t_vars *vars);
-int	ft_get_texture(t_texture *texture, t_rays *self);
+int		close_game(t_vars *vars);
+int		ft_get_texture(t_texture *texture, t_rays *self);
 
 #endif

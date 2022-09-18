@@ -15,17 +15,17 @@
 static int	init_element(char *element, int val)
 {
 	if (element && val == NO)
-		init_texture(ft_t_vars(), ft_t_img()->NO, element, val);
+		init_texture(ft_t_vars(), ft_t_img()->no, element, val);
 	else if (element && val == SO)
-		init_texture(ft_t_vars(), ft_t_img()->SO, element, val);
+		init_texture(ft_t_vars(), ft_t_img()->so, element, val);
 	else if (element && val == WE)
-		init_texture(ft_t_vars(), ft_t_img()->WE, element, val);
+		init_texture(ft_t_vars(), ft_t_img()->we, element, val);
 	else if (element && val == EA)
-		init_texture(ft_t_vars(), ft_t_img()->EA, element, val);
+		init_texture(ft_t_vars(), ft_t_img()->ea, element, val);
 	else if (element && val == F)
-		init_color(&ft_t_img()->F, element);
+		init_color(&ft_t_img()->f, element);
 	else if (element && val == C)
-		init_color(&ft_t_img()->C, element);
+		init_color(&ft_t_img()->c, element);
 	else
 		return (0);
 	return (1);
@@ -35,17 +35,17 @@ static int	check_val(t_img *img, char *temp)
 {
 	if (!*temp)
 		return (0);
-	if (ft_strncmp(temp, "NO", 2) == 0 && !img->NO->img)
+	if (ft_strncmp(temp, "NO", 2) == 0 && !img->no->img)
 		return (NO);
-	if (ft_strncmp(temp, "SO", 2) == 0 && !img->SO->img)
+	if (ft_strncmp(temp, "SO", 2) == 0 && !img->so->img)
 		return (SO);
-	if (ft_strncmp(temp, "WE", 2) == 0 && !img->WE->img)
+	if (ft_strncmp(temp, "WE", 2) == 0 && !img->we->img)
 		return (WE);
-	if (ft_strncmp(temp, "EA", 2) == 0 && !img->EA->img)
+	if (ft_strncmp(temp, "EA", 2) == 0 && !img->ea->img)
 		return (EA);
-	if (ft_strncmp(temp, "F", 1) == 0 && !img->F)
+	if (ft_strncmp(temp, "F", 1) == 0 && !img->f)
 		return (F);
-	if (ft_strncmp(temp, "C", 1) == 0 && !img->C)
+	if (ft_strncmp(temp, "C", 1) == 0 && !img->c)
 		return (C);
 	return (0);
 }
@@ -91,6 +91,8 @@ void	read_element(int fd)
 		free(temp);
 		temp = get_next_line(fd);
 	}
+	if (temp)
+		free(temp);
 	if (i != 0)
 	{
 		close (fd);

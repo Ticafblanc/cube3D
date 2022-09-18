@@ -12,7 +12,7 @@
 
 #include "../Includes/cube3d.h"
 
-void free_table(t_rays *self)
+void	free_table(t_rays *self)
 {
 	free(self->operations);
 }
@@ -36,23 +36,23 @@ t_rays	*get_raycaster(void)
 {
 	static t_rays	self;
 
-	self.rayCount = 0;
-	self.rayCos = 0;
-	self.raySin = 0;
+	self.ray_count = 0;
+	self.ray_cos = 0;
+	self.ray_sin = 0;
 	self.wall = 0;
 	self.distance = 0;
-	self.wallH = 0;
+	self.wall_h = 0;
 	self.difx = 0;
 	self.dify = 0;
 	self.tmp = 0;
 	if (!self.init)
 	{
 		self.operations = ft_init_vtable();
-		self.halfH = (double) WH / 2;
-		self.incrementAngle = (double) FOV / (double) WW;
-		self.halfFOV = (double) FOV / 2;
+		self.half_h = (double) WH / 2;
+		self.increment_angle = (double) FOV / (double) WW;
+		self.half_fov = (double) FOV / 2;
 		self.init = 1;
-		self.texture = ft_t_img()->NO;
+		self.texture = ft_t_img()->no;
 	}
 	return (&self);
 }

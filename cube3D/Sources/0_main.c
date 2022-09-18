@@ -15,10 +15,10 @@
 int	close_game(t_vars *vars)
 {
 	mlx_destroy_image(ft_t_vars()->mlx, ft_t_vars()->img);
-	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->NO->img);
-	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->SO->img);
-	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->WE->img);
-	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->EA->img);
+	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->no->img);
+	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->so->img);
+	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->we->img);
+	mlx_destroy_image(ft_t_vars()->mlx, ft_t_img()->ea->img);
 	mlx_destroy_window(ft_t_vars()->mlx, ft_t_vars()->win);
 	free_cube3d(vars);
 	exit(EXIT_SUCCESS);
@@ -41,13 +41,13 @@ static void	check_file(char *argv)
 static void	ft_set_pos(t_vars *vars)
 {
 	if (vars->pos == 'N')
-		vars->playerAngle = 269;
+		vars->player_angle = 269;
 	else if (vars->pos == 'S')
-		vars->playerAngle = 89;
+		vars->player_angle = 89;
 	else if (vars->pos == 'E')
-		vars->playerAngle = 1;
+		vars->player_angle = 1;
 	else
-		vars->playerAngle = 179;
+		vars->player_angle = 179;
 }
 
 int	main(int argc, char **argv)

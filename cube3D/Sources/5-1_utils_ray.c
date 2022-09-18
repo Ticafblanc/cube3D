@@ -15,11 +15,11 @@
 void	ft_reset_values(t_rays *self)
 {
 	self->distance = 0;
-	self->wallH = 0;
-	self->rayX = self->vars->pos_x;
-	self->rayY = self->vars->pos_y;
-	self->rayCos = cosf(degreetoradian(self->rayAngle)) / 4000;
-	self->raySin = sinf(degreetoradian(self->rayAngle)) / 4000;
+	self->wall_h = 0;
+	self->ray_x = self->vars->pos_x;
+	self->ray_y = self->vars->pos_y;
+	self->ray_cos = cosf(degreetoradian(self->ray_angle)) / 4000;
+	self->ray_sin = sinf(degreetoradian(self->ray_angle)) / 4000;
 	self->wall = 0;
 }
 
@@ -27,28 +27,28 @@ void	ft_hit_wall(t_rays *self)
 {
 	while (self->wall != '1')
 	{
-		self->rayX += self->rayCos;
-		self->rayY += self->raySin;
-		self->wall = self->vars->map[(int)floor(self->rayY)] \
-			[(int)floor(self->rayX)];
+		self->ray_x += self->ray_cos;
+		self->ray_y += self->ray_sin;
+		self->wall = self->vars->map[(int)floor(self->ray_y)] \
+			[(int)floor(self->ray_x)];
 	}
 }
 
 void	ft_calculate_distance(t_rays *self)
 {
-	self->distance = sqrt(pow(self->vars->pos_x - self->rayX, 2) + \
-			pow(self->vars->pos_y - self->rayY, 2));
+	self->distance = sqrt(pow(self->vars->pos_x - self->ray_x, 2) + \
+			pow(self->vars->pos_y - self->ray_y, 2));
 	self->distance = self->distance * \
-			cosf(degreetoradian(self->rayAngle - \
-			self->vars->playerAngle));
+			cosf(degreetoradian(self->ray_angle - \
+			self->vars->player_angle));
 }
 
 void	ft_calculate_wall_height(t_rays *self)
 {
-	self->wallH = (floor(self->halfH / self->distance));
+	self->wall_h = (floor(self->half_h / self->distance));
 }
 
 void	ft_increment_angle(t_rays *self)
 {
-	self->rayAngle += self->incrementAngle;
+	self->ray_angle += self->increment_angle;
 }

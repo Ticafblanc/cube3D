@@ -22,7 +22,7 @@ t_vars	*ft_t_vars(void)
 		vars.map_y = 0;
 		vars.pos = 0;
 		vars.init = 1;
-		vars.playerAngle = 0;
+		vars.player_angle = 0;
 		vars.speed = 3.0;
 		vars.rotation = 3;
 		vars.radius = 0.3;
@@ -41,12 +41,12 @@ t_img	*ft_t_img(void)
 
 	if (!img.init)
 	{
-		img.NO = &no;
-		img.SO = &so;
-		img.WE = &we;
-		img.EA = &ea;
-		img.F = 0;
-		img.C = 0;
+		img.no = &no;
+		img.so = &so;
+		img.we = &we;
+		img.ea = &ea;
+		img.f = 0;
+		img.c = 0;
 		img.init = 1;
 	}
 	return (&img);

@@ -48,8 +48,6 @@ static void	put_mini_map(void)
 		}
 	}
 	put_multipix(ft_t_vars()->pos_x, ft_t_vars()->pos_y, 16711680, size);
-	//my_mlx_pixel_put(ft_t_vars(), ft_t_vars()->pos_x * size + size / 2, \
-	//	ft_t_vars()->pos_y * size + size / 2, 16711680);
 }
 
 static void	put_background(void)
@@ -62,14 +60,14 @@ static void	put_background(void)
 	{
 		x = -1;
 		while (x++ < WW)
-			my_mlx_pixel_put(ft_t_vars(), x, y, ft_t_img()->F);
+			my_mlx_pixel_put(ft_t_vars(), x, y, ft_t_img()->f);
 	}
 	y--;
 	while (y++ < WH - 2)
 	{
 		x = -1;
 		while (x++ < WW)
-			my_mlx_pixel_put(ft_t_vars(), x, y, ft_t_img()->C);
+			my_mlx_pixel_put(ft_t_vars(), x, y, ft_t_img()->c);
 	}
 }
 
@@ -80,18 +78,18 @@ void	ft_raycasting(t_vars *vars)
 	self = get_raycaster();
 	self->vars = vars;
 	self->vars->rays = self;
-	self->rayAngle = self->vars->playerAngle - self->halfFOV;
+	self->ray_angle = self->vars->player_angle - self->half_fov;
 	ft_reset_sprite();
-	while (self->rayCount < WW)
+	while (self->ray_count < WW)
 	{
 		self->operations->reset_values(self);
 		self->operations->wall_collision(self);
 		self->operations->get_distance(self);
 		self->operations->get_wall_height(self);
-		self->operations->select_sprite(self);
+		self->operations->select_sprite(self, 0.001, 0.0);
 		self->operations->print(self);
 		self->operations->increment_angle(self);
-		self->rayCount += 1;
+		self->ray_count += 1;
 	}
 }
 

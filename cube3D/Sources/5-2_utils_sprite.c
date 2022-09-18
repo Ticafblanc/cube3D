@@ -14,8 +14,8 @@
 
 static void	ft_set_sprite(t_rays *self)
 {
-	self->difx = (self->rayX - (int)(self->rayX));
-	self->dify = (self->rayY - (int)(self->rayY));
+	self->difx = (self->ray_x - (int)(self->ray_x));
+	self->dify = (self->ray_y - (int)(self->ray_y));
 	if (self->texture->txt == EA || self->texture->txt == WE)
 		self->texture->pix_x = (float)self->texture->width * self->dify;
 	else
@@ -29,63 +29,63 @@ static int	ft_get_pixel(t_rays *self)
 
 	if (self->pix > WH && self->texture->pix_y == 0)
 		self->texture->pix_y = ((float)self->texture->height / (float)self->pix)
-							   * (self->pix - WH) / 2;
+			* (self->pix - WH) / 2;
 	else
 		self->texture->pix_y += (float)self->texture->height / (float)self->pix;
 	dst = self->texture->addr
-		  + ((int)self->texture->pix_y * self->texture->line_length)
-		  + ((int)self->texture->pix_x * (self->texture->bits_per_pixel / 8));
+		+ ((int)self->texture->pix_y * self->texture->line_length)
+		+ ((int)self->texture->pix_x * (self->texture->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }
 
 void	ft_reset_sprite(void)
 {
-	ft_t_img()->NO->pix_x = 0;
-	ft_t_img()->NO->pix_y = 0;
-	ft_t_img()->SO->pix_x = 0;
-	ft_t_img()->SO->pix_y = 0;
-	ft_t_img()->WE->pix_x = 0;
-	ft_t_img()->WE->pix_y = 0;
-	ft_t_img()->EA->pix_x = 0;
-	ft_t_img()->EA->pix_y = 0;
+	ft_t_img()->no->pix_x = 0;
+	ft_t_img()->no->pix_y = 0;
+	ft_t_img()->so->pix_x = 0;
+	ft_t_img()->so->pix_y = 0;
+	ft_t_img()->we->pix_x = 0;
+	ft_t_img()->we->pix_y = 0;
+	ft_t_img()->ea->pix_x = 0;
+	ft_t_img()->ea->pix_y = 0;
 }
 
-void	ft_get_sprite(t_rays *self)
+void	ft_get_sprite(t_rays *self, float i, float i2)
 {
-	float	i;
-
-	i = 0.01;
 	self->texture = NULL;
 	while (!self->texture)
 	{
-		if (self->rayY < self->vars->pos_y
-			&& self->vars->map[(int)(self->rayY + i)][(int)self->rayX] != '1')
-			self->texture = ft_t_img()->NO;
-		else if (self->rayY >= self->vars->pos_y
-				 && self->vars->map[(int)(self->rayY - i)][(int)self->rayX] != '1')
-			self->texture = ft_t_img()->SO;
-		else if (self->rayX < self->vars->pos_x
-				 && self->vars->map[(int)self->rayY][(int)(self->rayX + i)] != '1')
-			self->texture = ft_t_img()->WE;
-		else if (self->rayX >= self->vars->pos_x
-				 && self->vars->map[(int)self->rayY][(int)(self->rayX - i)] != '1')
-			self->texture = ft_t_img()->EA;
-		i += 0.01;
+		if (self->ray_y < self->vars->pos_y && self->vars->map[(int) \
+			(self->ray_y + i)][(int)(self->ray_x + i2)] != '1')
+			self->texture = ft_t_img()->no;
+		else if (self->ray_y >= self->vars->pos_y && self->vars->map[\
+			(int)(self->ray_y - i)][(int)(self->ray_x - i2)] != '1')
+			self->texture = ft_t_img()->so;
+		else if (self->ray_x < self->vars->pos_x && self->vars->map[\
+			(int)(self->ray_y + i2)][(int)(self->ray_x + i)] != '1')
+			self->texture = ft_t_img()->we;
+		else if (self->ray_x >= self->vars->pos_x && self->vars->map[\
+			(int)(self->ray_y - i2)][(int)(self->ray_x - i)] != '1')
+			self->texture = ft_t_img()->ea;
+		i += 0.001;
+		if (self->ray_y + i < self->vars->map_y \
+			&& self->ray_x < self->vars->map_x)
+			i2 += 0.001;
 	}
 	ft_set_sprite(self);
 }
 
 void	ft_print_walls(t_rays *self)
 {
-	self->pix = self->wallH;
-	if (self->wallH > WH)
-		self->wallH = WH;
-	self->tmp = self->wallH;
-	self->wallH -= 1;
-	while (self->wallH--)
+	self->pix = self->wall_h;
+	if (self->wall_h > WH)
+		self->wall_h = WH;
+	self->tmp = self->wall_h;
+	self->wall_h -= 1;
+	while (self->wall_h--)
 	{
-		my_mlx_pixel_put(self->vars, self->rayCount,
-						 ((WH / 2) - (self->tmp / 2)) + self->wallH,
-						 ft_get_pixel(self));
+		my_mlx_pixel_put(self->vars, self->ray_count,
+			((WH / 2) - (self->tmp / 2)) + self->wall_h, \
+			ft_get_pixel(self));
 	}
 }

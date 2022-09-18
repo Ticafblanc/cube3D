@@ -24,8 +24,8 @@ int	ft_mouse(int button, int x, int y, t_vars *vars)
 		while (i--)
 			ft_look_right(vars);
 	read_key(-1, vars);
-	y = 0;
-	x = 0;
+	(void)x;
+	(void)y;
 	return (0);
 }
 
@@ -46,8 +46,8 @@ int	read_key(int keycode, t_vars *vars)
 	real_key = get_keycode(keycode);
 	if (real_key >= 0 && real_key <= 6)
 		keys[real_key](vars);
-	vars->playerCos = (cos(degreetoradian(vars->playerAngle)));
-	vars->playerSin = (sin(degreetoradian(vars->playerAngle)));
+	vars->player_cos = (cos(degreetoradian(vars->player_angle)));
+	vars->player_sin = (sin(degreetoradian(vars->player_angle)));
 	put_game();
 	return (0);
 }
@@ -73,15 +73,17 @@ void	ft_up(t_vars *vars)
 	double	new_x;
 	double	new_y;
 
-	new_x = vars->pos_x + (vars->playerCos / vars->speed);
-	new_y = vars->pos_y + (vars->playerSin / vars->speed);
-	printf("newX = %f, newY = %f\n", new_x, new_y);
+	new_x = vars->pos_x + (vars->player_cos / vars->speed);
+	new_y = vars->pos_y + (vars->player_sin / vars->speed);
 	if ((int)floor(new_y) < vars->map_y && (int)(new_x) < \
 		(ft_str_len(ft_t_vars()->map[(int)(new_y)])))
 	{
 		if ((int)floor(new_x) > 0 && (int)floor(new_y) > 0)
 		{
-			if (vars->map[(int)floor(new_y + vars->radius)][(int)floor(new_x + vars->radius)] != '1')
+			if (vars->map[(int)floor(new_y + (vars->radius * \
+			((vars->player_sin > 0) - (vars->player_sin < 0))))] \
+			[(int)floor(new_x + (vars->radius * \
+			((vars->player_cos > 0) - (vars->player_cos < 0))))] != '1')
 			{
 				vars->pos_x = new_x;
 				vars->pos_y = new_y;
@@ -95,15 +97,17 @@ void	ft_down(t_vars *vars)
 	double	new_x;
 	double	new_y;
 
-	new_x = vars->pos_x - (vars->playerCos / vars->speed);
-	new_y = vars->pos_y - (vars->playerSin / vars->speed);
-	if ((int)floor(new_x) < \
-		(ft_str_len(ft_t_vars()->map[(int)floor(new_y)])) && \
-		(int)floor(new_y) < vars->map_y)
+	new_x = vars->pos_x - (vars->player_cos / vars->speed);
+	new_y = vars->pos_y - (vars->player_sin / vars->speed);
+	if ((int)floor(new_y) < vars->map_y && (int)(new_x) < \
+		(ft_str_len(ft_t_vars()->map[(int)(new_y)])))
 	{
-		if ((int) floor(new_x) > 0 && (int) floor(new_y) > 0)
+		if ((int)floor(new_x) > 0 && (int)floor(new_y) > 0)
 		{
-			if (vars->map[(int)floor(new_y + vars->radius)][(int)floor(new_x + vars->radius)] != '1')
+			if (vars->map[(int)floor(new_y - (vars->radius * \
+			((vars->player_sin > 0) - (vars->player_sin < 0))))] \
+			[(int)floor(new_x - (vars->radius * \
+			((vars->player_cos > 0) - (vars->player_cos < 0))))] != '1')
 			{
 				vars->pos_x = new_x;
 				vars->pos_y = new_y;

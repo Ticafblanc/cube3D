@@ -24,8 +24,8 @@ static void	check_fill_2(t_vars *vars, int y, int x, int *i)
 		&& !vars->pos)
 	{
 		vars->pos = vars->map[y][x];
-		vars->pos_y = y;
-		vars->pos_x = x;
+		vars->pos_y = y + 0.5;
+		vars->pos_x = x + 0.5;
 		vars->map[y][x] = 'x';
 	}
 	else if (vars->map[y][x] != '1' && vars->map[y][x] != 'x')
